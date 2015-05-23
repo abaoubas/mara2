@@ -3,17 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gr.hua.UserExists;
+package gr.hua.Intranet;
 
+import com.sun.istack.internal.NotNull;
 import java.util.Date;
-import javax.validation.constraints.NotNull;
+
 
 /**
  *
  * @author palia_000
  */
 public class Employee {
-    @NotNull 
+    @NotNull
     private int emp_id;
     private String username;
     private String password;

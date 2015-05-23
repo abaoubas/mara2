@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gr.hua.UserExists;
+package gr.hua.Intranet.UserExist;
 
+import gr.hua.Intranet.Employee;
+import gr.hua.Intranet.Employee_Manager;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
