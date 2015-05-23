@@ -32,6 +32,7 @@ public class UserExists {
         //TODO write your implementation code here:
         Employee employee = new Employee();
         Employee_Manager em= new Employee_Manager();
+        employee.setUsername(username);
         return em.checkUser(employee);
     }
 }

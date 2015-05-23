@@ -26,7 +26,7 @@ public class Employee_Manager {
     }
  
     public String checkUser(Employee user) {
-        String gi="kati";
+        String gi="";
         try {
             PreparedStatement ps = connection.prepareStatement("select list_last_name from employees where list_first_name = ?");
             ps.setString(1, user.getUsername());
