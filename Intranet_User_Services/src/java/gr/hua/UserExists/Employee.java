@@ -6,14 +6,13 @@
 package gr.hua.UserExists;
 
 import java.util.Date;
-import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author palia_000
  */
 public class Employee {
-    @NotNull 
+    
     private int emp_id;
     private String username;
     private String password;
