@@ -5,8 +5,9 @@
  */
 package gr.hua.UserExists;
 
+import com.sun.istack.internal.NotNull;
 import java.util.Date;
-import javax.validation.constraints.NotNull;
+
 
 /**
  *
