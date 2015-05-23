@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gr.hua.UserExists;
+package gr.hua.Intranet;
 
 import com.sun.istack.internal.NotNull;
 import java.util.Date;

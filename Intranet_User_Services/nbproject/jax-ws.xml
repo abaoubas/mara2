@@ -2,7 +2,7 @@
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
     <service name="UserExists">
-      <implementation-class>gr.hua.UserExists.UserExists</implementation-class>
+      <implementation-class>gr.hua.Intranet.UserExist.UserExists</implementation-class>
     </service>
   </services>
   <clients/>
