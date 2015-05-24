@@ -14,10 +14,10 @@ def showusers(request):
    return render(request, 'allusers.html', context)
 
 
-soap_client_intranet = Client('http://localhost:8080/Intranet_User_Services/UserExists?WSDL')
-def userExists(request):
-   results = soap_client_intranet.service.userexist("Georgi")
-   return HttpResponse(results)
+#soap_client_intranet = Client('http://localhost:8080/Intranet_User_Services/UserExists?WSDL')
+#def userExists(request):
+#   results = soap_client_intranet.service.userexist("Georgi")
+#   return HttpResponse(results)
 
 
 soap_client_musicServices = Client('http://localhost:8080/Intranet_User_Services/MusicServices?WSDL')

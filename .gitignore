@@ -2,3 +2,12 @@
 /Intranet_User_Services/dist/
 /Intranet_User_Services/build/
 *.war
+Intranet_User_Services/nbproject/build-impl.xml
+Intranet_User_Services/nbproject/genfiles.properties
+*.properties
+Intranet_User_Services/nbproject/project.properties
+Intranet_User_Services/nbproject/project.xml
+PYTHON/venv/team3/musicApp/urls.pyc
+PYTHON/venv/team3/musicApp/views.pyc
+PYTHON/venv/team3/team3/settings.pyc
+PYTHON/venv/team3/team3/urls.pyc
