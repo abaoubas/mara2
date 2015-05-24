@@ -4,6 +4,9 @@
     <service name="UserExists">
       <implementation-class>gr.hua.UserExists.UserExists</implementation-class>
     </service>
+    <service name="MusicServices">
+      <implementation-class>gr.hua.team3.intranet.MusicServices</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>

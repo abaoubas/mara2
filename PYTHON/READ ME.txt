@@ -1,0 +1,8 @@
+για Python σε windows χρειάζεται να κατεβάσετε αυτό:
+http://www.microsoft.com/en-us/download/details.aspx?id=44266
+
+και αυτό
+https://dev.mysql.com/downloads/connector/c/
+
+και αυτό
+https://pypi.python.org/pypi/MySQL-python
