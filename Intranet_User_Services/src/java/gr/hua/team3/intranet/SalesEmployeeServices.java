@@ -5,6 +5,8 @@
  */
 package gr.hua.team3.intranet;
 
+import gr.hua.team3.DAL_Requests;
+import java.util.List;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -16,11 +18,10 @@ import javax.jws.WebParam;
 @WebService(serviceName = "SalesEmployeeServices")
 public class SalesEmployeeServices {
 
-    DAL dal = new DAL();
+    DAL_Requests dal = new DAL_Requests();
  
     
     @WebMethod(operationName = "SelectRecordings")
-    public List<Recordings> SelectRecordings() {        
-        return dal.SelectRecordings();
+        return dal.SelectRequests();
     }
 }
