@@ -22,7 +22,7 @@ public class Consumer_Manager {
     
     
     public Consumer_Manager() {
-        connection = InternetDB.getConnection();
+        connection = Database.getConnection();
     }
     
     public boolean insertNewRequest(InitialRequests req){
