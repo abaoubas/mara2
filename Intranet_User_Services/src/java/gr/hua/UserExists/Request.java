@@ -1,5 +1,5 @@
 
-package gr.hua.team3.intranet;
+package gr.hua.UserExists;
 
 import java.util.Date;
 import javax.validation.constraints.NotNull;
