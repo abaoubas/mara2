@@ -82,4 +82,52 @@ public class Employee_Manager {
         
         return null;
     }
+    
+    public Employee updateEmp(Employee emp) {
+              
+        try {
+            String updateEmployee = "UPDATE IntranetUsers set "
+                    + "first_name = ?, "
+                    + "last_name = ?, "
+                    + "username = ?, "
+                    + "password = ?, "
+                    + "birth_date = ?, "
+                    + "gender = ? "
+                    + "where pk_emp_no = ?";
+            
+            PreparedStatement preparedStatement = connection.prepareStatement(updateEmployee);
+            preparedStatement.setString(1, emp.getFirst_name());
+            preparedStatement.setString(2, emp.getLast_name());
+            preparedStatement.setString(3, emp.getUsername());
+            preparedStatement.setString(4, emp.getPassword());
+            preparedStatement.setDate(5, (Date) emp.getBirthdate());
+            preparedStatement.setString(6, emp.getGender());
+            preparedStatement.setInt(7, emp.getEmp_id());
+            // execute insert SQL stetement
+            preparedStatement.executeUpdate();
+           return emp;
+        } catch (Exception ex) {
+            System.out.println("Error in check() -->" + ex.getMessage());
+        } 
+        
+        return null;
+    }
+    
+    public boolean deleteEmp(int pk_emp_no) {
+              
+        try {
+            String deleteEmployee = "DELETE FROM IntranetUsers WHERE pk_emp_no = ?";
+            
+            PreparedStatement preparedStatement = connection.prepareStatement(deleteEmployee);
+            preparedStatement.setInt(1, pk_emp_no);
+            // execute insert SQL stetement
+            preparedStatement.executeUpdate();
+            
+            return true;
+        } catch (Exception ex) {
+            System.out.println("Error in check() -->" + ex.getMessage());
+        } 
+        
+        return false;
+    }
 }
