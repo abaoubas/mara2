@@ -22,6 +22,7 @@ public class SalesEmployeeServices {
  
     
     @WebMethod(operationName = "SelectRecordings")
+    public List<Request> SelectRequests() {        
         return dal.SelectRequests();
     }
 }
