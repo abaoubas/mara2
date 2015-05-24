@@ -10,6 +10,12 @@
     <service name="MusicServices">
       <implementation-class>gr.hua.team3.intranet.MusicServices</implementation-class>
     </service>
+    <service name="NewWebService">
+      <implementation-class>gr.hua.UserExists.NewWebService</implementation-class>
+    </service>
+    <service name="SalesEmployeeServices">
+      <implementation-class>gr.hua.team3.intranet.SalesEmployeeServices</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>
