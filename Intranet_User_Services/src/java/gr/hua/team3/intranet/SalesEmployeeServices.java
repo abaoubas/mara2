@@ -7,7 +7,10 @@ package gr.hua.team3.intranet;
 
 import gr.hua.UserExists.Request;
 import gr.hua.team3.DAL_Requests;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -25,5 +28,25 @@ public class SalesEmployeeServices {
     @WebMethod(operationName = "SelectRecordings")
     public List<Request> SelectRequests() {        
         return dal.SelectRequests();
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "salesGetReviewRequest")
+    public List<Request> salesGetReviewRequest() {  // Throws out requests that are rejected,paid or completed
+        
+        ArrayList<Request> listReq=new ArrayList<Request>();
+        listReq=dal.SelectRequests();
+        
+        for(int k=0;k<listReq.size();k++)
+        {
+            if (listReq.get(k).getStatus()==31 || listReq.get(k).getStatus()==98 || listReq.get(k).getStatus()==99 || listReq.get(k).getStatus()==100)
+            {
+                listReq.remove(k);
+            }
+        }
+        
+        return listReq;
     }
 }
