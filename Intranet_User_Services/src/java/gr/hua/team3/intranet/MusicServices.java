@@ -21,15 +21,51 @@ public class MusicServices {
 
     //the Data Access Layer object
     DAL dal = new DAL();
- 
-    
+
     @WebMethod(operationName = "SelectRecordings")
-    public List<Recordings> SelectRecordings() {        
+    public List<Recordings> SelectRecordings() {
         return dal.SelectRecordings();
     }
-    
-      @WebMethod(operationName = "test")
-    public List<Recordings> test() {        
-        return new ArrayList<Recordings>();
+
+    @WebMethod(operationName = "selectEvents")
+    public ArrayList<Events> selectEvents() {
+        return dal.selectEvents();
     }
+
+    @WebMethod(operationName = "SelectRecordingsByGenre")
+    public ArrayList<Recordings> SelectRecordingsByGenre(GenreInput genreInput) {
+        return dal.SelectRecordingsByGenre(genreInput        );
+    }
+
+    @WebMethod(operationName = "SelectMusicInfo")
+    public ArrayList<MusicInfo> SelectMusicInfo() {
+        return dal.SelectMusicInfo();
+    }
+
+    @WebMethod(operationName = "SelectMusicInfoByGenre")
+    public ArrayList<MusicInfo> SelectMusicInfoByGenre(GenreInput genreInput) {
+        return dal.SelectMusicInfoByGenre(genreInput);
+    }
+
+    @WebMethod(operationName = "selectFileTypes")
+    public ArrayList<FileType> selectFileTypes(){
+        return dal.selectFileTypes();
+    }
+
+    @WebMethod(operationName = "subscribeInNewsletter")
+    public Boolean subscribeInNewsletter(NewsLetter newsLetter) {
+        return dal.subscribeInNewsletter(newsLetter);
+    }
+
+    @WebMethod(operationName = "selectGenre")
+    public ArrayList<Genre>  selectGenre(){
+        return dal.selectGenre();
+    }
+
+    @WebMethod(operationName = "selectArtist")
+    public ArrayList<Artist>  selectArtist() {
+        return dal.selectArtist();
+    }
+
+    
 }

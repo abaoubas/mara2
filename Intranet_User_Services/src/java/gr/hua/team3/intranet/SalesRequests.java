@@ -5,6 +5,12 @@
  */
 package gr.hua.team3.intranet;
 
+import gr.hua.UserExists.Consumer_Manager;
+import gr.hua.UserExists.InitialRequests;
+import gr.hua.UserExists.Request;
+import gr.hua.UserExists.UserAcceptanceArgs;
+import gr.hua.UserExists.User_id_Request;
+import java.util.ArrayList;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -19,8 +25,29 @@ public class SalesRequests {
     /**
      * This is a sample web service operation
      */
+    /*@WebMethod(operationName = "newRequest")
+    public String newRequest(@WebParam(name = "request") Request req) {
+        
+    }*/
+    
     @WebMethod(operationName = "newRequest")
-    public String newRequest(@WebParam(name = "name") String txt) {
-        return "Hello " + txt + " !";
+    public boolean newRequest(@WebParam(name = "request") InitialRequests initReqs) {
+                
+        Consumer_Manager cm = new Consumer_Manager();
+        return cm.insertNewRequest(initReqs);
+    }
+    
+    @WebMethod(operationName = "UserAcceptanceRequest")
+    public boolean getUserRequests(@WebParam(name = "user_id") UserAcceptanceArgs user_acc_args) {
+                
+        Consumer_Manager cm = new Consumer_Manager();
+        return cm.acceptRequest(user_acc_args);
+    }
+    
+    @WebMethod(operationName = "getUserRequests")
+    public ArrayList<Request> getUserRequests(@WebParam(name = "user_id") User_id_Request user_id_req) {
+                
+        Consumer_Manager cm = new Consumer_Manager();
+        return cm.getUserRequests(user_id_req);
     }
 }

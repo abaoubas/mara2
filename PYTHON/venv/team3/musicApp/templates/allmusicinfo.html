@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+<h1> All available Recordings </h1>
+
+<table class="table table-striped">
+
+    <tr class="active">
+        <th class="active" >music_info_id</th>
+        <th class="active" >title</th>
+        <th class="active" >bodytext</th>
+        <th class="active" >genre_id</th>
+     </tr>
+
+{% for result in results %}
+
+   <tr class="active">
+
+        <td class="active"> {{result.music_info_id }} </td>
+        <td class="active"> {{result.title }} </td>
+        <td class="active"> {{result.bodytext }} </td>
+        <td class="active"> {{result.genre_id }} </td>
+   <tr/>
+
+{% endfor %}
+
+   </table>
+
+<br>
+
+
+{% endblock %}

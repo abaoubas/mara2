@@ -51,7 +51,7 @@
             <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
         </wsgen>
     </target>
-    <target name="wsgen-SalesEmployeeServices" depends="wsgen-init">
+  <target name="wsgen-SalesEmployeeServices" depends="wsgen-init">
         <copy todir="${build.classes.dir}/META-INF">
             <fileset dir="${webinf.dir}" includes="wsit-gr.hua.team3.intranet.SalesEmployeeServices.xml"/>
         </copy>
@@ -59,6 +59,7 @@
             <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
         </wsgen>
     </target>
+
     <!--
                 ===================
                 JAX-WS WSIMPORT SECTION

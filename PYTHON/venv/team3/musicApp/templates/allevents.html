@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+<h1> All available Recordings </h1>
+
+<table class="table table-striped">
+
+    <tr class="active">
+        <th class="active" >event_id</th>
+        <th class="active" >event_location</th>
+        <th class="active" >event_producer</th>
+        <th class="active" >event_from_date</th>
+        <th class="active" >event_to_date</th>
+
+
+     </tr>
+
+{% for result in results %}
+
+   <tr class="active">
+
+        <td class="active"> {{result.event_id }} </td>
+        <td class="active"> {{result.event_location }} </td>
+        <td class="active"> {{result.event_producer }} </td>
+        <td class="active"> {{result.event_from_date }} </td>
+        <td class="active"> {{result.event_to_date }} </td>
+
+
+   <tr/>
+
+{% endfor %}
+
+   </table>
+
+<br>
+
+
+{% endblock %}

@@ -1,5 +1,5 @@
 
-package gr.hua.team3.intranet;
+package gr.hua.UserExists;
 
 import java.util.Date;
 import javax.validation.constraints.NotNull;
@@ -150,8 +150,5 @@ public class Request {
     public void setCreation_date(Date creation_date) {
         this.creation_date = creation_date;
     }
-
-    
-    
     
 }

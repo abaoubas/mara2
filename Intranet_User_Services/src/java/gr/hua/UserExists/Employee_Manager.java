@@ -19,8 +19,7 @@ import java.util.List;
 public class Employee_Manager {
     
     private Connection connection;
-  
-    
+     
     
     public Employee_Manager() {
         connection = Database.getConnection();
