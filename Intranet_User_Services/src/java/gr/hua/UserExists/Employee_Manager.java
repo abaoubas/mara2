@@ -6,6 +6,7 @@
 package gr.hua.UserExists;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,5 +40,46 @@ public class Employee_Manager {
             System.out.println("Error in check() -->" + ex.getMessage());
         } 
         return gi;
+    }
+    
+    public String getEmp(Employee emp) {
+        String gi="";
+        try {
+            PreparedStatement ps = connection.prepareStatement("select pk_emp_no from IntranetUsers where username = ? and password = ?");
+            ps.setString(1, emp.getUsername());
+            ps.setString(2, emp.getPassword());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) // found
+            {
+                return rs.getString("pk_emp_no");
+            } 
+        } catch (Exception ex) {
+            System.out.println("Error in check() -->" + ex.getMessage());
+        } 
+        return gi;
+    }
+    
+    public Employee insertEmp(Employee emp) {
+              
+        try {
+            String insertEmployee = "INSERT INTO IntranetUsers"
+		+ "(first_name, last_name, username, password, birth_date, gender) VALUES"
+		+ "(?,?,?,?,?,?)";
+            
+            PreparedStatement preparedStatement = connection.prepareStatement(insertEmployee);
+            preparedStatement.setString(1, emp.getFirst_name());
+            preparedStatement.setString(2, emp.getLast_name());
+            preparedStatement.setString(3, emp.getUsername());
+            preparedStatement.setString(4, emp.getPassword());
+            preparedStatement.setDate(5, (Date) emp.getBirthdate());
+            preparedStatement.setString(6, emp.getGender());
+            // execute insert SQL stetement
+            preparedStatement .executeUpdate();
+           return emp;
+        } catch (Exception ex) {
+            System.out.println("Error in check() -->" + ex.getMessage());
+        } 
+        
+        return null;
     }
 }

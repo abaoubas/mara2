@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
-    <service name="UserExists">
-      <implementation-class>gr.hua.UserExists.UserExists</implementation-class>
-    </service>
     <service name="MusicServices">
       <implementation-class>gr.hua.team3.intranet.MusicServices</implementation-class>
+    </service>
+    <service name="EmployeeServices">
+      <implementation-class>gr.hua.team3.intranet.EmployeeServices</implementation-class>
     </service>
   </services>
   <clients/>
