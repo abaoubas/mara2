@@ -7,6 +7,9 @@
     <service name="EmployeeServices">
       <implementation-class>gr.hua.team3.intranet.EmployeeServices</implementation-class>
     </service>
+    <service name="SalesRequests">
+      <implementation-class>gr.hua.team3.intranet.SalesRequests</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>
