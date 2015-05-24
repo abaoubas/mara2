@@ -67,9 +67,9 @@ public class Employee {
     }
 
     public void setBirthdate(String day, String month, String year) {
-        //this.birthdate = birthdate;
-        java.sql.Date javaSqlDate = java.sql.Date.valueOf(year+"-"+month+"-"+day);
-        this.birthdate = javaSqlDate;
+        this.birthdate = birthdate;
+        //java.sql.Date javaSqlDate = java.sql.Date.valueOf(year+"-"+month+"-"+day);
+        //this.birthdate = javaSqlDate;
     }
 
     public String getGender() {

@@ -29,26 +29,10 @@ public class EmployeeServices {
     }
     
     @WebMethod(operationName = "insertEmp")
-    public Employee insertEmp(
-            @WebParam(name = "first_name") String fname, 
-            @WebParam(name = "last_name") String lname, 
-            @WebParam(name = "username") String username,
-            @WebParam(name = "password") String password,
-            @WebParam(name = "day") String day,
-            @WebParam(name = "month") String month,
-            @WebParam(name = "year") String year,
-            @WebParam(name = "gender") String gender) {
+    public Employee insertEmp(@WebParam(name = "employee") Employee emp) {
         
-        Employee employee = new Employee();
-        Employee_Manager em= new Employee_Manager();
-        
-        employee.setFirst_name(fname);
-        employee.setLast_name(lname);
-        employee.setUsername(username);
-        employee.setPassword(password);
-        employee.setBirthdate(day,month,year);
-        employee.setGender(gender);
-        return em.insertEmp(employee);
+        Employee_Manager em = new Employee_Manager();
+        return em.insertEmp(emp);
     }
     
     @WebMethod(operationName = "userexist")
@@ -61,37 +45,16 @@ public class EmployeeServices {
     }
     
     @WebMethod(operationName = "updateEmp")
-    public Employee updateEmp(
-            @WebParam(name = "emp_no") int emp_no, //isos to kratame se ena krufo textfield sti forma oso einai logged in o xristis
-            @WebParam(name = "first_name") String fname, 
-            @WebParam(name = "last_name") String lname, 
-            @WebParam(name = "username") String username,
-            @WebParam(name = "password") String password,
-            @WebParam(name = "day") String day,
-            @WebParam(name = "month") String month,
-            @WebParam(name = "year") String year,
-            @WebParam(name = "gender") String gender) {
-        //TODO write your implementation code here:
-        Employee employee = new Employee();
+    public Employee updateEmp(@WebParam(name = "employee") Employee emp) {
         
-        employee.setEmp_id(emp_no);
-        employee.setFirst_name(fname);
-        employee.setLast_name(lname);
-        employee.setUsername(username);
-        employee.setPassword(password);
-        employee.setBirthdate(day,month,year);
-        employee.setGender(gender);
-                
         Employee_Manager em = new Employee_Manager();
-        return em.updateEmp(employee);
+        return em.updateEmp(emp);
     }
     
     @WebMethod(operationName = "deleteEmp")
-    public boolean deleteEmp(
-            @WebParam(name = "emp_no") int emp_no) {
-        //TODO write your implementation code here:
+    public boolean deleteEmp(@WebParam(name = "employee") Employee emp) {
         
         Employee_Manager em = new Employee_Manager();
-        return em.deleteEmp(emp_no);
+        return em.deleteEmp(emp.getEmp_id());
     }
 }
