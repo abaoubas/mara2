@@ -13,16 +13,29 @@ def showusers(request):
    context = { 'results':results, }
    return render(request, 'allusers.html', context)
 
-
-#soap_client_intranet = Client('http://localhost:8080/Intranet_User_Services/UserExists?WSDL')
-#def userExists(request):
-#   results = soap_client_intranet.service.userexist("Georgi")
-#   return HttpResponse(results)
-
-
 soap_client_musicServices = Client('http://localhost:8080/Intranet_User_Services/MusicServices?WSDL')
 def musicServices_selectRecordings (request):
    results = soap_client_musicServices.service.SelectRecordings()
    context = { 'results':results, }
    return render(request, 'allrecordings.html', context)
+def musicServices_selectEvents (request):
+   results = soap_client_musicServices.service.selectEvents()
+   context = { 'results':results, }
+   return render(request, 'allevents.html', context)
+def musicServices_SelectMusicInfo (request):
+   results = soap_client_musicServices.service.SelectMusicInfo()
+   context = { 'results':results, }
+   return render(request, 'allmusicinfo.html', context)
+def musicServices_selectFileTypes (request):
+   results = soap_client_musicServices.service.selectFileTypes()
+   context = { 'results':results, }
+   return render(request, 'allfiletypes.html', context)
+def musicServices_selectGenre (request):
+   results = soap_client_musicServices.service.selectGenre()
+   context = { 'results':results, }
+   return render(request, 'allGenre.html', context)
+def musicServices_selectArtist (request):
+   results = soap_client_musicServices.service.selectArtist()
+   context = { 'results':results, }
+   return render(request, 'allartist.html', context)
 

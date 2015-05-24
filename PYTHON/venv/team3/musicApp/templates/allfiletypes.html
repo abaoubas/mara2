@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+<h1> All available Recordings </h1>
+
+<table class="table table-striped">
+
+    <tr class="active">
+        <th class="active" >file_type_id</th>
+        <th class="active" >description</th>
+     </tr>
+
+{% for result in results %}
+
+   <tr class="active">
+
+        <td class="active"> {{result.file_type_id }} </td>
+        <td class="active"> {{result.description }} </td>
+
+   <tr/>
+
+{% endfor %}
+
+   </table>
+
+<br>
+
+
+{% endblock %}
