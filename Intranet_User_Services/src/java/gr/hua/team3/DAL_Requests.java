@@ -5,7 +5,7 @@
  */
 package gr.hua.team3;
 
-import gr.hua.team3.intranet.Request;
+import gr.hua.UserExists.Request;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.Connection;

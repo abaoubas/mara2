@@ -5,6 +5,7 @@
  */
 package gr.hua.team3.intranet;
 
+import gr.hua.UserExists.Request;
 import gr.hua.team3.DAL_Requests;
 import java.util.List;
 import javax.jws.WebService;
