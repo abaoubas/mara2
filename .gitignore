@@ -1,23 +1,72 @@
-/Internet_User_Services/nbproject/private/
-/Intranet_User_Services/dist/
-/Intranet_User_Services/build/
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
 *.war
-Intranet_User_Services/nbproject/build-impl.xml
-Intranet_User_Services/nbproject/genfiles.properties
-*.properties
-Intranet_User_Services/nbproject/project.properties
-Intranet_User_Services/nbproject/project.xml
-PYTHON/venv/team3/musicApp/urls.pyc
-PYTHON/venv/team3/musicApp/views.pyc
-PYTHON/venv/team3/team3/settings.pyc
-PYTHON/venv/team3/team3/urls.pyc
-Intranet_User_Services/nbproject/build-impl.xml
-Intranet_User_Services/nbproject/build-impl.xml
-*.properties
-Intranet_User_Services/nbproject/private/private.properties
-*.properties
-Intranet_User_Services/nbproject/project.xml
-PYTHON/venv/team3/musicApp/urls.pyc
-PYTHON/venv/team3/musicApp/views.pyc
-PYTHON/venv/team3/team3/settings.pyc
-PYTHON/venv/team3/team3/urls.pyc
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
