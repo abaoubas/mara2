@@ -92,5 +92,12 @@ public class SalesEmployeeServices {
         
         return listReq;
     }
+    
+    @WebMethod(operationName = "RejectRequest")
+    public boolean RejectRequest(@WebParam(name = "request_id") Integer request_id, @WebParam(name = "emp_no") Integer emp_no) {
+        //TODO write your implementation code here:
+        
+        return dal.RejectRequest(request_id,emp_no);
+    }
 
 }
