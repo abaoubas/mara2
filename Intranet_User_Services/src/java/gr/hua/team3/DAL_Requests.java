@@ -107,4 +107,23 @@ public class DAL_Requests {
         
     }
     
+    public boolean SalesManagerSetReviewRequest(int req_id,float disc) 
+    {
+         try {
+            PreparedStatement ps = connection.prepareStatement("UPDATE Request set discount = ? WHERE  request_id = ?");  
+            
+            ps.setFloat(1, disc);
+            ps.setInt(2, req_id);
+            
+            ps.executeUpdate();
+                        
+            return true;
+            
+        } catch (Exception ex) {
+            PrintError(ex);
+        }
+        return false;
+        
+    }
+    
 }
