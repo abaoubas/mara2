@@ -49,4 +49,15 @@ public class SalesEmployeeServices {
         
         return listReq;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "SetRequestPrices")
+    public boolean SetRequestPrices(@WebParam(name = "totalCost") Float totalCost, @WebParam(name = "discount") Float discount, @WebParam(name = "request_id") Integer request_id) {
+        //TODO write your implementation code here:
+        
+        return dal.SetRequestPrices(totalCost,discount,request_id);
+    }
+
 }

@@ -70,7 +70,24 @@ public class DAL_Requests {
         System.out.println(errors.toString());
     }
     
-    
+    public boolean SetRequestPrices(float totalc,float disc,int req_id) 
+    {
+         try {
+            PreparedStatement ps = connection.prepareStatement("UPDATE Request set totalCost = ?, discount = ? WHERE  request_id = ?");  
+            ps.setFloat(1, totalc);
+            ps.setFloat(2, disc);
+            ps.setInt(3, req_id);
+            
+            ps.executeUpdate();
+                        
+            return true;
+            
+        } catch (Exception ex) {
+            PrintError(ex);
+        }
+        return false;
+        
+    }
     
     
 }
