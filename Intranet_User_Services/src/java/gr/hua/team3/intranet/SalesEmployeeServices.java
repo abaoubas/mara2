@@ -75,5 +75,22 @@ public class SalesEmployeeServices {
         
         return listReq;
     }
+    
+    @WebMethod(operationName = "GetAcceptedRequest")
+    public List<Request> GetAcceptedRequest() {  // Throws out requests that are rejected,paid or completed
+        
+        ArrayList<Request> listReq=new ArrayList<Request>();
+        listReq=dal.SelectRequests();
+        
+        for(int k=listReq.size()-1;k>=0;k--)
+        {
+            if (listReq.get(k).getStatus()!=30)
+            {
+                listReq.remove(k);
+            }
+        }
+        
+        return listReq;
+    }
 
 }
