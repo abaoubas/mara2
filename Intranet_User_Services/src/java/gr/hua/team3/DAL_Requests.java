@@ -70,7 +70,60 @@ public class DAL_Requests {
         System.out.println(errors.toString());
     }
     
+    public boolean SetRequestPrices(float totalc,float disc,int req_id) 
+    {
+         try {
+            PreparedStatement ps = connection.prepareStatement("UPDATE Request set totalCost = ?, discount = ? WHERE  request_id = ?");  
+            ps.setFloat(1, totalc);
+            ps.setFloat(2, disc);
+            ps.setInt(3, req_id);
+            
+            ps.executeUpdate();
+                        
+            return true;
+            
+        } catch (Exception ex) {
+            PrintError(ex);
+        }
+        return false;
+        
+    }
     
+    public boolean RejectRequest(Integer request_id,Integer emp_no)
+    {
+        try {
+            PreparedStatement ps = connection.prepareStatement("UPDATE Request set status = 98 WHERE  request_id = ? AND fk_emp_no = ?");  
+            ps.setInt(1, request_id);
+            ps.setFloat(2, emp_no);
+            
+            ps.executeUpdate();
+                        
+            return true;
+            
+        } catch (Exception ex) {
+            PrintError(ex);
+        }
+        return false;
+        
+    }
     
+    public boolean SalesManagerSetReviewRequest(int req_id,float disc) 
+    {
+         try {
+            PreparedStatement ps = connection.prepareStatement("UPDATE Request set discount = ? WHERE  request_id = ?");  
+            
+            ps.setFloat(1, disc);
+            ps.setInt(2, req_id);
+            
+            ps.executeUpdate();
+                        
+            return true;
+            
+        } catch (Exception ex) {
+            PrintError(ex);
+        }
+        return false;
+        
+    }
     
 }
