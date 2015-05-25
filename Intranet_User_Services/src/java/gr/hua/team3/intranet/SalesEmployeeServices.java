@@ -39,7 +39,7 @@ public class SalesEmployeeServices {
         ArrayList<Request> listReq=new ArrayList<Request>();
         listReq=dal.SelectRequests();
         
-        for(int k=0;k<listReq.size();k++)
+        for(int k=listReq.size()-1;k>=0;k--)
         {
             if (listReq.get(k).getStatus()==31 || listReq.get(k).getStatus()==98 || listReq.get(k).getStatus()==99 || listReq.get(k).getStatus()==100)
             {
@@ -58,6 +58,22 @@ public class SalesEmployeeServices {
         //TODO write your implementation code here:
         
         return dal.SetRequestPrices(totalCost,discount,request_id);
+    }
+    @WebMethod(operationName = "GetUserHistory")
+    public List<Request> GetUserHistory(@WebParam(name = "user_id") Integer user_id) {  // Throws out requests that are rejected,paid or completed
+        
+        ArrayList<Request> listReq=new ArrayList<Request>();
+        listReq=dal.SelectRequests();
+        
+        for(int k=listReq.size()-1;k>=0;k--)
+        {
+            if (listReq.get(k).getFk_user_id()!=user_id)
+            {
+                listReq.remove(k);
+            }
+        }
+        
+        return listReq;
     }
 
 }
