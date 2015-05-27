@@ -39,3 +39,4 @@ def musicServices_selectArtist (request):
    context = { 'results':results, }
    return render(request, 'allartist.html', context)
 
+
