@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+<h1> All available Recordings </h1>
+
+<table class="table table-striped">
+
+    <tr class="active">
+        <th class="active" >pk_recording_id</th>
+        <th class="active" >title</th>
+        <th class="active" >album</th>
+        <th class="active" >creator_name</th>
+        <th class="active" >singer_name</th>
+        <th class="active" >genre_id</th>
+        <th class="active" >file_type</th>
+        <th class="active" >creation_date</th>
+        <th class="active" >price</th>
+        <th class="active" >foto_location</th>
+     </tr>
+
+{% for result in results %}
+
+   <tr class="active">
+
+        <td class="active"> {{result.pk_recording_id }} </td>
+        <td class="active"> {{result.title }} </td>
+        <td class="active"> {{result.album }} </td>
+        <td class="active"> {{result.creator_name }} </td>
+        <td class="active"> {{result.singer_name }} </td>
+        <td class="active"> {{result.genre_id }} </td>
+        <td class="active"> {{result.file_type }} </td>
+        <td class="active"> {{result.creation_date }} </td>
+        <td class="active"> {{result.price }} </td>
+        <td class="active"> {{result.foto_location }} </td>
+
+
+   <tr/>
+
+{% endfor %}
+
+   </table>
+
+<br>
+
+
+{% endblock %}
