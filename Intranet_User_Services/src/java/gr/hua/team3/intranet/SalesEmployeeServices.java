@@ -25,9 +25,20 @@ public class SalesEmployeeServices {
     DAL_Requests dal = new DAL_Requests();
  
     
-    @WebMethod(operationName = "SelectRecordings")
-    public List<Request> SelectRequests() {        
-        return dal.SelectRequests();
+    @WebMethod(operationName = "GetNewRequests")
+    public List<Request> GetNewRequests() {        
+         ArrayList<Request> listReq=new ArrayList<Request>();
+        listReq=dal.SelectRequests();
+        
+        for(int k=listReq.size()-1;k>=0;k--)
+        {
+            if (listReq.get(k).getStatus()!=0)
+            {
+                listReq.remove(k);
+            }
+        }
+        
+        return listReq;
     }
 
     /**

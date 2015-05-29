@@ -13,6 +13,8 @@ urlpatterns = patterns('',
         url(r'^selectGenre', views.musicServices_selectGenre,),
         url(r'^selectArtist', views.musicServices_selectArtist,),
         url(r'^SalesManagerGetReviewRequest', views.SalesManagerGetReviewRequest,),
+        url(r'^SalesGetReviewRequest', views.SalesGetReviewRequest,),
+        url(r'^GetNewRequests', views.GetNewRequests,),
 
     )
 
