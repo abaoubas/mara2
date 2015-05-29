@@ -56,3 +56,8 @@ def SalesGetReviewRequest(request):
    results = soap_client_salesEmployeeServices.service.salesGetReviewRequest()
    context = { 'results':results, }
    return render(request, 'requests_for_approval.html', context)
+
+def GetAcceptedRequest(request):
+   results = soap_client_salesEmployeeServices.service.GetAcceptedRequest()
+   context = { 'results':results, }
+   return render(request, 'requests_for_payment.html', context)
