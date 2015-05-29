@@ -49,7 +49,7 @@ public class DAL_Requests {
                 r.setTitle(rs.getString("title"));
                 r.setAlbum(rs.getString("album"));
                 r.setCreator_name(rs.getString("creator_name")); 
-                r.setSinger_name(null);
+                r.setSinger_name("singer_name");
                 r.setFk_file_type_id(rs.getInt("fk_file_type_id"));
                 r.setFk_genre_id(rs.getInt("fk_genre_id"));
                 r.setCreation_date(rs.getDate("creation_date"));

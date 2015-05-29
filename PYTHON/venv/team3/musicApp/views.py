@@ -40,3 +40,8 @@ def musicServices_selectArtist (request):
    return render(request, 'allartist.html', context)
 
 
+soap_client_salesEmployeeServices = Client('http://localhost:8080/Intranet_User_Services/SalesManagerServices?WSDL')
+def SalesManagerGetReviewRequest(request):
+   results = soap_client_salesEmployeeServices.service.SalesManagerGetReviewRequest()
+   context = { 'results':results, }
+   return render(request, 'requests_for_approval.html', context)
