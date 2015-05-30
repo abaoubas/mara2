@@ -5,7 +5,7 @@ class CreateRequestForm(forms.Form):
     #request_id = forms.IntegerField(label='request_id', max_length=100,required = True)
     fk_user_id = forms.IntegerField(label='fk_user_id',required = True)
     #fk_emp_no = forms.IntegerField(label='fk_emp_no', max_length=100,required = True)
-    #dateInserted = forms.DateField(label='dateInserted',widget=forms.HiddenInput())
+    #dateInserted = forms.DateField(label='dateInserted',widget=forms.HiddenInput(),)
     #dateModified = forms.DateField(label='dateModified',widget=forms.HiddenInput())
     #totalCost = forms.FloatField(label='totalCost', max_length=100,required = True)
     #discount = forms.FloatField(label='discount', max_length=100,required = True)
