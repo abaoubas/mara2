@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 public class InitialRequests {
     @NotNull 
-    private int request_id;
+    //private int request_id;
     private int fk_user_id;
     private String title;
     private String album;
@@ -15,13 +15,13 @@ public class InitialRequests {
     private int fk_file_type_id;
     private Date creation_date;
 
-    public int getRequest_id() {
+ /*   public int getRequest_id() {
         return request_id;
     }
 
     public void setRequest_id(int request_id) {
         this.request_id = request_id;
-    }
+    }*/
 
     public int getFk_user_id() {
         return fk_user_id;

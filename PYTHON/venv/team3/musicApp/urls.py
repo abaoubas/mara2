@@ -16,6 +16,7 @@ urlpatterns = patterns('',
         url(r'^SalesGetReviewRequest', views.SalesGetReviewRequest,),
         url(r'^GetNewRequests', views.GetNewRequests,),
         url(r'^GetAcceptedRequest', views.GetAcceptedRequest,),
+        url(r'^NewRequest', views.NewRequest,),
 
     )
 

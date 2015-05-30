@@ -32,19 +32,19 @@ public class Consumer_Manager {
             */
         
             String insertEmployee = "INSERT INTO Request"
-		+ "(request_id,fk_user_id,title,album,creator_name,singer_name,fk_genre_id,fk_file_type_id,creation_date) VALUES"
-		+ "(?,?,?,?,?,?,?,?,?)";
+		+ "(fk_user_id,title,album,creator_name,singer_name,fk_genre_id,fk_file_type_id,creation_date) VALUES"
+		+ "(?,?,?,?,?,?,?,?)";
             
             PreparedStatement preparedStatement = connection.prepareStatement(insertEmployee);
-            preparedStatement.setInt(1, req.getRequest_id());
-            preparedStatement.setInt(2, req.getFk_user_id());
-            preparedStatement.setString(3, req.getTitle());
-            preparedStatement.setString(4, req.getAlbum());
-            preparedStatement.setString(5, req.getCreator_name());
-            preparedStatement.setString(6, req.getSinger_name());
-            preparedStatement.setInt(7, req.getFk_genre_id());
-            preparedStatement.setInt(8, req.getFk_file_type_id());
-            preparedStatement.setDate(9, (java.sql.Date) req.getCreation_date());
+            //preparedStatement.setInt(1, req.getRequest_id());
+            preparedStatement.setInt(1, req.getFk_user_id());
+            preparedStatement.setString(2, req.getTitle());
+            preparedStatement.setString(3, req.getAlbum());
+            preparedStatement.setString(4, req.getCreator_name());
+            preparedStatement.setString(5, req.getSinger_name());
+            preparedStatement.setInt(6, req.getFk_genre_id());
+            preparedStatement.setInt(7, req.getFk_file_type_id());
+            preparedStatement.setDate(8, (java.sql.Date) req.getCreation_date());
             // execute insert SQL stetement
             preparedStatement .executeUpdate();
            

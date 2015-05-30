@@ -44,10 +44,10 @@ public class SalesRequests {
         return cm.acceptRequest(user_acc_args);
     }
     
-    @WebMethod(operationName = "getUserRequests")
+  /*  @WebMethod(operationName = "getUserRequests")
     public ArrayList<Request> getUserRequests(@WebParam(name = "user_id") User_id_Request user_id_req) {
                 
         Consumer_Manager cm = new Consumer_Manager();
         return cm.getUserRequests(user_id_req);
-    }
+    }*/
 }
