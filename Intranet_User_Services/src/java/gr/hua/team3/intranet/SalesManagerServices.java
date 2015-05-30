@@ -34,7 +34,7 @@ public class SalesManagerServices {
      * Web service operation
      */
     @WebMethod(operationName = "SalesManagerGetReviewRequest")
-    public List<Request> SalesManagerGetReviewRequest() {  // Throws out requests that are rejected,paid or completed
+    public List<Request> SalesManagerGetReviewRequest() {  
         
         ArrayList<Request> listReq=new ArrayList<Request>();
         listReq=dal.SelectRequests();

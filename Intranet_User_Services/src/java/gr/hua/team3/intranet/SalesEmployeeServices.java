@@ -25,9 +25,20 @@ public class SalesEmployeeServices {
     DAL_Requests dal = new DAL_Requests();
  
     
-    @WebMethod(operationName = "SelectRecordings")
-    public List<Request> SelectRequests() {        
-        return dal.SelectRequests();
+    @WebMethod(operationName = "GetNewRequests")
+    public List<Request> GetNewRequests() {        
+         ArrayList<Request> listReq=new ArrayList<Request>();
+        listReq=dal.SelectRequests();
+        
+        for(int k=listReq.size()-1;k>=0;k--)
+        {
+            if (listReq.get(k).getStatus()!=0)
+            {
+                listReq.remove(k);
+            }
+        }
+        
+        return listReq;
     }
 
     /**
@@ -54,10 +65,10 @@ public class SalesEmployeeServices {
      * Web service operation
      */
     @WebMethod(operationName = "SetRequestPrices")
-    public boolean SetRequestPrices(@WebParam(name = "totalCost") Float totalCost, @WebParam(name = "discount") Float discount, @WebParam(name = "request_id") Integer request_id) {
+    public boolean SetRequestPrices(@WebParam(name = "totalCost") Float totalCost, @WebParam(name = "discount") Float discount, @WebParam(name = "request_id") Integer request_id, @WebParam(name = "status") Integer status) {
         //TODO write your implementation code here:
         
-        return dal.SetRequestPrices(totalCost,discount,request_id);
+        return dal.SetRequestPrices(totalCost,discount,request_id,status);
     }
     @WebMethod(operationName = "GetUserHistory")
     public List<Request> GetUserHistory(@WebParam(name = "user_id") Integer user_id) {  // Throws out requests that are rejected,paid or completed
@@ -100,5 +111,10 @@ public class SalesEmployeeServices {
         return dal.RejectRequest(request_id,emp_no);
     }
 
-
+    @WebMethod(operationName = "PaidRequest")
+    public boolean PaidRequest(@WebParam(name = "request_id") Integer request_id, @WebParam(name = "emp_no") Integer emp_no) {
+        //TODO write your implementation code here:
+        
+        return dal.PaidRequest(request_id,emp_no);
+    }
 }
