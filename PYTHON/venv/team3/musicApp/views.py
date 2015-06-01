@@ -87,7 +87,7 @@ def NewRequest(request):
          requeststaff = soap_client_UserServices.factory.create('initialRequests')
          form = CreateRequestForm(request.POST)
          if form.is_valid():
-            requeststaff.fk_user_id = form.cleaned_data['fk_user_id']
+            requeststaff.fk_user_id = request.user.username
             #dateInserted = form.cleaned_data['dateInserted']
             #dateModified = form.cleaned_data['dateModified']
             requeststaff.title = form.cleaned_data['title']
@@ -103,7 +103,7 @@ def NewRequest(request):
             else:
                return HttpResponse("Request Not Created")
    return render(request, 'musicApp/Request_form.html', {'form': form,})
-
+"""
 register = template.Library()
 
 @register.inclusion_tag('musicApp/User_Home_Page.html')
@@ -111,3 +111,4 @@ def User_Home_Page(request):
    
 def get_category_list():
     return {'cats': Category.objects.all()}
+"""
