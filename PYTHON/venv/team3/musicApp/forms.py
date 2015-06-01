@@ -20,3 +20,4 @@ class CreateRequestForm(forms.Form):
     fk_genre_id = forms.IntegerField(label='Genre',required = True)
     strcreation_date = forms.CharField(label='Creation Date',max_length=100,required = True)
 
+

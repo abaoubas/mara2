@@ -19,6 +19,7 @@ urlpatterns = patterns('',
         url(r'^NewRequest', views.NewRequest,),
         url(r'^record/(?P<pk_recording_id>[0-9]+)', views.NewRequest,),
         url(r'^User_Home_Page', views.User_Home_Page,),
+        url(r'^Accept/(?P<request_id>[0-9]+)', views.AcceptPrice,),
 
     )
 
