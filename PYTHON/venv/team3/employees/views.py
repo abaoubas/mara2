@@ -10,11 +10,12 @@ import urllib2, base64, json
 from forms import MyRegistrationForm
 from forms import UserProfileForm
 from django.contrib.auth.decorators import login_required
+from django.template import RequestContext
 
 def login(request):
     c = {}
     c.update(csrf(request))
-    return render_to_response('users/login.html', c)
+    return render(request,'users/login.html', c)
 
 def auth_view(request):
     username = request.POST.get('username', '')
@@ -29,17 +30,18 @@ def auth_view(request):
 
 
 def loggedin(request):
-    return render_to_response('users/loggedin.html',
-                              {'full_name': request.user.username})
+    return render(request,
+                  'users/loggedin.html',
+                  {'full_name': request.user.username, 'auth': request.user.is_authenticated})
 
 
 def invalid_login(request):
-    return render_to_response('users/invalid_login.html')
+    return render(request,'users/invalid_login.html')
 
 
 def logout(request):
     auth.logout(request)
-    return render_to_response('users/logout.html')
+    return render(request,'users/logout.html')
 
 
 def register_user(request):
@@ -64,7 +66,7 @@ def register_user(request):
 
     args['form'] = form
 
-    return render_to_response('users/register.html', args)
+    return render(request,'users/register.html', args)
 
 
 
@@ -86,11 +88,11 @@ def java_insertEmp(username):
 
 
 def register_success(request):
-    return render_to_response('users/register_success.html')
+    return render(request,'users/register_success.html')
 
 
 def register_failed(request):
-    return render_to_response('users/register_failed.html')
+    return render(request,'users/register_failed.html')
 
 def userExists(emp_no):
     # Get the data from the endpoint
@@ -123,4 +125,4 @@ def user_profile(request):
 
     args['form'] = form
 
-    return render_to_response('emp/profile.html', args)
+    return render(request,'emp/profile.html', args)

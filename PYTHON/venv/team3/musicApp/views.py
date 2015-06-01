@@ -7,14 +7,10 @@ from django import forms
 import urllib2, base64, json
 
 def index(request):
-    return HttpResponse("Rango says Rango")
+    return render(request,'musicApp/index.html')
 
 
-#soap_client = Client('http://10.100.51.100:8080/lab3/UsersWS?WSDL')
-#def showusers(request):
-#   results = soap_client.service.showUsers()
-#   context = { 'results':results, }
-#   return render(request, 'musicApp/allusers.html', context)
+
 
 def showusers(request):
     request = urllib2.Request("http://62.217.127.56/phprest/index.php/users/users")

@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'musicApp',
     'employees',
     'bootstrapform',
+
 )
 
 MIDDLEWARE_CLASSES = (

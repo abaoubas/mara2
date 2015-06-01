@@ -1,3 +1,18 @@
+body{
+/*background: url('/static/img/paramore women music music bands.jpg');
+background-size:cover;
+background-repeat: no-repeat;*/
+
+background: url('/static/img/Microphone_Black_Background2.jpg');
+  background-color: black;
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+
+
+
+}
+
 form .help-block{
     font-size:14px;
 }
@@ -5,3 +20,8 @@ form .help-block{
 form span.help-block{
     color:red;
 }
+
+.jumbotron{
+background-color:#f8f8f8;
+}
+

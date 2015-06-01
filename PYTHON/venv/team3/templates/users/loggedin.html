@@ -2,7 +2,7 @@
 
 {% block content %}
 
-  <h2>Hi {{full_name}} you are now logged in!</h2>
+  <h2>Hi {{full_name}} you are now logged in! {{auth}} {{ request.user.is_authenticated }}</h2>
   <p>Click <a href="/emp/logout/">here</a> to logout.</p>
   
   <p>Click <a href="/emp/profile/">here</a> to edit your profile information</p>
