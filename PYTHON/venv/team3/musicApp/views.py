@@ -6,6 +6,8 @@ from datetime import date
 from django import forms
 from django import template
 import urllib2, base64, json
+from django.contrib.auth.decorators import login_required
+from django.contrib import auth
 
 def index(request):
     return render(request,'musicApp/index.html')
@@ -77,6 +79,8 @@ def GetAcceptedRequest(request):
 
 
 soap_client_UserServices = Client('http://localhost:8080/Intranet_User_Services/SalesRequests?WSDL')
+
+@login_required
 def NewRequest(request):
    if request.method == 'GET':
          form = CreateRequestForm()
