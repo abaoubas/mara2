@@ -143,3 +143,4 @@ nb-configuration.xml
 .nb-gradle/
 *.pyc
 PYTHON/venv/.idea/workspace.xml
+PYTHON/venv/Lib/site-packages/django/contrib/auth/context_processors.pyc

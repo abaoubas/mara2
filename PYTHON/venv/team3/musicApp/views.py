@@ -101,9 +101,7 @@ def NewRequest(request):
                return HttpResponse("Request Not Created")
    return render(request, 'musicApp/Request_form.html', {'form': form,})
 
-register = template.Library()
 
-@register.inclusion_tag('musicApp/User_Home_Page.html')
 def User_Home_Page(request):
    results = soap_client_UserServices.service.GetUserRequests(request.user.username)
    context = { 'results':results, }
