@@ -3,16 +3,30 @@ from django.shortcuts import render
 from suds.client import Client
 from musicApp.forms import CreateRequestForm
 from django import forms
+import urllib2, base64, json
 
 def index(request):
     return HttpResponse("Rango says Rango")
 
 
-soap_client = Client('http://10.100.51.100:8080/lab3/UsersWS?WSDL')
+#soap_client = Client('http://10.100.51.100:8080/lab3/UsersWS?WSDL')
+#def showusers(request):
+#   results = soap_client.service.showUsers()
+#   context = { 'results':results, }
+#   return render(request, 'musicApp/allusers.html', context)
+
 def showusers(request):
-   results = soap_client.service.showUsers()
-   context = { 'results':results, }
-   return render(request, 'musicApp/allusers.html', context)
+    request = urllib2.Request("http://62.217.127.56/phprest/index.php/users/users")
+    username = 'admin'
+    password = '1234'
+    base64string = base64.encodestring('%s:%s' % (username, password)).replace('\n', '')
+    request.add_header("Authorization", "Basic %s" % base64string)
+    result = urllib2.urlopen(request)
+    # print result.read()
+    data = json.load(result)
+    return HttpResponse(data)
+
+
 
 soap_client_musicServices = Client('http://localhost:8080/Intranet_User_Services/MusicServices?WSDL')
 def musicServices_selectRecordings (request):

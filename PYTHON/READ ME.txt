@@ -6,3 +6,9 @@ https://dev.mysql.com/downloads/connector/c/
 
 και αυτό
 https://pypi.python.org/pypi/MySQL-python
+
+
+
+
+admin
+1234

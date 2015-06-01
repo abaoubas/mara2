@@ -5,7 +5,11 @@
  */
 package gr.hua.UserExists;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -13,12 +17,14 @@ import javax.validation.constraints.NotNull;
  * @author palia_000
  */
 public class Employee {
-    @NotNull 
+
+    @NotNull
     private int emp_id;
     private String username;
     private String password;
     private String first_name;
     private String last_name;
+    private String strBirthdate;
     private Date birthdate;
     private String gender;
 
@@ -62,12 +68,23 @@ public class Employee {
         this.last_name = last_name;
     }
 
-    public Date getBirthdate() {
-        return birthdate;
+    public String getStrBirthdate() {
+        return strBirthdate;
     }
 
-    public void setBirthdate(String day, String month, String year) {
-        this.birthdate = birthdate;
+    public void setStrBirthdate(String strBirthdate) {
+        this.strBirthdate = strBirthdate;
+    }
+    static DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+
+    public Date getBirthdate() throws ParseException {
+
+        return df.parse(strBirthdate);
+    }
+
+    public void setBirthdate(int day, int month, int year) {
+        this.birthdate = new Date(year, month, day);
+        this.strBirthdate = df.format(this.birthdate);
         //java.sql.Date javaSqlDate = java.sql.Date.valueOf(year+"-"+month+"-"+day);
         //this.birthdate = javaSqlDate;
     }
