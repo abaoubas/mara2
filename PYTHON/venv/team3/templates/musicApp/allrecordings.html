@@ -1,47 +1,57 @@
 {% extends 'base.html' %}
-
+{% block section %}section-recordings{% endblock %}
 {% block body_block %}
 
-<h1> All available Recordings </h1>
+<div class="well well-sm">
+    <strong>Category Title</strong>
 
-<table class="table table-striped">
+    <div class="btn-group">
+        <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
+            </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
+            class="glyphicon glyphicon-th"></span>Grid</a>
+    </div>
+</div>
+<div id="products" class="row list-group">
 
-    <tr class="active">
-        <th class="active" >pk_recording_id</th>
-        <th class="active" >title</th>
-        <th class="active" >album</th>
-        <th class="active" >creator_name</th>
-        <th class="active" >singer_name</th>
-        <th class="active" >genre_id</th>
-        <th class="active" >file_type</th>
-        <th class="active" >creation_date</th>
-        <th class="active" >price</th>
-        <th class="active" >foto_location</th>
-     </tr>
-
-{% for result in results %}
-
-   <tr class="active">
-
-        <td class="active"> {{result.pk_recording_id }} </td>
-        <td class="active"> {{result.title }} </td>
-        <td class="active"> {{result.album }} </td>
-        <td class="active"> {{result.creator_name }} </td>
-        <td class="active"> {{result.singer_name }} </td>
-        <td class="active"> {{result.genre_id }} </td>
-        <td class="active"> {{result.file_type }} </td>
-        <td class="active"> {{result.creation_date }} </td>
-        <td class="active"> {{result.price }} </td>
-        <td class="active"> {{result.foto_location }} </td>
+    {% for result in results %}
 
 
-   <tr/>
+    <div class="item  col-xs-6 col-lg-4">
+        <div class="thumbnail">
+            <div class="group list-group-image-container"
+                 style="background-image:url('{{result.foto_location }}');"></div>
 
-{% endfor %}
+            <div class="caption">
+                <h4 class="group inner list-group-item-heading">
+                    {{result.title}}</h4>
 
-   </table>
+                <p class="group inner list-group-item-text">
+                    Συλλογή: <strong>{{result.album }}</strong>
+                    <br/>
+                    Τραγουδιστής : <strong>{{result.singer_name}}</strong>
+                    <br/>
+                    Δημιουργός <strong>{{result.creator_name}}</strong>
+                    <br/>
+                    {{result.genre_id }} | {{result.file_type }} | {{result.creation_date }}</p>
 
-<br>
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <p class="lead">
+                            {{result.price }}</p>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <a class="btn btn-success" href="/music/record/{{result.pk_recording_id }}">Αγορά</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    {% endfor %}
 
+</div>
+{% endblock %}
+{% block javascript_block %}
+{% load static %}
+<script src="{% static 'js/allrecordings.js' %}"></script>
 {% endblock %}

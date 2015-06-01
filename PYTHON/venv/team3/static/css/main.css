@@ -25,3 +25,113 @@ form span.help-block{
 background-color:#f8f8f8;
 }
 
+
+/*******************************************
+* thumbnails
+******************************************/
+
+.glyphicon { margin-right:5px; }
+.thumbnail
+{
+    margin-bottom: 20px;
+    padding: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.item.list-group-item
+{
+    float: none;
+    width: 100%;
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+.item.list-group-item:nth-of-type(odd):hover,.item.list-group-item:hover
+{
+    background: #428bca;
+}
+
+.item.list-group-item .list-group-image,
+.item.list-group-item .list-group-image-container
+{
+    margin-right: 10px;
+}
+
+
+.list-group-image-container{
+    width:100%;
+    height:200px;
+    max-width:300px;
+
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-color:black;
+    float:left;
+}
+
+
+
+.item.list-group-item .thumbnail
+{
+    margin-bottom: 0px;
+}
+.item.list-group-item .caption
+{
+    padding: 9px 9px 0px 9px;
+}
+.item.list-group-item:nth-of-type(odd)
+{
+    background: #eeeeee;
+}
+
+.item.list-group-item:before, .item.list-group-item:after
+{
+    display: table;
+    content: " ";
+}
+
+.item.list-group-item img
+{
+    float: left;
+}
+.item.list-group-item:after
+{
+    clear: both;
+}
+.list-group-item-text
+{
+    margin: 0 0 11px;
+}
+/*******************************************
+* /thumbnails
+******************************************/
+
+
+/*******************************************
+* menu items
+******************************************/
+
+#section-recordings .menuitem-recordings,
+#section-events .menuitem-events,
+#section-artists .menuitem-artists,
+#section-dropdown .menuitem-dropdown
+{
+    color: #555;
+    background-color: #e7e7e7;
+}
+
+/*******************************************
+* /menu items
+******************************************/
+
+
+/*******************************************
+*
+******************************************/
+
+
+/*******************************************
+* /
+******************************************/
