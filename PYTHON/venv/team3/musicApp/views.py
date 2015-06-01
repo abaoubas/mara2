@@ -4,6 +4,7 @@ from suds.client import Client
 from musicApp.forms import CreateRequestForm
 from datetime import date
 from django import forms
+from django import template
 import urllib2, base64, json
 
 def index(request):
@@ -99,12 +100,12 @@ def NewRequest(request):
             else:
                return HttpResponse("Request Not Created")
    return render(request, 'musicApp/Request_form.html', {'form': form,})
-"""
+
 register = template.Library()
 
 @register.inclusion_tag('musicApp/User_Home_Page.html')
 def User_Home_Page(request):
-   
-def get_category_list():
-    return {'cats': Category.objects.all()}
-"""
+   results = soap_client_UserServices.service.GetUserRequests(request.user.username)
+   context = { 'results':results, }
+   return render(request, 'musicApp/User_Home_Page.html', context)
+

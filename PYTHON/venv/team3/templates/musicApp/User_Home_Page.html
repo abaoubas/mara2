@@ -3,5 +3,15 @@
 
 <h1>Home Page </h1>
 <h2>Your requests</h2>
-<h2 href="/music/NewRequest">New request</h2>
+{% count=0 %}
+{% for result in results %}
+{% count++ %}
+   <tr class="active">
+
+       <td class="active">{{% count++ %}} {{result.request_id}} </td>
+
+   <tr/>
+
+{% endfor %}
+<h2><a href="/music/NewRequest">New request</a></h2>
 {% endblock %}

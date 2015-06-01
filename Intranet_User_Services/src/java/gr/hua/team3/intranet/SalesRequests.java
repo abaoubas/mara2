@@ -38,7 +38,7 @@ public class SalesRequests {
     }
     
     @WebMethod(operationName = "UserAcceptanceRequest")
-    public boolean getUserRequests(@WebParam(name = "user_id") UserAcceptanceArgs user_acc_args) {
+    public boolean UserAcceptance(@WebParam(name = "user_id") UserAcceptanceArgs user_acc_args) {
                 
         Consumer_Manager cm = new Consumer_Manager();
         return cm.acceptRequest(user_acc_args);
