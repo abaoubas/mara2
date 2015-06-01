@@ -23,7 +23,7 @@
     <![endif]-->
 </head>
 
-<body>
+<body id="{% block section %}section-generic{% endblock %}">
 
 <div class="container">
 
@@ -43,10 +43,10 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/music/selectRecordings">Ηχογραφίσεις</a></li>
-                    <li><a href="/music/selectEvents">Εκδηλώσεις</a></li>
-                    <li><a href="/music/selectArtist">Καλλιτέχνες</a></li>
-                    <li class="dropdown">
+                    <li class="menuitem-recordings" ><a href="/music/selectRecordings">Ηχογραφήσεις</a></li>
+                    <li class="menuitem-events" ><a href="/music/selectEvents">Εκδηλώσεις</a></li>
+                    <li class="menuitem-artists" ><a href="/music/selectArtist">Καλλιτέχνες</a></li>
+                    <li class="menuitem-dropdown  class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
@@ -61,6 +61,7 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+
                     {% if user.is_authenticated %}
                     <li class="navbar-text">Welcome, {{ user.username }}!</li>
                     <li><a href="/emp/logout/">Logout</a></li>
@@ -87,8 +88,8 @@
 
         </div>
         <div class="col-md-10">
-           <div class="jumbotron"> {% block body_block %}
-            {% endblock %}
+            <div class="jumbotron"> {% block body_block %}
+                {% endblock %}
 
                 {% block content %}{% endblock %}
             </div>
@@ -115,5 +116,7 @@
 <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+<script src="{% static 'js/allrecordings.js' %}"></script>
+{% block javascript_block %}{% endblock %}
 </body>
 </html>
