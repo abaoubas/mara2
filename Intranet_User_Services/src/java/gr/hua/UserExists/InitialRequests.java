@@ -1,18 +1,21 @@
 package gr.hua.UserExists;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.validation.constraints.NotNull;
+import java.util.Locale;
 
 public class InitialRequests {
-    @NotNull 
-    //private int request_id;
+    
     private int fk_user_id;
-    private String title;
+    private String kuku;
     private String album;
     private String creator_name;
     private String singer_name;
     private int fk_genre_id;
     private int fk_file_type_id;
+    private String strcreation_date;
     private Date creation_date;
 
  /*   public int getRequest_id() {
@@ -32,11 +35,11 @@ public class InitialRequests {
     }
 
     public String getTitle() {
-        return title;
+        return kuku;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitle(String kuku) {
+        this.kuku = kuku;
     }
 
     public String getAlbum() {
@@ -79,13 +82,25 @@ public class InitialRequests {
         this.fk_file_type_id = fk_file_type_id;
     }
 
-    public Date getCreation_date() {
-        return creation_date;
+        
+    public String getstrCreation_date() {
+        return strcreation_date;
     }
 
-    public void setCreation_date(Date creation_date) {
-        this.creation_date = creation_date;
+    public void setstrCreation_date(String strcreation_date) {
+        this.strcreation_date = strcreation_date;
     }
-    
-    
+    static DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+
+    public Date getCreation_date() throws ParseException {
+
+        return df.parse(strcreation_date);
+    }
+
+    public void setCreation_date(int day, int month, int year) {
+        this.creation_date = new Date(year, month, day);
+        this.strcreation_date = df.format(this.creation_date);
+        //java.sql.Date javaSqlDate = java.sql.Date.valueOf(year+"-"+month+"-"+day);
+        //this.birthdate = javaSqlDate;
+    }
 }
