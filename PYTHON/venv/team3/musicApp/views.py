@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from suds.client import Client
 from musicApp.forms import CreateRequestForm
+from datetime import date
 from django import forms
 import urllib2, base64, json
 
@@ -83,19 +84,20 @@ def NewRequest(request):
    if request.method == 'GET':
          form = CreateRequestForm()
    else:
+         requeststaff = soap_client_UserServices.factory.create('initialRequests')
          form = CreateRequestForm(request.POST)
          if form.is_valid():
-            fk_user_id = form.cleaned_data['fk_user_id']
+            requeststaff.fk_user_id = form.cleaned_data['fk_user_id']
             #dateInserted = form.cleaned_data['dateInserted']
             #dateModified = form.cleaned_data['dateModified']
-            title = form.cleaned_data['title']
-            album = form.cleaned_data['album']
-            creator_name = form.cleaned_data['creator_name']
-            singer_name = form.cleaned_data['singer_name']
-            fk_file_type_id = form.cleaned_data['fk_file_type_id']
-            fk_genre_id = form.cleaned_data['fk_genre_id']
-            creation_date = form.cleaned_data['creation_date']
-            result = soap_client_UserServices.service.newRequest(fk_user_id,title,album,creator_name,singer_name,fk_file_type_id,fk_genre_id,creation_date)
+            requeststaff.title = form.cleaned_data['title']
+            requeststaff.album = form.cleaned_data['album']
+            requeststaff.creator_name = form.cleaned_data['creator_name']
+            requeststaff.singer_name = form.cleaned_data['singer_name']
+            requeststaff.fk_file_type_id = form.cleaned_data['fk_file_type_id']
+            requeststaff.fk_genre_id = form.cleaned_data['fk_genre_id']
+            requeststaff.strCreation_date = form.cleaned_data['strcreation_date']
+            result = soap_client_UserServices.service.newRequest(requeststaff)
             if result:
                return HttpResponse("Request Created")
             else:

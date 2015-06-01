@@ -32,8 +32,8 @@ public class Consumer_Manager {
             */
         
             String insertEmployee = "INSERT INTO Request"
-		+ "(fk_user_id,title,album,creator_name,singer_name,fk_genre_id,fk_file_type_id,creation_date) VALUES"
-		+ "(?,?,?,?,?,?,?,?)";
+		+ "(fk_user_id,dateInserted,status,title,album,creator_name,singer_name,fk_genre_id,fk_file_type_id,creation_date) VALUES"
+		+ "(?,CURDATE(),0,?,?,?,?,?,?,?)";
             
             PreparedStatement preparedStatement = connection.prepareStatement(insertEmployee);
             //preparedStatement.setInt(1, req.getRequest_id());
@@ -44,10 +44,13 @@ public class Consumer_Manager {
             preparedStatement.setString(5, req.getSinger_name());
             preparedStatement.setInt(6, req.getFk_genre_id());
             preparedStatement.setInt(7, req.getFk_file_type_id());
-            preparedStatement.setDate(8, (java.sql.Date) req.getCreation_date());
+            preparedStatement.setDate(8,new java.sql.Date( req.getCreation_date().getTime()));
             // execute insert SQL stetement
             preparedStatement .executeUpdate();
            
+            
+            
+            
             return true;
             
         }catch(Exception ex) {
