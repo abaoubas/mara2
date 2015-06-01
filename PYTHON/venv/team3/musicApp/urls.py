@@ -20,6 +20,7 @@ urlpatterns = patterns('',
         url(r'^record/(?P<pk_recording_id>[0-9]+)', views.NewRequest,),
         url(r'^User_Home_Page', views.User_Home_Page,),
         url(r'^Accept/(?P<request_id>[0-9]+)', views.AcceptPrice,),
+        url(r'^Manager_Home_Page', views.Manager_Home_Page,),
 
     )
 

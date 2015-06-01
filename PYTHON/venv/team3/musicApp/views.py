@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from suds.client import Client
 from musicApp.forms import CreateRequestForm
@@ -117,8 +117,14 @@ def AcceptPrice(request, request_id):
         useraccept.accept = 30
         result = soap_client_UserServices.service.newRequest(useraccept)
         if result:
-           return HttpResponse("Request Created")
+            HttpResponse("Request Created")
         else:
-           return HttpResponse("Request Not Created")
+            HttpResponse("Request Not Created")
 
-        return HttpResponseRedirect('music/User_Home_Page/')
+        return HttpResponseRedirect('/music/User_Home_Page/')
+
+
+def Manager_Home_Page(request):
+    results = soap_client_salesManagerServices.service.SalesManagerGetReviewRequest()
+    context = { 'results':results, }
+    return render(request, 'musicApp/Manager_Home_Page.html', context)

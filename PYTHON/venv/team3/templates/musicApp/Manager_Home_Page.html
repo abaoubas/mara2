@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+<h1> New Requests </h1>
+
+<table class="table table-striped">
+
+   <tr class="active">
+
+   <th class="active">Request ID</th>
+
+   <th class="active">User ID</th>
+
+   <th class="active">Employee number</th>
+
+   <th class="active">Date Inserted</th>
+
+   <th class="active">Date Modified</th>
+
+   <th class="active">Total Cost</th>
+
+   <th class="active">Discount</th>
+
+   <th class="active">Final Cost</th>
+
+   <th class="active">Status</th>
+
+   <th class="active">Title</th>
+
+   <th class="active">Album</th>
+
+   <th class="active">Creator Name</th>
+
+   <th class="active">Singer Name</th>
+
+   <th class="active">File Type ID</th>
+
+   <th class="active">Genre ID</th>
+
+   <th class="active">Creation Date</th>
+
+
+ </tr>
+
+{% for result in results %}
+
+   <tr class="active">
+
+       <td class="active"> {{result.request_id}} </td>
+
+       <td class="active"> {{result.fk_user_id}} </td>
+
+       <td class="active"> {{result.fk_emp_no}} </td>
+
+       <td class="active"> {{result.dateInserted}} </td>
+
+       <td class="active"> {{result.dateModified}} </td>
+
+       <td class="active"> {{result.totalCost}} </td>
+
+       <td class="active"> {{result.discount}} </td>
+
+       <td class="active"> {{result.finalCost}} </td>
+
+       <td class="active"> {{result.status}} </td>
+
+       <td class="active"> {{result.title}} </td>
+
+       <td class="active"> {{result.album}} </td>
+
+       <td class="active"> {{result.creator_name}} </td>
+
+       <td class="active"> {{result.singer_name}} </td>
+
+       <td class="active"> {{result.fk_file_type_id}} </td>
+
+       <td class="active"> {{result.fk_genre_id}} </td>
+
+       <td class="active"> {{result.creation_date}} </td>
+
+   <tr/>
+
+{% endfor %}
+
+   </table>
+
+<br>
+
+
+
+{% endblock %}
