@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block body_block %}
+
+<h1>Request Form </h1>
 <form action='/music/NewRequest/' method='post'>{% csrf_token %}
 {{ form.as_p }}
 <input type='submit' value='Submit' />

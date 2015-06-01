@@ -89,3 +89,11 @@ def NewRequest(request):
             else:
                return HttpResponse("Request Not Created")
    return render(request, 'musicApp/Request_form.html', {'form': form,})
+
+register = template.Library()
+
+@register.inclusion_tag('musicApp/User_Home_Page.html')
+def User_Home_Page(request):
+   
+def get_category_list():
+    return {'cats': Category.objects.all()}

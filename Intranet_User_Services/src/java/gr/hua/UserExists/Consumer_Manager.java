@@ -80,7 +80,7 @@ public class Consumer_Manager {
         return false;
     }
     
-    public ArrayList<Request> getUserRequests(User_id_Request user_id_req) {
+    public ArrayList<Request> pullUserRequests(User_id_Request user_id_req) {
            
         ArrayList<Request> user_reqs = new ArrayList<Request>();
         

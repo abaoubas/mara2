@@ -9,7 +9,7 @@ import java.util.Locale;
 public class InitialRequests {
     
     private int fk_user_id;
-    private String kuku;
+    private String title;
     private String album;
     private String creator_name;
     private String singer_name;
@@ -35,11 +35,11 @@ public class InitialRequests {
     }
 
     public String getTitle() {
-        return kuku;
+        return title;
     }
 
-    public void setTitle(String kuku) {
-        this.kuku = kuku;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAlbum() {

@@ -17,6 +17,7 @@ urlpatterns = patterns('',
         url(r'^GetNewRequests', views.GetNewRequests,),
         url(r'^GetAcceptedRequest', views.GetAcceptedRequest,),
         url(r'^NewRequest', views.NewRequest,),
+        url(r'^User_Home_Page', views.User_Home_Page,),
 
     )
 
