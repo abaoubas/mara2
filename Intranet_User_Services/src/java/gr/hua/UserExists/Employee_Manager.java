@@ -70,7 +70,7 @@ public class Employee_Manager {
             preparedStatement.setString(2, emp.getLast_name());
             preparedStatement.setString(3, emp.getUsername());
             preparedStatement.setString(4, emp.getPassword());
-            preparedStatement.setDate(5, (Date) emp.getBirthdate());
+            preparedStatement.setDate(5, new java.sql.Date( emp.getBirthdate().getTime()));
             preparedStatement.setString(6, emp.getGender());
             // execute insert SQL stetement
             preparedStatement .executeUpdate();
