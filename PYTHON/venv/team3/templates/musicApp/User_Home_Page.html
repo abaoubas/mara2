@@ -4,14 +4,91 @@
 <h1>Home Page </h1>
 <h2>Your requests</h2>
 
-{% for result in results %}
+<table class="table table-striped">
 
    <tr class="active">
 
+   <th class="active">Request ID</th>
+
+   <th class="active">User ID</th>
+
+   <th class="active">Title</th>
+
+   <th class="active">Album</th>
+
+   <th class="active">Creator Name</th>
+
+   <th class="active">Singer Name</th>
+
+   <th class="active">File Type ID</th>
+
+   <th class="active">Genre ID</th>
+
+   <th class="active">Creation Date</th>
+
+       <th class="active">Final Cost</th>
+
+
+
+
+
+
+{% for result in results %}
+
+    {% if result.status != 25 %}
+       </tr>
+    <tr class="active">
+
        <td class="active"> {{result.request_id}} </td>
 
-   <tr/>
+       <td class="active"> {{result.fk_user_id}} </td>
 
+       <td class="active"> {{result.title}} </td>
+
+       <td class="active"> {{result.album}} </td>
+
+       <td class="active"> {{result.creator_name}} </td>
+
+       <td class="active"> {{result.singer_name}} </td>
+
+       <td class="active"> {{result.fk_file_type_id}} </td>
+
+       <td class="active"> {{result.fk_genre_id}} </td>
+
+       <td class="active"> {{result.creation_date}} </td>
+
+        <td class="active"> {{result.finalCost}} </td>
+
+    <tr/>
+    {% else %}
+    <th class="active">Accept Price</th>
+    </tr>
+    <tr class="active">
+
+       <td class="active"> {{result.request_id}} </td>
+
+       <td class="active"> {{result.fk_user_id}} </td>
+
+       <td class="active"> {{result.title}} </td>
+
+       <td class="active"> {{result.album}} </td>
+
+       <td class="active"> {{result.creator_name}} </td>
+
+       <td class="active"> {{result.singer_name}} </td>
+
+       <td class="active"> {{result.fk_file_type_id}} </td>
+
+       <td class="active"> {{result.fk_genre_id}} </td>
+
+       <td class="active"> {{result.creation_date}} </td>
+
+        <td class="active"> {{result.finalCost}} </td>
+
+        <td class="active"><label><input type="checkbox" name="AcceptanceCheckbox" value="accept">I Accept</label></td>
+    <tr/>
+    {% endif %}
 {% endfor %}
-<h2><a href="/music/NewRequest">??? ??????</a></h2>
+
+   </table><h2><a href="/music/NewRequest">New request</a></h2>
 {% endblock %}
