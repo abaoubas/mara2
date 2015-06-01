@@ -5,6 +5,7 @@ from musicApp.forms import CreateRequestForm
 from datetime import date
 from django import forms
 from django import template
+from django.contrib.auth.decorators import login_required
 import urllib2, base64, json
 
 def index(request):
@@ -107,3 +108,17 @@ def User_Home_Page(request):
    context = { 'results':results, }
    return render(request, 'musicApp/User_Home_Page.html', context)
 
+@login_required
+def AcceptPrice(request, request_id):
+        useraccept = soap_client_UserServices.factory.create('userAcceptanceArgs')
+
+        useraccept.user_id = request.user.username
+        useraccept.request_id = request_id
+        useraccept.accept = 30
+        result = soap_client_UserServices.service.newRequest(useraccept)
+        if result:
+           return HttpResponse("Request Created")
+        else:
+           return HttpResponse("Request Not Created")
+
+        return HttpResponseRedirect('music/User_Home_Page/')
