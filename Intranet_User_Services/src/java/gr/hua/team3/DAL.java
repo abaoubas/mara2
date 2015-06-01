@@ -53,6 +53,7 @@ public class DAL {
         r.setTitle(rs.getString("title"));
         r.setCreation_date(rs.getDate("creation_date"));
         r.setAlbum(rs.getString("album"));
+        r.setSinger_name(rs.getString("singer_name"));
         r.setCreator_name(rs.getString("creator_name"));
         r.setFile_type(rs.getInt("fk_file_type_id"));
         r.setFoto_location(rs.getString("foto_location"));
