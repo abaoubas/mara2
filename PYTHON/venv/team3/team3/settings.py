@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'musicApp',
     'employees',
     'bootstrapform',
+    #'internetuser',
 
 )
 

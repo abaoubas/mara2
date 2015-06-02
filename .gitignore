@@ -143,3 +143,4 @@ nb-configuration.xml
 .nb-gradle/
 *.pyc
 PYTHON/venv/.idea/workspace.xml
+*.pyc

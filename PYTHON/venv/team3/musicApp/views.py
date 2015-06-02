@@ -103,10 +103,14 @@ def NewRequest(request):
    return render(request, 'musicApp/Request_form.html', {'form': form,})
 
 
+@login_required
 def User_Home_Page(request):
-   results = soap_client_UserServices.service.GetUserRequests(request.user.username)
-   context = { 'results':results, }
-   return render(request, 'musicApp/User_Home_Page.html', context)
+    #print soap_client_UserServices
+    user_id_Request = soap_client_UserServices.factory.create('userIdRequest')
+    user_id_Request.user_id = 1; # TODO: fix that
+    results = soap_client_UserServices.service.GetUserRequests(user_id_Request)
+    context = { 'results':results, }
+    return render(request, 'musicApp/User_Home_Page.html', context)
 
 @login_required
 def AcceptPrice(request, request_id):
@@ -116,12 +120,13 @@ def AcceptPrice(request, request_id):
         useraccept.request_id = request_id
         useraccept.accept = 30
         result = soap_client_UserServices.service.newRequest(useraccept)
-        if result:
-            HttpResponse("Request Created")
-        else:
-            HttpResponse("Request Not Created")
 
-        return HttpResponseRedirect('/music/User_Home_Page/')
+        if result:
+            return HttpResponseRedirect('/music/User_Home_Page/')
+        else:
+            return HttpResponse("Request Not Created")
+
+
 
 
 def Manager_Home_Page(request):
