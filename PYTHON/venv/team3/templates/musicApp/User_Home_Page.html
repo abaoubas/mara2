@@ -27,12 +27,13 @@
         <th class="active">Creation Date</th>
 
         <th class="active">Final Cost</th>
-
+        <th class="active">Accept Price</th>
+        </tr>
 
         {% for result in results %}
 
-        {% if result.status != 0 %}
-    </tr>
+        {% if result.status != 25  %}
+
     <tr class="active">
 
         <td class="active"> {{result.request_id}}</td>
@@ -55,10 +56,11 @@
 
         <td class="active"> {{result.finalCost}}</td>
 
+        <td class="active"></td>
+
     <tr/>
     {% else %}
-    <th class="active">Accept Price</th>
-    </tr>
+
     <tr class="active">
 
         <td class="active"> {{result.request_id}}</td>
@@ -84,15 +86,6 @@
         <td class="active"><a href="Accept/{{result.request_id}}"> click to accept </a></td>
     <tr/>
 
-    <tr>
-        <th>
-            <div class="form-group">
-                <div class="col-sm-10 col-sm-offset-2">
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </div>
-            </div>
-        </th>
-    </tr>
     {% endif %}
     {% endfor %}
 

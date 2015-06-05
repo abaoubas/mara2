@@ -124,7 +124,7 @@ def AcceptPrice(request, request_id):
         if result:
             return HttpResponseRedirect('/music/User_Home_Page/')
         else:
-            return HttpResponse("Request Not Created")
+            return HttpResponse("The acceptance request didn't commit")
 
 
 
