@@ -21,6 +21,7 @@ urlpatterns = patterns('',
         url(r'^User_Home_Page', views.User_Home_Page,),
         url(r'^Accept/(?P<request_id>[0-9]+)', views.AcceptPrice,),
         url(r'^Manager_Home_Page', views.Manager_Home_Page,),
+        url(r'^Mng_approve/(?P<requestId>[0-9]+)', views.Manager_approvement,),
 
     )
 

@@ -26,8 +26,8 @@ public class SalesManagerServices {
      * Web service operation
      */
     @WebMethod(operationName = "SalesManagerSetReviewRequest")
-    public Boolean SalesManagerSetReviewRequest(@WebParam(name = "request_id") Integer request_id, @WebParam(name = "discount") Float discount) {
-        return dal.SalesManagerSetReviewRequest(request_id, discount);
+    public Boolean SalesManagerSetReviewRequest(@WebParam(name = "request_id") Request request_ap) {
+        return dal.insertMngApproval(request_ap);
     }
 
     /**
@@ -49,4 +49,23 @@ public class SalesManagerServices {
         
         return listReq;
     }
+
+
+    @WebMethod(operationName = "SalesManagerGetRequest")
+    public List<Request> SalesManagerGetRequest(@WebParam(name = "request_id") Integer request_id) {  
+        
+        ArrayList<Request> listReq=new ArrayList<Request>();
+        listReq=dal.SelectRequests();
+        
+        for(int k=listReq.size()-1;k>=0;k--)
+        {
+            if (listReq.get(k).getRequest_id()!=request_id )
+            {
+                listReq.remove(k);
+            }
+        }
+        
+        return listReq;
+    }
 }
+

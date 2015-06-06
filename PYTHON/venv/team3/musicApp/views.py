@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from suds.client import Client
-from musicApp.forms import CreateRequestForm
+from musicApp.forms import CreateRequestForm, ManagerRequestForm
 from datetime import date
 from django import forms
 from django import template
@@ -133,3 +133,68 @@ def Manager_Home_Page(request):
     results = soap_client_salesManagerServices.service.SalesManagerGetReviewRequest()
     context = { 'results':results, }
     return render(request, 'musicApp/Manager_Home_Page.html', context)
+
+
+def Manager_approvement(request,requestId):
+   if request.method == 'GET':
+        results = soap_client_salesManagerServices.service.SalesManagerGetRequest(requestId)
+        for result in results:
+            form = ManagerRequestForm(
+                initial={'request_id': result.request_id,
+
+                        'fk_user_id': result.fk_user_id,
+
+                        'fk_emp_no':result.fk_emp_no,
+
+                        'dateInserted':result.dateInserted,
+
+                        'dateModified':result.dateModified,
+
+                        'totalCost':result.totalCost,
+
+                        'discount':result.discount,
+
+                        'finalCost':result.finalCost,
+
+                        'status':result.status,
+
+                        'title':result.title,
+
+                        'album':result.album,
+
+                        'creator_name':result.creator_name,
+
+                        'singer_name':result.singer_name,
+
+                        'fk_file_type_id':result.fk_file_type_id,
+
+                        'fk_genre_id':result.fk_genre_id,
+
+                        'creation_date':result.strcreation_date
+
+                         }
+            )
+        return render(request, 'musicApp/Mng_req_approval.html', {'form': form,})
+   else:
+        form = ManagerRequestForm(request.POST)
+        if form.is_valid():
+            requeststaff = soap_client_salesManagerServices.factory.create('request')
+            requeststaff.request_id = form.cleaned_data['request_id']
+            requeststaff.fk_user_id = form.cleaned_data['fk_user_id']
+            requeststaff.fk_emp_no = form.cleaned_data['fk_emp_no']
+            requeststaff.strdateInserted = form.cleaned_data['dateInserted']
+            requeststaff.strdateModified = form.cleaned_data['dateModified']
+            requeststaff.totalCost = form.cleaned_data['totalCost']
+            requeststaff.discount = form.cleaned_data['discount']
+            requeststaff.finalCost = form.cleaned_data['finalCost']
+            requeststaff.status = 21
+            requeststaff.title = form.cleaned_data['title']
+            requeststaff.album = form.cleaned_data['album']
+            requeststaff.creator_name = form.cleaned_data['creator_name']
+            requeststaff.singer_name = form.cleaned_data['singer_name']
+            requeststaff.fk_file_type_id = form.cleaned_data['fk_file_type_id']
+            requeststaff.fk_genre_id = form.cleaned_data['fk_genre_id']
+            requeststaff.strcreation_date = form.cleaned_data['strcreation_date']
+            result = soap_client_salesManagerServices.service.SalesManagerSetReviewRequest(requeststaff)
+            return HttpResponseRedirect('/music/Manager_Home_Page/')
+

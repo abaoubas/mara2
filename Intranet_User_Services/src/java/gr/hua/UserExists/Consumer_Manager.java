@@ -59,6 +59,8 @@ public class Consumer_Manager {
         
         return false;
     }
+    
+    
  
     public boolean acceptRequest(UserAcceptanceArgs user_acc_args){
         

@@ -49,7 +49,7 @@ public class DAL_Requests {
                 r.setTitle(rs.getString("title"));
                 r.setAlbum(rs.getString("album"));
                 r.setCreator_name(rs.getString("creator_name")); 
-                r.setSinger_name("singer_name");
+                r.setSinger_name(rs.getString("singer_name"));
                 r.setFk_file_type_id(rs.getInt("fk_file_type_id"));
                 r.setFk_genre_id(rs.getInt("fk_genre_id"));
                 r.setCreation_date(rs.getDate("creation_date"));
@@ -108,23 +108,31 @@ public class DAL_Requests {
         
     }
     
-    public boolean SalesManagerSetReviewRequest(int req_id,float disc) 
-    {
-         try {
-            PreparedStatement ps = connection.prepareStatement("UPDATE Request set discount = ? WHERE  request_id = ?");  
+    public boolean insertMngApproval(Request req){
+        try {
+                    
+            /*private int request_id,fk_user_id,title,album,creator_name,singer_name,fk_genre_id,fk_file_type_id,creation_date;
+            */
+        
+            String insertEmployee = "UPDATE Request SET discount=?, status=?  WHERE request_id=?;";
             
-            ps.setFloat(1, disc);
-            ps.setInt(2, req_id);
+            PreparedStatement preparedStatement = connection.prepareStatement(insertEmployee);
+            //preparedStatement.setInt(1, req.getRequest_id());
             
-            ps.executeUpdate();
-                        
+            preparedStatement.setFloat(1, req.getDiscount());
+            preparedStatement.setInt(2, req.getStatus());
+            preparedStatement.setInt(3, req.getRequest_id());
+            
+            // execute insert SQL stetement
+            preparedStatement .executeUpdate();
+ 
             return true;
             
-        } catch (Exception ex) {
-            PrintError(ex);
-        }
-        return false;
+        }catch(Exception ex) {
+            System.out.println("Error in check() -->" + ex.getMessage());
+        } 
         
+        return false;
     }
     
     
