@@ -37,4 +37,4 @@ class ManagerRequestForm(forms.Form):
     singer_name = forms.CharField(label='Singer Name',required = True, widget=forms.TextInput(attrs={'readonly':'readonly'}))
     fk_file_type_id = forms.IntegerField(label='File Type',required = True, widget=forms.TextInput(attrs={'readonly':'readonly'}))
     fk_genre_id = forms.IntegerField(label='Genre',required = True, widget=forms.TextInput(attrs={'readonly':'readonly'}))
-    strcreation_date = forms.CharField(label='Creation Date',required = True)
+    creation_date = forms.CharField(label='Creation Date', widget=forms.TextInput(attrs={'readonly':'readonly'}))

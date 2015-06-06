@@ -170,7 +170,7 @@ def Manager_approvement(request,requestId):
 
                         'fk_genre_id':result.fk_genre_id,
 
-                        'creation_date':result.strcreation_date
+                        'creation_date':result.creation_date
 
                          }
             )

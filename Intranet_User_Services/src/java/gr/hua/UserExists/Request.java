@@ -9,8 +9,6 @@ public class Request {
     private int request_id;
     private int fk_user_id;
     private int fk_emp_no;
-    private String strdateInserted;
-    private String strdateModified;
     private Date dateInserted;
     private Date dateModified;
     private float totalCost;
@@ -23,36 +21,8 @@ public class Request {
     private String singer_name;
     private int fk_genre_id;
     private int fk_file_type_id;
-    private String strcreation_date;
     private Date creation_date;
-    
-    public String getStrcreation_date() {
-        return strcreation_date;
-    }
 
-    public void setStrcreation_date(String strcreation_date) {
-        this.strcreation_date = strcreation_date;
-    }
-    
-
-    public String getStrdateInserted() {
-        return strdateInserted;
-    }
-
-    public void setStrdateInserted(String strdateInserted) {
-        this.strdateInserted = strdateInserted;
-    }
-
-    public String getStrdateModified() {
-        return strdateModified;
-    }
-
-    public void setStrdateModified(String strdateModified) {
-        this.strdateModified = strdateModified;
-    }
-    
-    
-    
     public int getRequest_id() {
         return request_id;
     }
