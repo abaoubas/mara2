@@ -125,6 +125,13 @@ def GetAcceptedRequest(request):
 
 @login_required(login_url='/emp/login/')
 @user_passes_test(isSalesRep, login_url='/emp/login/')
+def SetRequestPrices(request, totalCost, discount, request_id, status ):
+    results = soap_client_salesEmployeeServices.service.SetRequestPrices(totalCost, discount, request_id, status)
+    context = {'results': results, }
+    return render(request, 'musicApp/reject_request_success.html', context)
+
+@login_required(login_url='/emp/login/')
+@user_passes_test(isSalesRep, login_url='/emp/login/')
 def GetUserHistory(request, userId):
 
     results =  soap_client_salesEmployeeServices.service.GetUserHistory(userId)

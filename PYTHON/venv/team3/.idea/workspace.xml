@@ -24,8 +24,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/musicApp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.43171296">
-              <caret line="145" column="67" selection-start-line="145" selection-start-column="67" selection-end-line="145" selection-end-column="67" />
+            <state vertical-scroll-proportion="0.3136574">
+              <caret line="130" column="59" selection-start-line="130" selection-start-column="59" selection-end-line="130" selection-end-column="59" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -56,8 +56,8 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/musicApp/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.8703704">
-              <caret line="26" column="88" selection-start-line="26" selection-start-column="88" selection-end-line="26" selection-end-column="88" />
+            <state vertical-scroll-proportion="-8.185185">
+              <caret line="27" column="107" selection-start-line="27" selection-start-column="107" selection-end-line="27" selection-end-column="107" />
               <folding />
             </state>
           </provider>
@@ -82,8 +82,8 @@
         <option value="$PROJECT_DIR$/templates/musicApp/accepted_requests.html" />
         <option value="$PROJECT_DIR$/templates/musicApp/getUserHistory.html" />
         <option value="$PROJECT_DIR$/templates/musicApp/reject_request_success.html" />
-        <option value="$PROJECT_DIR$/musicApp/views.py" />
         <option value="$PROJECT_DIR$/musicApp/urls.py" />
+        <option value="$PROJECT_DIR$/musicApp/views.py" />
       </list>
     </option>
   </component>
@@ -496,16 +496,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/musicApp/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.8703704">
-          <caret line="26" column="88" selection-start-line="26" selection-start-column="88" selection-end-line="26" selection-end-column="88" />
+        <state vertical-scroll-proportion="-8.185185">
+          <caret line="27" column="107" selection-start-line="27" selection-start-column="107" selection-end-line="27" selection-end-column="107" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/musicApp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43171296">
-          <caret line="145" column="67" selection-start-line="145" selection-start-column="67" selection-end-line="145" selection-end-column="67" />
+        <state vertical-scroll-proportion="0.3136574">
+          <caret line="130" column="59" selection-start-line="130" selection-start-column="59" selection-end-line="130" selection-end-column="59" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
