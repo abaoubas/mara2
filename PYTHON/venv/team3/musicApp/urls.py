@@ -23,6 +23,7 @@ urlpatterns = patterns('',
         url(r'^Manager_Home_Page', views.Manager_Home_Page,),
         url(r'^Mng_approve/(?P<requestId>[0-9]+)', views.Manager_approvement,),
         url(r'^GetUserHistory/(?P<userId>[0-9]+)', views.GetUserHistory,),
-
+        url(r'^RejectRequest/(?P<request_id>[0-9]+)/(?P<emp_no>[0-9]+)', views.RejectRequest,),
+        url(r'^PaidRequest/(?P<request_id>[0-9]+)/(?P<emp_no>[0-9]+)', views.PaidRequest,),
     )
 

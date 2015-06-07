@@ -102,34 +102,50 @@ def SalesManagerGetReviewRequest(request):
 
 soap_client_salesEmployeeServices = Client('http://localhost:8080/Intranet_User_Services/SalesEmployeeServices?WSDL')
 
-
+@login_required(login_url='/emp/login/')
+@user_passes_test(isSalesRep, login_url='/emp/login/')
 def GetNewRequests(request):
     results = soap_client_salesEmployeeServices.service.GetNewRequests()
     context = {'results': results, }
     return render(request, 'musicApp/new_requests.html', context)
 
-
+@login_required(login_url='/emp/login/')
+@user_passes_test(isSalesRep, login_url='/emp/login/')
 def SalesGetReviewRequest(request):
     results = soap_client_salesEmployeeServices.service.salesGetReviewRequest()
     context = {'results': results, }
     return render(request, 'musicApp/requests_for_approval.html', context)
 
-
+@login_required(login_url='/emp/login/')
+@user_passes_test(isSalesRep, login_url='/emp/login/')
 def GetAcceptedRequest(request):
     results = soap_client_salesEmployeeServices.service.GetAcceptedRequest()
     context = {'results': results, }
     return render(request, 'musicApp/requests_for_payment.html', context)
 
-@login_required(login_url='/u/login/')
-@user_passes_test(isCustomer, login_url='/u/login/')
+@login_required(login_url='/emp/login/')
+@user_passes_test(isSalesRep, login_url='/emp/login/')
 def GetUserHistory(request, userId):
-    userId = 1;
-    results =  soap_client_salesEmployeeServices.service.GetUserHistory(userId)
 
+    results =  soap_client_salesEmployeeServices.service.GetUserHistory(userId)
     context = {'results': results, }
     return render(request, 'musicApp/getUserHistory.html', context)
 
+@login_required(login_url='/emp/login/')
+@user_passes_test(isSalesRep, login_url='/emp/login/')
+def RejectRequest(request,request_id,emp_no):
 
+    results = soap_client_salesEmployeeServices.service.RejectRequest(request_id, emp_no)
+    context = {'results': results, }
+    return render(request, 'musicApp/reject_request_success.html', context)
+
+@login_required(login_url='/emp/login/')
+@user_passes_test(isSalesRep, login_url='/emp/login/')
+def PaidRequest(request,request_id,emp_no):
+
+    results = soap_client_salesEmployeeServices.service.PaidRequest(request_id, emp_no)
+    context = {'results': results, }
+    return render(request, 'musicApp/reject_request_success.html', context)
 
 soap_client_UserServices = Client('http://localhost:8080/Intranet_User_Services/SalesRequests?WSDL')
 
