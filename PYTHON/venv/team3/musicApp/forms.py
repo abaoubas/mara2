@@ -3,7 +3,6 @@ from django import forms
 
 
 class CreateRequestForm(forms.Form):
-    request_id = forms.IntegerField(label='request_id',required = True, widget=forms.TextInput(attrs={'readonly':'readonly'}))
     fk_user_id = forms.IntegerField(label='User',required = True)
     #fk_emp_no = forms.IntegerField(label='fk_emp_no', max_length=100,required = True)
     #dateInserted = forms.DateField(label='dateInserted',widget=forms.HiddenInput(),)

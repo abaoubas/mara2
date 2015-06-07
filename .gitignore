@@ -144,3 +144,5 @@ nb-configuration.xml
 *.pyc
 PYTHON/venv/.idea/workspace.xml
 *.pyc
+/JavaApplication2/nbproject/private/
+/Internet_User_Services/nbproject/private/

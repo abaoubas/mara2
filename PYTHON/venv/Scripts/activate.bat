@@ -1,5 +1,5 @@
 @echo off
-set "VIRTUAL_ENV=F:\Projects\GitHub\mara2\PYTHON\venv"
+set "VIRTUAL_ENV=C:\Users\palia_000\Documents\GitHub\mara2\PYTHON\venv"
 
 if defined _OLD_VIRTUAL_PROMPT (
     set "PROMPT=%_OLD_VIRTUAL_PROMPT%"
