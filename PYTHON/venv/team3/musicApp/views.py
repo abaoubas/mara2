@@ -5,7 +5,7 @@ import json
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from suds.client import Client
-from musicApp.forms import CreateRequestForm, ManagerRequestForm
+from forms import CreateRequestForm, ManagerRequestForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 
