@@ -7,7 +7,7 @@
 <p class="error">Sorry, that's not a valid username or password</p>
 {% endif %}
 
-<form role="form" action="/emp/auth/" method="post">{% csrf_token %}
+<form role="form" action="/{{user_root}}/auth/" method="post">{% csrf_token %}
     <div class="form-group">
         <label for="username">User name:</label>
         <input class="form-control" type="text" name="username" value="" id="username">

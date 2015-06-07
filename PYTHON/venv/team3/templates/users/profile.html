@@ -9,7 +9,7 @@
 
   {% endfor %}
   
-  <form action="/accounts/profile/" method="post">{% csrf_token %}
+  <form action="/{{user_root}}/profile/" method="post">{% csrf_token %}
   {{form.as_ul}}
   
   <input type="submit" value="Update" />

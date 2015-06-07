@@ -8,14 +8,21 @@ from django.core.context_processors import csrf
 from django.contrib.auth.forms import UserCreationForm
 import urllib2, base64, json
 from forms import MyRegistrationForm
-from forms import UserProfileForm
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
+from django.utils.dateformat import DateFormat
+from datetime import datetime
+
+
+
+user_root = 'emp'
+
 
 def login(request):
-    c = {}
+    c = {'user_root': user_root}
     c.update(csrf(request))
-    return render(request,'users/login.html', c)
+    return render(request, 'users/login.html', c)
+
 
 def auth_view(request):
     username = request.POST.get('username', '')
@@ -24,75 +31,79 @@ def auth_view(request):
 
     if user is not None:
         auth.login(request, user)
-        return HttpResponseRedirect('/emp/loggedin')
+        return HttpResponseRedirect('/' + user_root + '/loggedin')
     else:
-        return HttpResponseRedirect('/emp/invalid')
+        return HttpResponseRedirect('/' + user_root + '/invalid')
 
 
 def loggedin(request):
     return render(request,
                   'users/loggedin.html',
-                  {'full_name': request.user.username, 'auth': request.user.is_authenticated})
+                  {'full_name': request.user.username, 'auth': request.user.is_authenticated, 'user_root': user_root})
 
 
 def invalid_login(request):
-    return render(request,'users/invalid_login.html')
+    return render(request, 'users/invalid_login.html', {'user_root': user_root})
 
 
 def logout(request):
     auth.logout(request)
-    return render(request,'users/logout.html')
+    return render(request, 'users/logout.html', {'user_root': user_root})
 
 
 def register_user(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = MyRegistrationForm(request.POST)
         if form.is_valid():
             if not (userExists(form.cleaned_data['username'])):
                 # if the user does not exist
-                return HttpResponseRedirect('/emp/register_failed')
+                return HttpResponseRedirect('/' + user_root + '/employ_not_found')
 
             # else save him
-            java_result = java_insertEmp(form.cleaned_data['username'])
+            java_result = java_insertEmp(form)
 
-            if(java_result != None) :
+            if (java_result != None):
                 form.save()
-                return HttpResponseRedirect('/emp/register_success')
-            return HttpResponseRedirect('/emp/register_failed')
+                return HttpResponseRedirect('/' + user_root + '/register_success')
+            return HttpResponseRedirect('/' + user_root + '/register_failed')
     else:
-        form = UserCreationForm()
+        form = MyRegistrationForm()
     args = {}
     args.update(csrf(request))
 
     args['form'] = form
+    args['user_root'] = user_root
 
-    return render(request,'users/register.html', args)
-
-
+    return render(request, 'users/register.html', args)
 
 
 base_service_url = 'http://localhost:8080/Intranet_User_Services/'
 
 javaClient_EmployeeServices = Client(base_service_url + 'EmployeeServices?WSDL')
-def java_insertEmp(username):
-    print javaClient_EmployeeServices
+
+
+def java_insertEmp(form):
     temp = javaClient_EmployeeServices.factory.create('employee')
-    temp.username = username
-    temp.password = 'pass'
-    temp.first_name = 'first'
-    temp.last_name = 'last_name'
-    temp.strBirthdate = '2015-01-01'
-    temp.gender = 'male'
+    temp.username = form.cleaned_data['username']
+    temp.password = form.cleaned_data['password1']
+    temp.first_name = form.cleaned_data['first_name']
+    temp.last_name = form.cleaned_data['last_name']
+    temp.strBirthdate = DateFormat(datetime.combine(form.cleaned_data['strBirthdate'], datetime.min.time())).format(
+        'Y-m-d')
+    temp.gender = form.cleaned_data['gender']
     return javaClient_EmployeeServices.service.insertEmp(temp)
 
 
-
 def register_success(request):
-    return render(request,'users/register_success.html')
+    return render(request, 'users/register_success.html', {'user_root': user_root})
 
 
 def register_failed(request):
-    return render(request,'users/register_failed.html')
+    return render(request, 'users/register_failed.html', {'user_root': user_root})
+
+def employ_not_found(request):
+    return render(request, 'users/employ_not_found.html', {'user_root': user_root})
+
 
 def userExists(emp_no):
     # Get the data from the endpoint
@@ -105,24 +116,3 @@ def userExists(emp_no):
     data = json.load(result)
     # check in the list it there is any dictionary with the appropriate username
     return next((x for x in data if x['emp_no'] == emp_no), None) is not None
-
-
-
-@login_required
-def user_profile(request):
-    if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=request.user.profile)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/emp/loggedin')
-    else:
-        user = request.user
-      #  profile = user.profile
-     #   form = UserProfileForm(instance=profile)
-
-    args = {}
-    args.update(csrf(request))
-
-    args['form'] = form
-
-    return render(request,'emp/profile.html', args)

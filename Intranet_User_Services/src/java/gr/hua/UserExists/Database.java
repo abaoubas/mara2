@@ -18,7 +18,7 @@ public class Database {
           try  {
               Class.forName("com.mysql.jdbc.Driver");
               Connection con = DriverManager.getConnection
-                      ("jdbc:mysql://62.217.125.30:3306/itp14116",
+                      ("jdbc:mysql://62.217.125.30:3306/itp14116?useUnicode=true&characterEncoding=utf-8",
                       "itp14116","changeit");
               return con;
           }

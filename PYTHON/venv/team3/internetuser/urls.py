@@ -11,7 +11,6 @@ urlpatterns = patterns('',
     (r'^register/$', views.register_user),
     (r'^register_success/$', views.register_success),
     (r'^register_failed/$', views.register_failed),
-    (r'^user_profile/$', views.user_profile),
 
 
 

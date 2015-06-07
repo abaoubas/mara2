@@ -21,7 +21,7 @@ public class Users_Manager {
   
     
     
-    public Users_Manager() {
+    public Users_Manager() throws Exception {
         connection = Database.getConnection();
     }
  
@@ -45,17 +45,18 @@ public class Users_Manager {
     public Integer insertUser(Users user) {
         
         try {
-            PreparedStatement ps1 = connection.prepareStatement("INSERT INTO InternetUsers\n" +
-"VALUES (\'?\',\'?\',\'?\',\'?\',\'?\',\'?\',\'?\',\'?\',\'?\');");
+            PreparedStatement ps1 = connection.prepareStatement("INSERT INTO InternetUsers "
+                    + "(first_name, last_name, username, password, birth_date, gender, email, IBAN) " +
+"VALUES (?,?,?,?,?,?,?,?);");
             ps1.setString(1, user.getFirst_name());
             ps1.setString(2, user.getLast_name());
             ps1.setString(3, user.getUsername());
             ps1.setString(4, user.getPassword());
-            ps1.setString(5, user.getBirthdate().toString());
+            ps1.setDate(5, user.getBirthdate());
             ps1.setString(6, user.getGender());
             ps1.setString(7, user.getEmail());
             ps1.setString(8, user.getIBAN());
-            ps1.executeQuery();
+            ps1.executeUpdate();
             PreparedStatement ps2 = connection.prepareStatement("select pk_user_id from InternetUsers where username = ?");
             ps2.setString(1, user.getUsername());
             ResultSet rs = ps2.executeQuery();

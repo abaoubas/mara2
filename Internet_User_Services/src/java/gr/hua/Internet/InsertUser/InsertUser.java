@@ -35,26 +35,11 @@ public class InsertUser {
      * Web service operation
      */
     @WebMethod(operationName = "InsertUser")
-    public Integer InsertUser(@WebParam(name = "firstname") String firstname, @WebParam(name = "lastname") String lastname, @WebParam(name = "username") String username, @WebParam(name = "password") String password, @WebParam(name = "birthdate") String birthdate, @WebParam(name = "gender") String gender, @WebParam(name = "email") String email, @WebParam(name = "IBAN") String IBAN) throws ParseException {
-        //TODO write your implementation code here:
-        Users user = new Users();
-        Users_Manager um= new Users_Manager();
-        
-        user.setUsername(username);
-        user.setFirst_name(firstname);
-        user.setLast_name(lastname);
-        user.setPassword(password);
-        
-        DateFormat format = new SimpleDateFormat("YYYY-MM-DD", Locale.ENGLISH);
-        Date date = format.parse(birthdate);
-        user.setBirthdate(date);
-        
-        user.setGender(gender);
-        user.setEmail(email);
-        user.setIBAN(IBAN);
-        
+    public Integer InsertUser(@WebParam(name = "user")Users user) throws ParseException, Exception {
+
+        Users_Manager um = new Users_Manager();
         return um.insertUser(user);
-        
+
     }
 
 }

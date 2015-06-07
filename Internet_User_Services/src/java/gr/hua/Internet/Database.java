@@ -14,17 +14,17 @@ import java.sql.DriverManager;
  */
 public class Database {
    
-     public static Connection getConnection() {
+     public static Connection getConnection() throws Exception {
           try  {
               Class.forName("com.mysql.jdbc.Driver");
               Connection con = DriverManager.getConnection
-                      ("jdbc:mysql://62.217.125.30:3306/itp14116",
-                      "itp14116","changeit");
+                      ("jdbc:mysql://62.217.125.30:3306/itp14114?useUnicode=true&characterEncoding=utf-8",
+                      "itp14114","changeit");
               return con;
           }
           catch(Exception ex) {
               System.out.println("Database.getConnection() Error -->" + ex.getMessage());
-              return null;
+              throw ex;
           }
       }
  

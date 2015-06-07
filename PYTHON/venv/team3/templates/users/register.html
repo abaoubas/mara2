@@ -4,7 +4,7 @@
 {% block content %}
 
 
-<form role="form" action="/emp/register/" method="post" class="form-horizontal">
+<form role="form" action="/{{user_root}}/register/" method="post" class="form-horizontal">
     <legend>Register</legend>
     {% csrf_token %}
     {{ form|bootstrap_horizontal }}
