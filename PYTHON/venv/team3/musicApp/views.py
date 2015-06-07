@@ -120,6 +120,19 @@ def GetAcceptedRequest(request):
     context = {'results': results, }
     return render(request, 'musicApp/requests_for_payment.html', context)
 
+def GetAcceptedRequest(request):
+    results = soap_client_salesEmployeeServices.service.GetAcceptedRequest()
+    context = {'results': results, }
+    return render(request, 'musicApp/accepted_requests.html', context)
+
+def GetUserHistory(request, userId):
+    userId = 1;
+    results =  soap_client_salesEmployeeServices.service.GetUserHistory(userId)
+
+    context = {'results': results, }
+    return render(request, 'musicApp/getUserHistory.html', context)
+
+
 
 soap_client_UserServices = Client('http://localhost:8080/Intranet_User_Services/SalesRequests?WSDL')
 
