@@ -30,7 +30,7 @@ public class GetUser {
      * Web service operation
      */
     @WebMethod(operationName = "getUser")
-    public Integer getUser(@WebParam(name = "username") String username) throws Exception {
+    public Users getUser(@WebParam(name = "username") String username) throws Exception {
         
         Users user = new Users();
         Users_Manager um= new Users_Manager();

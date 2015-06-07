@@ -124,6 +124,8 @@ def GetAcceptedRequest(request):
 soap_client_UserServices = Client('http://localhost:8080/Intranet_User_Services/SalesRequests?WSDL')
 
 
+@login_required(login_url='/u/login/')
+@user_passes_test(isCustomer, login_url='/u/login/')
 def NewRequest(request):
     if request.method == 'GET':
         form = CreateRequestForm()
@@ -131,7 +133,7 @@ def NewRequest(request):
         requeststaff = soap_client_UserServices.factory.create('initialRequests')
         form = CreateRequestForm(request.POST)
         if form.is_valid():
-            requeststaff.fk_user_id = request.user.username
+            requeststaff.fk_user_id = currentCustomer(request.user).user_id
             # dateInserted = form.cleaned_data['dateInserted']
             # dateModified = form.cleaned_data['dateModified']
             requeststaff.title = form.cleaned_data['title']
@@ -154,17 +156,18 @@ def NewRequest(request):
 def User_Home_Page(request):
     # print soap_client_UserServices
     user_id_Request = soap_client_UserServices.factory.create('userIdRequest')
-    user_id_Request.user_id = currentCustomer(request.user);  # TODO: fix that
+    user_id_Request.user_id = currentCustomer(request.user).user_id;
     results = soap_client_UserServices.service.GetUserRequests(user_id_Request)
     context = {'results': results, }
     return render(request, 'musicApp/User_Home_Page.html', context)
 
 
-@login_required
+@login_required(login_url='/u/login/')
+@user_passes_test(isCustomer, login_url='/u/login/')
 def AcceptPrice(request, request_id):
     useraccept = soap_client_UserServices.factory.create('userAcceptanceArgs')
 
-    useraccept.user_id = request.user.username
+    useraccept.user_id =  currentCustomer(request.user).user_id
     useraccept.request_id = request_id
     useraccept.accept = 30
     result = soap_client_UserServices.service.newRequest(useraccept)
