@@ -182,8 +182,8 @@ def Manager_approvement(request,requestId):
             requeststaff.request_id = form.cleaned_data['request_id']
             requeststaff.fk_user_id = form.cleaned_data['fk_user_id']
             requeststaff.fk_emp_no = form.cleaned_data['fk_emp_no']
-            requeststaff.strdateInserted = form.cleaned_data['dateInserted']
-            requeststaff.strdateModified = form.cleaned_data['dateModified']
+            requeststaff.dateInserted = form.cleaned_data['dateInserted']
+            requeststaff.dateModified = form.cleaned_data['dateModified']
             requeststaff.totalCost = form.cleaned_data['totalCost']
             requeststaff.discount = form.cleaned_data['discount']
             requeststaff.finalCost = form.cleaned_data['finalCost']
@@ -194,7 +194,7 @@ def Manager_approvement(request,requestId):
             requeststaff.singer_name = form.cleaned_data['singer_name']
             requeststaff.fk_file_type_id = form.cleaned_data['fk_file_type_id']
             requeststaff.fk_genre_id = form.cleaned_data['fk_genre_id']
-            requeststaff.strcreation_date = form.cleaned_data['strcreation_date']
+            requeststaff.creation_date = form.cleaned_data['creation_date']
             result = soap_client_salesManagerServices.service.SalesManagerSetReviewRequest(requeststaff)
             return HttpResponseRedirect('/music/Manager_Home_Page/')
 

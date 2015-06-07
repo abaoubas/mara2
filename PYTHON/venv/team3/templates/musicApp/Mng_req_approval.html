@@ -4,7 +4,9 @@
 
 <h1>Request for approval </h1>
 
-<form role="form" action='/music/Mng_approve/12' method='post' class="form-horizontal">{% csrf_token %}
+
+
+<form role="form" action='/music/Mng_approve/{{form.request_id.value}}' method='post' class="form-horizontal">{% csrf_token %}
     {{ form|bootstrap_horizontal }}
 
 <div class="form-group">
