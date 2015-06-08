@@ -1,9 +1,9 @@
 package gr.hua.UserExists;
 
+import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 public class InitialRequests {
@@ -90,11 +90,12 @@ public class InitialRequests {
     public void setstrCreation_date(String strcreation_date) {
         this.strcreation_date = strcreation_date;
     }
-    static DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+    static DateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
 
     public Date getCreation_date() throws ParseException {
-
-        return df.parse(strcreation_date);
+        if (strcreation_date == null || "".equals(strcreation_date))
+            return null;
+        return new java.sql.Date(df.parse(strcreation_date).getTime());
     }
 
     public void setCreation_date(int day, int month, int year) {

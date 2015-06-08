@@ -4,90 +4,47 @@
 <h1>Home Page </h1>
 <h2>Your requests</h2>
 <form role="form" action='/music/AcceptPrice/' method='post' class="form-horizontal">{% csrf_token %}
-<table class="table table-striped">
+    <table class="table table-striped">
 
-    <tr class="active">
-
-        <th class="active">Request ID</th>
-
-        <th class="active">User ID</th>
-
-        <th class="active">Title</th>
-
-        <th class="active">Album</th>
-
-        <th class="active">Creator Name</th>
-
-        <th class="active">Singer Name</th>
-
-        <th class="active">File Type ID</th>
-
-        <th class="active">Genre ID</th>
-
-        <th class="active">Creation Date</th>
-
-        <th class="active">Final Cost</th>
-        <th class="active">Accept Price</th>
+        <tr class="active">
+            <th class="active">Request ID</th>
+            <th class="active">Title</th>
+            <th class="active">Album</th>
+            <th class="active">Creator Name</th>
+            <th class="active">Singer Name</th>
+            <th class="active">File Type ID</th>
+            <th class="active">Genre ID</th>
+            <th class="active">Creation Date</th>
+            <th class="active">Final Cost</th>
+            <th class="active">Accept Price</th>
         </tr>
 
         {% for result in results %}
+        {% if result.status != 25 %}
+        <tr class="active">
+            {% else %}
+        <tr class="active">
+            {% endif %}
 
-        {% if result.status != 25  %}
+            <td class=""> {{result.request_id}}</td>
+            <td class=""> {{result.title|default_if_none:""}}</td>
+            <td class=""> {{result.album|default_if_none:""}}</td>
+            <td class=""> {{result.creator_name|default_if_none:""}}</td>
+            <td class=""> {{result.singer_name|default_if_none:""}}</td>
+            <td class=""> {{result.fk_file_type_id|default_if_none:""}}</td>
+            <td class=""> {{result.fk_genre_id|default_if_none:""}}</td>
+            <td class=""> {{result.creation_date|default_if_none:""}}</td>
+            <td class=""> {{result.finalCost|default_if_none:""}}</td>
+            <td class="">
+                {% if result.status == 25 %}
+                click to<a href="UserAcceptance/{{result.request_id}}"> accept </a> or to <a
+                    href="UserReject/{{result.request_id}}"> reject </a>
+                {% endif %}
+            </td>
+        <tr/>
 
-    <tr class="active">
+        {% endfor %}
 
-        <td class="active"> {{result.request_id}}</td>
-
-        <td class="active"> {{result.fk_user_id}}</td>
-
-        <td class="active"> {{result.title}}</td>
-
-        <td class="active"> {{result.album}}</td>
-
-        <td class="active"> {{result.creator_name}}</td>
-
-        <td class="active"> {{result.singer_name}}</td>
-
-        <td class="active"> {{result.fk_file_type_id}}</td>
-
-        <td class="active"> {{result.fk_genre_id}}</td>
-
-        <td class="active"> {{result.creation_date}}</td>
-
-        <td class="active"> {{result.finalCost}}</td>
-
-        <td class="active"></td>
-
-    <tr/>
-    {% else %}
-
-    <tr class="active">
-
-        <td class="active"> {{result.request_id}}</td>
-
-        <td class="active"> {{result.fk_user_id}}</td>
-
-        <td class="active"> {{result.title}}</td>
-
-        <td class="active"> {{result.album}}</td>
-
-        <td class="active"> {{result.creator_name}}</td>
-
-        <td class="active"> {{result.singer_name}}</td>
-
-        <td class="active"> {{result.fk_file_type_id}}</td>
-
-        <td class="active"> {{result.fk_genre_id}}</td>
-
-        <td class="active"> {{result.creation_date}}</td>
-
-        <td class="active"> {{result.finalCost}}</td>
-
-        <td class="active"><a href="Accept/{{result.request_id}}"> click to accept </a></td>
-    <tr/>
-
-    {% endif %}
-    {% endfor %}
-
-</table><h2><a href="/music/NewRequest">New request</a></h2>
-{% endblock %}
+    </table>
+    <h2><a href="/music/NewRequest">New request</a></h2>
+    {% endblock %}

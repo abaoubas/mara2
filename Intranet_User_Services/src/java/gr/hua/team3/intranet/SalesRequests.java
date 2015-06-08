@@ -22,13 +22,6 @@ import javax.jws.WebParam;
 @WebService(serviceName = "SalesRequests")
 public class SalesRequests {
 
-    /**
-     * This is a sample web service operation
-     */
-    /*@WebMethod(operationName = "newRequest")
-    public String newRequest(@WebParam(name = "request") Request req) {
-        
-    }*/
     
     @WebMethod(operationName = "newRequest")
     public boolean newRequest(@WebParam(name = "request") InitialRequests initReqs) {
@@ -38,7 +31,7 @@ public class SalesRequests {
     }
     
     @WebMethod(operationName = "UserAcceptanceRequest")
-    public boolean UserAcceptance(@WebParam(name = "user_id") UserAcceptanceArgs user_acc_args) {
+    public boolean UserAcceptance(@WebParam(name = "user_acc_args") UserAcceptanceArgs user_acc_args) {
                 
         Consumer_Manager cm = new Consumer_Manager();
         return cm.acceptRequest(user_acc_args);
