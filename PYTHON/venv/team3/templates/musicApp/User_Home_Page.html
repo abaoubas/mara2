@@ -20,23 +20,23 @@
         </tr>
 
         {% for result in results %}
-        {% if result.status != 25 %}
+         {% if result.status == 10 or result.status == 22%}
         <tr class="active">
             {% else %}
-        <tr class="active">
+        <tr class="">
             {% endif %}
-
+{% load music_extras %}
             <td class=""> {{result.request_id}}</td>
             <td class=""> {{result.title|default_if_none:""}}</td>
             <td class=""> {{result.album|default_if_none:""}}</td>
             <td class=""> {{result.creator_name|default_if_none:""}}</td>
             <td class=""> {{result.singer_name|default_if_none:""}}</td>
-            <td class=""> {{result.fk_file_type_id|default_if_none:""}}</td>
-            <td class=""> {{result.fk_genre_id|default_if_none:""}}</td>
+            <td class=""> {{result.fk_file_type_id | lookup_filetypes}}</td>
+            <td class=""> {{result.fk_genre_id | lookup_genre}}</td>
             <td class=""> {{result.creation_date|default_if_none:""}}</td>
             <td class=""> {{result.finalCost|default_if_none:""}}</td>
             <td class="">
-                {% if result.status == 25 %}
+                {% if result.status == 10 or result.status == 22%}
                 click to<a href="UserAcceptance/{{result.request_id}}"> accept </a> or to <a
                     href="UserReject/{{result.request_id}}"> reject </a>
                 {% endif %}

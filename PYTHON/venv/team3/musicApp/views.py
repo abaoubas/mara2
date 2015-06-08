@@ -60,7 +60,6 @@ def musicServices_selectRecordings(request):
     context = {'results': results, }
     return render(request, 'musicApp/allrecordings.html', context)
 
-
 def musicServices_selectEvents(request):
     result_events = soap_client_musicServices.service.selectEvents()
     context = {'results': result_events, }
