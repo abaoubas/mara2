@@ -4,7 +4,7 @@ package gr.hua.UserExists;
 public class UserAcceptanceArgs {
     private int user_id;
     private int request_id;
-    private int accept;
+    private boolean accept;
 
     public int getUser_id() {
         return user_id;
@@ -22,11 +22,11 @@ public class UserAcceptanceArgs {
         this.request_id = request_id;
     }
 
-    public int isAccept() {
+    public boolean isAccept() {
         return accept;
     }
 
-    public void setAccept(int accept) {
+    public void setAccept(boolean accept) {
         this.accept = accept;
     }
     
