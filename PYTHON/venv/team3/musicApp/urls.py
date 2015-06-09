@@ -28,5 +28,7 @@ urlpatterns = patterns('',
         url(r'^RejectRequest/(?P<request_id>[0-9]+)/(?P<emp_no>[0-9]+)', views.RejectRequest,),
         url(r'^PaidRequest/(?P<request_id>[0-9]+)/(?P<emp_no>[0-9]+)', views.PaidRequest,),
         url(r'^SetRequestPrices/(?P<totalCost>([0-9]*\.[0-9]+|[0-9]+))/(?P<discount>([0-9]*\.[0-9]+|[0-9]+))/(?P<request_id>[0-9]+)/(?P<status>[0-9]+)', views.SetRequestPrices,),
+        url(r'^SalesGetReviewManagerApprovals', views.SalesGetReviewManagerApprovals,),
+        url(r'^Sales_approval/(?P<requestId>[0-9]+)', views.Sales_approval,),
     )
 

@@ -40,6 +40,22 @@ public class SalesEmployeeServices {
         
         return listReq;
     }
+    
+    @WebMethod(operationName = "SalesGetReviewManagerApproval")
+    public List<Request> SalesGetReviewManagerApproval() {        
+         ArrayList<Request> listReq=new ArrayList<Request>();
+        listReq=dal.SelectRequests();
+        
+        for(int k=listReq.size()-1;k>=0;k--)
+        {
+            if (listReq.get(k).getStatus()!=21)
+            {
+                listReq.remove(k);
+            }
+        }
+        
+        return listReq;
+    }
 
     /**
      * Web service operation
@@ -116,5 +132,10 @@ public class SalesEmployeeServices {
         //TODO write your implementation code here:
         
         return dal.PaidRequest(request_id,emp_no);
+    }
+    
+    @WebMethod(operationName = "SalesSetReviewRequest")
+    public Boolean SalesSetReviewRequest(@WebParam(name = "request_id") Request request_ap) {
+        return dal.insertSalesApproval(request_ap);
     }
 }
