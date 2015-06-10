@@ -93,11 +93,11 @@ public class DAL_Requests {
     public boolean RejectRequest(Integer request_id,Integer emp_no)
     {
         try {
-            PreparedStatement ps = connection.prepareStatement("UPDATE Request set status = 98 WHERE  request_id = ? AND fk_emp_no = ?");  
+            PreparedStatement ps = connection.prepareStatement("UPDATE Request SET status = 98 WHERE  request_id = ? AND fk_emp_no = ?");  
             ps.setInt(1, request_id);
-            ps.setFloat(2, emp_no);
+            ps.setInt(2, emp_no);
             
-            ps.executeUpdate();
+            ps .executeUpdate();
                         
             return true;
             
