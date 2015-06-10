@@ -41,7 +41,7 @@ public class SalesManagerServices {
         
         for(int k=listReq.size()-1;k>=0;k--)
         {
-            if (listReq.get(k).getStatus()!=20)
+            if (listReq.get(k).getStatus()!=22)
             {
                 listReq.remove(k);
             }
