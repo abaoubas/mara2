@@ -5,10 +5,10 @@ import json
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from suds.client import Client
-from forms import CreateRequestForm, ManagerRequestForm
+from forms import CreateRequestForm, ManagerRequestForm, SalesRequestForm
 from django.contrib.auth.decorators import login_required, user_passes_test
-
-
+from django import template
+register = template.Library()
 
 javaClient_GetUserServices = Client('http://localhost:8080/Internet_User_Services/GetUser?WSDL')
 javaClient_EmployeeServices = Client('http://localhost:8080/Intranet_User_Services/EmployeeServices?WSDL')
@@ -60,11 +60,11 @@ def musicServices_selectRecordings(request):
     context = {'results': results, }
     return render(request, 'musicApp/allrecordings.html', context)
 
-
 def musicServices_selectEvents(request):
-    results = soap_client_musicServices.service.selectEvents()
-    context = {'results': results, }
+    result_events = soap_client_musicServices.service.selectEvents()
+    context = {'results': result_events, }
     return render(request, 'musicApp/allevents.html', context)
+
 
 def SelectRecordingsByGenre(request,genre_id):
     results = soap_client_musicServices.service.SelectRecordingsByGenre()
@@ -76,11 +76,11 @@ def musicServices_SelectMusicInfo(request):
     context = {'results': results, }
     return render(request, 'musicApp/allmusicinfo.html', context)
 
-
 def musicServices_selectFileTypes(request):
-    results = soap_client_musicServices.service.selectFileTypes()
-    context = {'results': results, }
+    result_fileTypes = soap_client_musicServices.service.selectFileTypes()
+    context = {'results': result_fileTypes, }
     return render(request, 'musicApp/allfiletypes.html', context)
+
 
 
 def musicServices_selectGenre(request):
@@ -182,7 +182,7 @@ def NewRequest(request):
             requeststaff.strCreation_date = form.cleaned_data['strcreation_date']
             result = soap_client_UserServices.service.newRequest(requeststaff)
             if result:
-                return HttpResponse("Request Created")
+                return HttpResponseRedirect('/music/User_Home_Page')
             else:
                 return HttpResponse("Request Not Created")
     return render(request, 'musicApp/Request_form.html', {'form': form, })
@@ -201,26 +201,35 @@ def User_Home_Page(request):
 
 @login_required(login_url='/u/login/')
 @user_passes_test(isCustomer, login_url='/u/login/')
-def AcceptPrice(request, request_id):
-    useraccept = soap_client_UserServices.factory.create('userAcceptanceArgs')
+def UserAcceptance(request, request_id):
+    UserAcceptanceRequest(request, request_id, True)
 
-    useraccept.user_id =  currentCustomer(request.user).user_id
-    useraccept.request_id = request_id
-    useraccept.accept = 30
-    result = soap_client_UserServices.service.newRequest(useraccept)
 
+def UserReject(request, request_id):
+    UserAcceptanceRequest(request, request_id, False)
+
+
+def UserAcceptanceRequest(request, request_id, action):
+    userAcceptanceArgs = soap_client_UserServices.factory.create('userAcceptanceArgs')
+    userAcceptanceArgs.user_id =  currentCustomer(request.user).user_id
+    userAcceptanceArgs.request_id = request_id
+    userAcceptanceArgs.accept = action
+    result = soap_client_UserServices.service.UserAcceptanceRequest(userAcceptanceArgs)
     if result:
         return HttpResponseRedirect('/music/User_Home_Page/')
     else:
         return HttpResponse("The acceptance request didn't commit")
 
 
+@login_required(login_url='/emp/login/')
+@user_passes_test(isSalesManager, login_url='/emp/login/')
 def Manager_Home_Page(request):
     results = soap_client_salesManagerServices.service.SalesManagerGetReviewRequest()
     context = {'results': results, }
     return render(request, 'musicApp/Manager_Home_Page.html', context)
 
-
+@login_required(login_url='/emp/login/')
+@user_passes_test(isSalesManager, login_url='/emp/login/')
 def Manager_approvement(request, requestId):
     if request.method == 'GET':
         results = soap_client_salesManagerServices.service.SalesManagerGetRequest(requestId)
@@ -283,3 +292,77 @@ def Manager_approvement(request, requestId):
             requeststaff.creation_date = form.cleaned_data['creation_date']
             result = soap_client_salesManagerServices.service.SalesManagerSetReviewRequest(requeststaff)
             return HttpResponseRedirect('/music/Manager_Home_Page/')
+
+
+@login_required(login_url='/emp/login/')
+@user_passes_test(isSalesRep, login_url='/emp/login/')
+def SalesGetReviewManagerApprovals(request):
+    results = soap_client_salesEmployeeServices.service.SalesGetReviewManagerApproval()
+    context = {'results': results, }
+    return render(request, 'musicApp/SalesReviewManagerApproval.html', context)
+
+#@login_required(login_url='/emp/login/')
+#@user_passes_test(isSalesRep, login_url='/emp/login/')
+def Sales_approval(request, requestId):
+    if request.method == 'GET':
+        results = soap_client_salesManagerServices.service.SalesManagerGetRequest(requestId)
+        for result in results:
+            form = SalesRequestForm(
+                initial={'request_id': result.request_id,
+
+                         'fk_user_id': result.fk_user_id,
+
+                         'fk_emp_no': result.fk_emp_no,
+
+                         'dateInserted': result.dateInserted,
+
+                         'dateModified': result.dateModified,
+
+                         'totalCost': result.totalCost,
+
+                         'discount': result.discount,
+
+                         'finalCost': result.finalCost,
+
+                         'status': result.status,
+
+                         'title': result.title,
+
+                         'album': result.album,
+
+                         'creator_name': result.creator_name,
+
+                         'singer_name': result.singer_name,
+
+                         'fk_file_type_id': result.fk_file_type_id,
+
+                         'fk_genre_id': result.fk_genre_id,
+
+                         'creation_date': result.creation_date
+
+                         }
+            )
+        return render(request, 'musicApp/Sales_req_approval.html', {'form': form, })
+    else:
+        form = SalesRequestForm(request.POST)
+        if form.is_valid():
+            requeststaff = soap_client_salesManagerServices.factory.create('request')
+            requeststaff.request_id = form.cleaned_data['request_id']
+            requeststaff.fk_user_id = form.cleaned_data['fk_user_id']
+            requeststaff.fk_emp_no = form.cleaned_data['fk_emp_no']
+            requeststaff.dateInserted = form.cleaned_data['dateInserted']
+            requeststaff.dateModified = form.cleaned_data['dateModified']
+            requeststaff.totalCost = form.cleaned_data['totalCost']
+            requeststaff.discount = form.cleaned_data['discount']
+            requeststaff.finalCost = form.cleaned_data['finalCost']
+            requeststaff.status = 22
+            requeststaff.title = form.cleaned_data['title']
+            requeststaff.album = form.cleaned_data['album']
+            requeststaff.creator_name = form.cleaned_data['creator_name']
+            requeststaff.singer_name = form.cleaned_data['singer_name']
+            requeststaff.fk_file_type_id = form.cleaned_data['fk_file_type_id']
+            requeststaff.fk_genre_id = form.cleaned_data['fk_genre_id']
+            requeststaff.creation_date = form.cleaned_data['creation_date']
+            result = soap_client_salesEmployeeServices.service.SalesSetReviewRequest(requeststaff)
+            return HttpResponseRedirect('/music/SalesGetReviewManagerApprovals/')
+

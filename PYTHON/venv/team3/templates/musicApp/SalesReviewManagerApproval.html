@@ -42,6 +42,7 @@
 
    <th class="active">Edit Request</th>
 
+
  </tr>
 
 {% for result in results %}
@@ -79,7 +80,7 @@
        <td class="active"> {{result.fk_genre_id}} </td>
 
        <td class="active"> {{result.creation_date}} </td>
-    <td class="active"><a href="/music/Mng_approve/{{result.request_id}}"> click to edit </a></td>
+    <td class="active"><a href="/music/Sales_approval/{{result.request_id}}"> click to edit </a></td>
 
    <tr/>
 

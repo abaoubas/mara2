@@ -93,11 +93,11 @@ public class DAL_Requests {
     public boolean RejectRequest(Integer request_id,Integer emp_no)
     {
         try {
-            PreparedStatement ps = connection.prepareStatement("UPDATE Request set status = 98 WHERE  request_id = ? AND fk_emp_no = ?");  
+            PreparedStatement ps = connection.prepareStatement("UPDATE Request SET status = 98 WHERE  request_id = ? AND fk_emp_no = ?");  
             ps.setInt(1, request_id);
-            ps.setFloat(2, emp_no);
+            ps.setInt(2, emp_no);
             
-            ps.executeUpdate();
+            ps .executeUpdate();
                         
             return true;
             
@@ -120,6 +120,33 @@ public class DAL_Requests {
             //preparedStatement.setInt(1, req.getRequest_id());
             
             preparedStatement.setFloat(1, req.getDiscount());
+            preparedStatement.setInt(2, req.getStatus());
+            preparedStatement.setInt(3, req.getRequest_id());
+            
+            // execute insert SQL stetement
+            preparedStatement .executeUpdate();
+ 
+            return true;
+            
+        }catch(Exception ex) {
+            System.out.println("Error in check() -->" + ex.getMessage());
+        } 
+        
+        return false;
+    }
+    
+    public boolean insertSalesApproval(Request req){
+        try {
+                    
+            /*private int request_id,fk_user_id,title,album,creator_name,singer_name,fk_genre_id,fk_file_type_id,creation_date;
+            */
+        
+            String insertEmployee = "UPDATE Request SET finalcost=?, status=?  WHERE request_id=?;";
+            
+            PreparedStatement preparedStatement = connection.prepareStatement(insertEmployee);
+            //preparedStatement.setInt(1, req.getRequest_id());
+            
+            preparedStatement.setFloat(1, req.getFinalCost());
             preparedStatement.setInt(2, req.getStatus());
             preparedStatement.setInt(3, req.getRequest_id());
             
