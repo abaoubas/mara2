@@ -27,6 +27,11 @@ public class MusicServices {
         return dal.SelectRecordings();
     }
     
+    @WebMethod(operationName = "ReturnIitialReqByRecId")
+    public Recordings ReturnIitialReqByRecId(@WebParam(name = "rec_id") Integer rec_id) {
+        return dal.ReturnIitialReqByRecId(rec_id);
+    }
+    
     @WebMethod(operationName = "GetRequestRecordings")
     public List<Recordings> GetRequestRecordings(@WebParam(name = "request") Integer requestId) {
         return dal.GetRequestRecordings(requestId);

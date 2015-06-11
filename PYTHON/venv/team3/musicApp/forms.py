@@ -22,6 +22,20 @@ class CreateRequestForm(forms.Form):
     fk_genre_id = forms.ChoiceField(label='Είδος', required=False, choices=[[0, '----------']] + genres)
     strcreation_date = forms.DateField(label='Ημ/νία Δημιουργίας', required=False, input_formats=['%d/%m/%Y'], )
 
+    def __init__(self, *args, **kwargs):
+
+        song = kwargs.pop('recording')
+        super(CreateRequestForm, self).__init__(*args, **kwargs)
+        if song is not None:
+            self.fields['title'].initial=song.title
+            self.fields['album'].initial=song.album
+            self.fields['creator_name'].initial=song.creator_name
+            self.fields['singer_name'].initial=song.singer_name
+            self.fields['fk_file_type_id'].initial=song.file_type
+            self.fields['fk_genre_id'].initial=song.genre_id
+            self.fields['strcreation_date'].initial=song.creation_date
+
+
 
 class ManagerRequestForm(forms.Form):
     request_id = forms.IntegerField(label='request_id', required=True,
