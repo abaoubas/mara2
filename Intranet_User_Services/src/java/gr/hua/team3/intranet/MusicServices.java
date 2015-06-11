@@ -27,6 +27,11 @@ public class MusicServices {
         return dal.SelectRecordings();
     }
     
+    @WebMethod(operationName = "ReturnIitialReqByRecId")
+    public Recordings ReturnIitialReqByRecId(@WebParam(name = "rec_id") Integer rec_id) {
+        return dal.ReturnIitialReqByRecId(rec_id);
+    }
+    
     @WebMethod(operationName = "GetRequestRecordings")
     public List<Recordings> GetRequestRecordings(@WebParam(name = "request") Integer requestId) {
         return dal.GetRequestRecordings(requestId);
@@ -38,8 +43,8 @@ public class MusicServices {
     }
 
     @WebMethod(operationName = "SelectRecordingsByGenre")
-    public ArrayList<Recordings> SelectRecordingsByGenre(GenreInput genreInput) {
-        return dal.SelectRecordingsByGenre(genreInput        );
+    public ArrayList<Recordings> SelectRecordingsByGenre(Integer genreInput) {
+        return dal.SelectRecordingsByGenre(genreInput);
     }
 
     @WebMethod(operationName = "SelectMusicInfo")

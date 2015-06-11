@@ -47,11 +47,33 @@ public class DAL {
         return new ArrayList<Recordings>();
     }
     
+    public Recordings ReturnIitialReqByRecId(Integer rec_id) {
+
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from Recordings where pk_recording_id = ?");
+            
+            ps.setFloat(1, rec_id);
+            ResultSet rs = ps.executeQuery();
+            ArrayList<Recordings> results = new ArrayList<Recordings>();
+
+            if (rs.next()) // found
+            {
+                Recordings r = ReadRecording(rs);
+                return r;
+            }
+
+            
+        } catch (Exception ex) {
+            PrintError(ex);
+        }
+        return null;
+    }
+    
     public ArrayList<Recordings> GetRequestRecordings(Integer requestId) {
 
         try {
             PreparedStatement ps = connection.prepareStatement("select * from Recordings INNER JOIN Request_Recordings ON Request_Recordings.fk_requestrequest_id = ? and Request_Recordings.fk_recordingspk_recording_id = Recordings.pk_recording_id");
-            ps.setFloat(1, requestId);
+            ps.setInt(1, requestId);
             ResultSet rs = ps.executeQuery();
              
             ArrayList<Recordings> results = new ArrayList<Recordings>();
@@ -139,11 +161,10 @@ public class DAL {
         return new ArrayList<Artist>();
     }
 
-    public ArrayList<Recordings> SelectRecordingsByGenre(GenreInput genreInput) {
+    public ArrayList<Recordings> SelectRecordingsByGenre(Integer genreInput) {
         try {
-            PreparedStatement ps = connection.prepareStatement("select * from Recordings "
-                    + "WHERE fk_genre_id = ?");
-            ps.setInt(1, genreInput.getGenre_id());
+            PreparedStatement ps = connection.prepareStatement("select * from Recordings WHERE fk_genre_id = ?");
+            ps.setInt(1, genreInput);
 
             ResultSet rs = ps.executeQuery();
             ArrayList<Recordings> results = new ArrayList<Recordings>();

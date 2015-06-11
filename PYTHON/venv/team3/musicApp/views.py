@@ -74,9 +74,9 @@ def musicServices_selectEvents(request):
     return render(request, 'musicApp/allevents.html', context)
 
 
-def SelectRecordingsByGenre(request, genre_id):
-    results = soap_client_musicServices.service.SelectRecordingsByGenre()
-    context = {'results': results, }
+def SelectRecordingsByGenre(request,genre_id):
+    results = soap_client_musicServices.service.SelectRecordingsByGenre(genre_id)
+    context = {'results': results,}
     return render(request, 'musicApp/allrecordings.html', context)
 
 
@@ -182,15 +182,30 @@ def PaidRequest(request, request_id, emp_no):
 
 soap_client_UserServices = Client('http://localhost:8080/Intranet_User_Services/SalesRequests?WSDL')
 
+@login_required(login_url='/u/login/')
+@user_passes_test(isCustomer, login_url='/u/login/')
+def NewRequest2(request):
+    return NewRequest(request,None)
+
 
 @login_required(login_url='/u/login/')
 @user_passes_test(isCustomer, login_url='/u/login/')
-def NewRequest(request):
+def NewRequest(request,pk_recording_id):
+
+    currentSong = soap_client_musicServices.service.ReturnIitialReqByRecId(pk_recording_id)
+
+
+    """
+    if pk_recording_id:
+        if request.method == 'GET':
+            form = CreateRequestForm(recording=currentSong)
+    else:
+    """
     if request.method == 'GET':
-        form = CreateRequestForm()
+        form = CreateRequestForm(recording=currentSong)
     else:
         requeststaff = soap_client_UserServices.factory.create('initialRequests')
-        form = CreateRequestForm(request.POST)
+        form = CreateRequestForm(request.POST, recording=currentSong)
         if form.is_valid():
             requeststaff.fk_user_id = currentCustomer(request.user).user_id
             # dateInserted = form.cleaned_data['dateInserted']
@@ -207,7 +222,7 @@ def NewRequest(request):
                 return HttpResponseRedirect('/music/User_Home_Page')
             else:
                 return HttpResponse("Request Not Created")
-    return render(request, 'musicApp/Request_form.html', {'form': form, })
+    return render(request, 'musicApp/Request_form.html', {'form': form, 'pk_recording_id' :pk_recording_id})
 
 
 @login_required(login_url='/u/login/')
