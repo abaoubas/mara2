@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -59,6 +60,56 @@ public class Employee_Manager {
 
                 return emp;
             }
+        } catch (Exception ex) {
+            System.out.println("Error in check() -->" + ex.getMessage());
+        }
+        return null;
+    }
+
+    public Employee getEmp2(String username) {
+
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from IntranetUsers where username = ? ");
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) // found
+            {
+                Employee emp = new Employee();
+                emp.setEmp_id(rs.getInt("pk_emp_no"));
+                emp.setFirst_name(rs.getString("first_name"));
+                emp.setLast_name(rs.getString("last_name"));
+                emp.setUsername(rs.getString("username"));
+                emp.setBirthdate(rs.getDate("birth_date"));
+                emp.setGender(rs.getString("gender"));
+
+                return emp;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error in check() -->" + ex.getMessage());
+        }
+        return null;
+    }
+
+    public ArrayList<Employee> getAllEmp() {
+
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from IntranetUsers  ");
+
+            ResultSet rs = ps.executeQuery();
+            ArrayList<Employee> emps = new ArrayList<>();
+
+            while (rs.next()) {
+                Employee emp = new Employee();
+                emp.setEmp_id(rs.getInt("pk_emp_no"));
+                emp.setFirst_name(rs.getString("first_name"));
+                emp.setLast_name(rs.getString("last_name"));
+                emp.setUsername(rs.getString("username"));
+                emp.setBirthdate(rs.getDate("birth_date"));
+                emp.setGender(rs.getString("gender"));
+
+                emps.add(emp);
+            }
+            return emps;
         } catch (Exception ex) {
             System.out.println("Error in check() -->" + ex.getMessage());
         }

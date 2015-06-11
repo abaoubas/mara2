@@ -17,6 +17,10 @@ from django.template import RequestContext
 user_root = 'u'
 
 
+base_service_url = 'http://localhost:8080/Internet_User_Services/'
+javaClient_CustomerServices = Client(base_service_url + 'InsertUser?WSDL')
+javaClient_GetUserServices = Client(base_service_url + 'GetUser?WSDL')
+
 def login(request):
     c = {'user_root': user_root}
     c.update(csrf(request))
@@ -76,9 +80,6 @@ def register_user(request):
     return render(request, 'users/register.html', args)
 
 
-base_service_url = 'http://localhost:8080/Internet_User_Services/'
-
-javaClient_CustomerServices = Client(base_service_url + 'InsertUser?WSDL')
 
 
 def java_insertUser(form):
@@ -104,7 +105,6 @@ def register_success(request):
 def register_failed(request):
     return render(request, 'users/register_failed.html', {'user_root': user_root})
 
-javaClient_GetUserServices = Client(base_service_url + 'GetUser?WSDL')
 
 
 def userExists(username):

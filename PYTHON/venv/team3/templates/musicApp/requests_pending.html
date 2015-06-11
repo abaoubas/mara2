@@ -2,45 +2,22 @@
 
 {% block body_block %}
 
-<h1> Requests for approval </h1>
+{% load music_extras %}
+
+<h1> Αιτήσεις </h1>
 
 <table class="table table-striped">
 
     <tr class="">
 
-        <th class="">Request ID</th>
-
-        <th class="">User ID</th>
-
-        <th class="">Employee number</th>
-
-        <th class="">Date Inserted</th>
-
-        <th class="">Date Modified</th>
-
-        <th class="">Total Cost</th>
-
-        <th class="">Discount</th>
-
-        <th class="">Final Cost</th>
-
-        <th class="">Status</th>
-
-        <th class="">Title</th>
-
-        <th class="">Album</th>
-
-        <th class="">Creator Name</th>
-
-        <th class="">Singer Name</th>
-
-        <th class="">File Type ID</th>
-
-        <th class="">Genre ID</th>
-
-        <th class="">Creation Date</th>
-
-
+        <th class="">ID</th>
+        <th class="">Ημ/νία</th>
+        <th class="">Πελάτης</th>
+        <th class="">Τι ζητάει;</th>
+        {% if not hideCost %}
+        <th class="">Κόστος</th>
+        {% endif %}
+        <th class="">Επιλογές</th>
     </tr>
 
     {% for result in results %}
@@ -49,30 +26,60 @@
     <tr class="warning">
         {% elif result.status == 30 %}
     <tr class="danger">
+        {% elif result.status == 30 %}
+    <tr class="info">
         {% else %}
     <tr class="active">
         {%endif%}
         <td class=""> {{result.request_id}}</td>
-        <td class=""> {{result.fk_user_id}}</td>
-        <td class=""> {{result.fk_emp_no}}</td>
-        <td class=""> {{result.dateInserted}}</td>
-        <td class=""> {{result.dateModified}}</td>
-        <td class=""> {{result.totalCost}}</td>
-        <td class=""> {{result.discount}}</td>
-        <td class=""> {{result.finalCost}}</td>
-        <td class=""> {{result.status}}</td>
-        <td class=""> {{result.title}}</td>
-        <td class=""> {{result.album}}</td>
-        <td class=""> {{result.creator_name}}</td>
-        <td class=""> {{result.singer_name}}</td>
-        <td class=""> {{result.fk_file_type_id}}</td>
-        <td class=""> {{result.fk_genre_id}}</td>
-        <td class=""> {{result.creation_date}}</td>
+        <td class=""> {{result.dateInserted | date:"d/m"}}</td>
+        <td class=""><strong>
+            <a href="/music/GetUserHistory/{{result.fk_user_id}}">{{result.fk_user_id | lookup_customer}}</a>
+        </strong><br/>
+            Email: <strong>{{result.fk_user_id | lookup_customer_email}}</strong><br/>
+            IBAN: <strong>{{result.fk_user_id | lookup_customer_iban}}</strong><br/>
+            {% if result.status != 0 %} (Πωλητής: {{result.fk_emp_no | lookup_staff}}){% endif %}
+        </td>
         <td class="">
+            Τίτλος: <strong>{{result.title | default_if_none:""}}</strong><br/>
+            Συλλογή: <strong>{{result.album | default_if_none:""}}</strong><br/>
+            Δημιουργός: <strong>{{result.creator_name | default_if_none:""}}</strong><br/>
+            Τραγουδιστής: <strong>{{result.singer_name | default_if_none:""}}</strong><br/>
+            Τύπος: <strong>{{result.fk_file_type_id | lookup_filetypes}}</strong><br/>
+            Είδος: <strong>{{result.fk_genre_id | lookup_genre}}</strong><br/>
+            Έκδοση: <strong>{{result.creation_date | date:"m/Y" | default_if_none:""}}</strong><br/>
+        </td>
+        {% if result.status != 0 %}
+        <td class="">
+            Κόστος: <strong>{{result.totalCost}}</strong><br/>
+            Έκπτωση: <strong>{{result.discount}}</strong><br/>
+            Τελική: <strong>{{result.finalCost}}</strong><br/>
+        </td>
+        {% endif %}
+
+        <td class="requests-actionbuttons">
+            {% if result.status == 0 %}
+            <span class="label label-default"> {{result.status | lookup_statuses}}</span>
+            {% elif result.status == 98 or result.status == 99 %}
+            <span class="label label-danger"> {{result.status | lookup_statuses}}</span>
+            {% elif result.status == 100 %}
+            <span class="label label-success"> {{result.status | lookup_statuses}}</span>
+            {% elif result.status == 10 or result.status == 22 or result.status == 30%}
+            <span class="label label-warning"> {{result.status | lookup_statuses}}</span>
+            {% else %}
+            <span class="label label-info"> {{result.status | lookup_statuses}}</span>
+            {%endif%}
             {% if result.status == 10 or result.status == 22 %}
-            <a href="/music/Sales_approval/{{result.request_id}}"> Αποστολή στον πελάτη </a>
+            <a class="btn btn-primary" href="/music/Sales_approval/{{result.request_id}}"> Αποστολή στον πελάτη </a>
             {% elif result.status == 30 %}
-            <a href="/music/PaidRequest/{{result.request_id}}/{{currentStaff.emp_id}}"> Ολοκληρώθηκε η πληρωμή </a>
+            <a class="btn btn-primary" href="/music/PaidRequest/{{result.request_id}}/{{currentStaff.emp_id}}">
+                Ολοκληρώθηκε η πληρωμή </a>
+            {% elif result.status == 0 %}
+            <a class="btn btn-primary" href="JavaScript:alert('ΠΟΥ ΠΗΓΑΙΝΕΙ ΑΥΤΟ?????????');">Επεξεργασία Αίτησης
+            </a>
+            <a class="btn btn-danger"
+               href="JavaScript:if(confirm('Είστε σίγουροι ότι θέλετε να απορρίψετε αυτή την αίτηση;'))window.location = '/music/RejectRequest/{{result.request_id}}/{{currentStaff.emp_id}}';">Απόρριψη
+                Αιτησης</a>
             {% else %}
 
             {%endif%}

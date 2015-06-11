@@ -8,36 +8,43 @@ from suds.client import Client
 from forms import CreateRequestForm, ManagerRequestForm, SalesRequestForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django import template
+
 register = template.Library()
 
 javaClient_GetUserServices = Client('http://localhost:8080/Internet_User_Services/GetUser?WSDL')
 javaClient_EmployeeServices = Client('http://localhost:8080/Intranet_User_Services/EmployeeServices?WSDL')
 
+
 def index(request):
     return render(request, 'musicApp/index.html')
+
 
 def isCustomer(user):
     return user and user.groups.filter(name='customer').count() != 0
 
+
 def isSalesRep(user):
     return user and user.groups.filter(name='sales rep').count() != 0
+
 
 def isSalesManager(user):
     return user and user.groups.filter(name='sales manager').count() != 0
 
+
 def isStaff(user):
     return isSalesRep(user) or isSalesManager(user)
 
+
 def currentCustomer(user):
-    if not(isCustomer(user)):
+    if not (isCustomer(user)):
         return None;
     return javaClient_GetUserServices.service.getUser(user.username)
 
-def currentStaff(user):
-    if not(isStaff(user)):
-        return None;
-    return javaClient_EmployeeServices.service.getEmp(user.username, user.password)
 
+def currentStaff(user):
+    if not (isStaff(user)):
+        return None;
+    return javaClient_EmployeeServices.service.getEmp2(user.username)
 
 
 def showusers(request):
@@ -57,8 +64,9 @@ soap_client_musicServices = Client('http://localhost:8080/Intranet_User_Services
 
 def musicServices_selectRecordings(request):
     results = soap_client_musicServices.service.SelectRecordings()
-    context = {'results': results,}
+    context = {'results': results, }
     return render(request, 'musicApp/allrecordings.html', context)
+
 
 def musicServices_selectEvents(request):
     result_events = soap_client_musicServices.service.selectEvents()
@@ -66,21 +74,22 @@ def musicServices_selectEvents(request):
     return render(request, 'musicApp/allevents.html', context)
 
 
-def SelectRecordingsByGenre(request,genre_id):
+def SelectRecordingsByGenre(request, genre_id):
     results = soap_client_musicServices.service.SelectRecordingsByGenre()
     context = {'results': results, }
     return render(request, 'musicApp/allrecordings.html', context)
+
 
 def musicServices_SelectMusicInfo(request):
     results = soap_client_musicServices.service.SelectMusicInfo()
     context = {'results': results, }
     return render(request, 'musicApp/allmusicinfo.html', context)
 
+
 def musicServices_selectFileTypes(request):
     result_fileTypes = soap_client_musicServices.service.selectFileTypes()
     context = {'results': result_fileTypes, }
     return render(request, 'musicApp/allfiletypes.html', context)
-
 
 
 def musicServices_selectGenre(request):
@@ -106,26 +115,30 @@ def SalesManagerGetReviewRequest(request):
 
 soap_client_salesEmployeeServices = Client('http://localhost:8080/Intranet_User_Services/SalesEmployeeServices?WSDL')
 
+
 @login_required(login_url='/emp/login/')
 @user_passes_test(isSalesRep, login_url='/emp/login/')
 def GetNewRequests(request):
     results = soap_client_salesEmployeeServices.service.GetNewRequests()
-    context = {'results': results, }
-    return render(request, 'musicApp/new_requests.html', context)
+    context = {'results': results, 'currentStaff': currentStaff(request.user), 'hideCost': True}
+    return render(request, 'musicApp/requests_pending.html', context)
+
 
 @login_required(login_url='/emp/login/')
 @user_passes_test(isSalesRep, login_url='/emp/login/')
 def SalesGetReviewRequest(request):
     results = soap_client_salesEmployeeServices.service.salesGetReviewRequest()
-    context = {'results': results, 'currentStaff': currentStaff(request.user) }
+    context = {'results': results, 'currentStaff': currentStaff(request.user)}
     return render(request, 'musicApp/requests_pending.html', context)
+
 
 @login_required(login_url='/emp/login/')
 @user_passes_test(isSalesRep, login_url='/emp/login/')
 def salesGetCompletedRequest(request):
     results = soap_client_salesEmployeeServices.service.salesGetCompletedRequest()
-    context = {'results': results, }
-    return render(request, 'musicApp/requests_completed.html', context)
+    context = {'results': results, 'currentStaff': currentStaff(request.user)}
+    return render(request, 'musicApp/requests_pending.html', context)
+
 
 @login_required(login_url='/emp/login/')
 @user_passes_test(isSalesRep, login_url='/emp/login/')
@@ -134,36 +147,38 @@ def GetAcceptedRequest(request):
     context = {'results': results, }
     return render(request, 'musicApp/requests_for_payment.html', context)
 
+
 @login_required(login_url='/emp/login/')
 @user_passes_test(isSalesRep, login_url='/emp/login/')
-def SetRequestPrices(request, totalCost, discount, request_id, status ):
+def SetRequestPrices(request, totalCost, discount, request_id, status):
     results = soap_client_salesEmployeeServices.service.SetRequestPrices(totalCost, discount, request_id, status)
     context = {'results': results, }
     return render(request, 'musicApp/reject_request_success.html', context)
 
+
 @login_required(login_url='/emp/login/')
 @user_passes_test(isSalesRep, login_url='/emp/login/')
 def GetUserHistory(request, userId):
-
-    results =  soap_client_salesEmployeeServices.service.GetUserHistory(userId)
+    results = soap_client_salesEmployeeServices.service.GetUserHistory(userId)
     context = {'results': results, }
     return render(request, 'musicApp/getUserHistory.html', context)
 
+
 @login_required(login_url='/emp/login/')
 @user_passes_test(isSalesRep, login_url='/emp/login/')
-def RejectRequest(request,request_id,emp_no):
-
+def RejectRequest(request, request_id, emp_no):
     results = soap_client_salesEmployeeServices.service.RejectRequest(request_id, emp_no)
     context = {'results': results, }
     return render(request, 'musicApp/reject_request_success.html', context)
 
+
 @login_required(login_url='/emp/login/')
 @user_passes_test(isSalesRep, login_url='/emp/login/')
-def PaidRequest(request,request_id,emp_no):
-
+def PaidRequest(request, request_id, emp_no):
     results = soap_client_salesEmployeeServices.service.PaidRequest(request_id, emp_no)
     context = {'results': results, }
     return render(request, 'musicApp/reject_request_success.html', context)
+
 
 soap_client_UserServices = Client('http://localhost:8080/Intranet_User_Services/SalesRequests?WSDL')
 
@@ -218,7 +233,7 @@ def UserReject(request, request_id):
 
 def UserAcceptanceRequest(request, request_id, action):
     userAcceptanceArgs = soap_client_UserServices.factory.create('userAcceptanceArgs')
-    userAcceptanceArgs.user_id =  currentCustomer(request.user).user_id
+    userAcceptanceArgs.user_id = currentCustomer(request.user).user_id
     userAcceptanceArgs.request_id = request_id
     userAcceptanceArgs.accept = action
     result = soap_client_UserServices.service.UserAcceptanceRequest(userAcceptanceArgs)
@@ -234,6 +249,7 @@ def Manager_Home_Page(request):
     results = soap_client_salesManagerServices.service.SalesManagerGetReviewRequest()
     context = {'results': results, }
     return render(request, 'musicApp/Manager_Home_Page.html', context)
+
 
 @login_required(login_url='/emp/login/')
 @user_passes_test(isSalesManager, login_url='/emp/login/')
@@ -308,6 +324,7 @@ def SalesGetReviewManagerApprovals(request):
     context = {'results': results, }
     return render(request, 'musicApp/SalesReviewManagerApproval.html', context)
 
+
 @login_required(login_url='/emp/login/')
 @user_passes_test(isSalesRep, login_url='/emp/login/')
 def Sales_approval(request, requestId):
@@ -373,11 +390,12 @@ def Sales_approval(request, requestId):
             result = soap_client_salesEmployeeServices.service.SalesSetReviewRequest(requeststaff)
             return HttpResponseRedirect('/music/SalesGetReviewManagerApprovals/')
 
+
 @login_required(login_url='/u/login/')
 @user_passes_test(isCustomer, login_url='/u/login/')
-def UserDownloads(request,requestId):
+def UserDownloads(request, requestId):
     # print soap_client_UserServices
 
     results = soap_client_musicServices.service.GetRequestRecordings(requestId)
-    context = {'results': results,}
+    context = {'results': results, }
     return render(request, 'musicApp/UserDownloadReq.html', context)

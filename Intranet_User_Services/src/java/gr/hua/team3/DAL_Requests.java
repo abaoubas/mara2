@@ -18,22 +18,20 @@ import java.util.ArrayList;
  * @author palia_000
  */
 public class DAL_Requests {
-    
+
     private Connection connection;
-  
-    
-    
+
     public DAL_Requests() {
         connection = gr.hua.UserExists.Database.getConnection();
     }
- 
+
     public ArrayList<Request> SelectRequests() {
-        
+
         try {
-            PreparedStatement ps = connection.prepareStatement("select * from Request");            
+            PreparedStatement ps = connection.prepareStatement("select * from Request");
             ResultSet rs = ps.executeQuery();
             ArrayList<Request> results = new ArrayList<Request>();
-            
+
             while (rs.next()) // found
             {
                 Request r = new Request();
@@ -48,19 +46,18 @@ public class DAL_Requests {
                 r.setStatus(rs.getInt("status"));
                 r.setTitle(rs.getString("title"));
                 r.setAlbum(rs.getString("album"));
-                r.setCreator_name(rs.getString("creator_name")); 
+                r.setCreator_name(rs.getString("creator_name"));
                 r.setSinger_name(rs.getString("singer_name"));
                 r.setFk_file_type_id(rs.getInt("fk_file_type_id"));
                 r.setFk_genre_id(rs.getInt("fk_genre_id"));
                 r.setCreation_date(rs.getDate("creation_date"));
                 results.add(r);
-            } 
-            
-            
+            }
+
             return results;
         } catch (Exception ex) {
             PrintError(ex);
-        } 
+        }
         return new ArrayList<Request>();
     }
 
@@ -69,112 +66,108 @@ public class DAL_Requests {
         ex.printStackTrace(new PrintWriter(errors));
         System.out.println(errors.toString());
     }
-    
-    public boolean SetRequestPrices(float totalc,float disc,int req_id,int status) 
-    {
-         try {
-            PreparedStatement ps = connection.prepareStatement("UPDATE Request set totalCost = ?, discount = ?, status = ? WHERE  request_id = ?");  
+
+    public boolean SetRequestPrices(float totalc, float disc, int req_id, int status) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("UPDATE Request set totalCost = ?, discount = ?, status = ? WHERE  request_id = ?");
             ps.setFloat(1, totalc);
             ps.setFloat(2, disc);
             ps.setInt(3, status);
             ps.setInt(4, req_id);
-            
+
             ps.executeUpdate();
-                        
+
             return true;
-            
+
         } catch (Exception ex) {
             PrintError(ex);
         }
         return false;
-        
+
     }
-    
-    public boolean RejectRequest(Integer request_id,Integer emp_no)
-    {
+
+    public boolean RejectRequest(Integer request_id, Integer emp_no) {
         try {
-            PreparedStatement ps = connection.prepareStatement("UPDATE Request SET status = 98 WHERE  request_id = ? AND fk_emp_no = ?");  
-            ps.setInt(1, request_id);
-            ps.setInt(2, emp_no);
-            
-            ps .executeUpdate();
-                        
+            PreparedStatement ps = connection.prepareStatement("UPDATE Request "
+                    + "SET status = 98 , fk_emp_no = ? "
+                    + "WHERE  request_id = ? ");
+            ps.setInt(1, emp_no);
+            ps.setInt(2, request_id);
+
+            ps.executeUpdate();
+
             return true;
-            
+
         } catch (Exception ex) {
             PrintError(ex);
         }
         return false;
-        
+
     }
-    
-    public boolean insertMngApproval(Request req){
+
+    public boolean insertMngApproval(Request req) {
         try {
             String insertEmployee = "UPDATE Request SET discount=?, status=?  WHERE request_id=?;";
-            
+
             PreparedStatement preparedStatement = connection.prepareStatement(insertEmployee);
-            
-            
+
             preparedStatement.setFloat(1, req.getDiscount());
             preparedStatement.setInt(2, 21);
             preparedStatement.setInt(3, req.getRequest_id());
-            
+
             // execute insert SQL stetement
-            preparedStatement .executeUpdate();
- 
+            preparedStatement.executeUpdate();
+
             return true;
-            
-        }catch(Exception ex) {
+
+        } catch (Exception ex) {
             System.out.println("Error in check() -->" + ex.getMessage());
-        } 
-        
+        }
+
         return false;
     }
-    
-    public boolean insertSalesApproval(Request req){
+
+    public boolean insertSalesApproval(Request req) {
         try {
-                    
+
             /*private int request_id,fk_user_id,title,album,creator_name,singer_name,fk_genre_id,fk_file_type_id,creation_date;
-            */
-        
+             */
             String insertEmployee = "UPDATE Request SET finalcost=?, status=?  WHERE request_id=?;";
-            
+
             PreparedStatement preparedStatement = connection.prepareStatement(insertEmployee);
             //preparedStatement.setInt(1, req.getRequest_id());
-            
+
             preparedStatement.setFloat(1, req.getFinalCost());
             preparedStatement.setInt(2, 25);
             preparedStatement.setInt(3, req.getRequest_id());
-            
+
             // execute insert SQL stetement
-            preparedStatement .executeUpdate();
- 
+            preparedStatement.executeUpdate();
+
             return true;
-            
-        }catch(Exception ex) {
+
+        } catch (Exception ex) {
             System.out.println("Error in check() -->" + ex.getMessage());
-        } 
-        
+        }
+
         return false;
     }
-    
-    
-    public boolean PaidRequest(Integer request_id,Integer emp_no)
-    {
+
+    public boolean PaidRequest(Integer request_id, Integer emp_no) {
         try {
-            PreparedStatement ps = connection.prepareStatement("UPDATE Request set status = 31 WHERE  request_id = ? AND fk_emp_no = ?");  
-            ps.setInt(1, request_id);
-            ps.setFloat(2, emp_no);
-            
+            PreparedStatement ps = connection.prepareStatement("UPDATE Request set status = 31 , fk_emp_no = ? WHERE  request_id = ? ");
+            ps.setFloat(1, emp_no);
+            ps.setInt(2, request_id);
+
             ps.executeUpdate();
-                        
+
             return true;
-            
+
         } catch (Exception ex) {
             PrintError(ex);
         }
         return false;
-        
+
     }
-    
+
 }
