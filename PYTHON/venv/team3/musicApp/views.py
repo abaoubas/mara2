@@ -57,7 +57,9 @@ soap_client_musicServices = Client('http://localhost:8080/Intranet_User_Services
 
 def musicServices_selectRecordings(request):
     results = soap_client_musicServices.service.SelectRecordings()
-    context = {'results': results, }
+    g_results = soap_client_musicServices.service.selectGenre()
+    f_results = soap_client_musicServices.service.selectFileTypes()
+    context = {'results': results, 'g_results': g_results, 'f_results': f_results, }
     return render(request, 'musicApp/allrecordings.html', context)
 
 def musicServices_selectEvents(request):
