@@ -117,8 +117,15 @@ def GetNewRequests(request):
 @user_passes_test(isSalesRep, login_url='/emp/login/')
 def SalesGetReviewRequest(request):
     results = soap_client_salesEmployeeServices.service.salesGetReviewRequest()
+    context = {'results': results, 'currentStaff': currentStaff(request.user) }
+    return render(request, 'musicApp/requests_pending.html', context)
+
+@login_required(login_url='/emp/login/')
+@user_passes_test(isSalesRep, login_url='/emp/login/')
+def salesGetCompletedRequest(request):
+    results = soap_client_salesEmployeeServices.service.salesGetCompletedRequest()
     context = {'results': results, }
-    return render(request, 'musicApp/requests_for_approval.html', context)
+    return render(request, 'musicApp/requests_completed.html', context)
 
 @login_required(login_url='/emp/login/')
 @user_passes_test(isSalesRep, login_url='/emp/login/')
@@ -301,8 +308,8 @@ def SalesGetReviewManagerApprovals(request):
     context = {'results': results, }
     return render(request, 'musicApp/SalesReviewManagerApproval.html', context)
 
-#@login_required(login_url='/emp/login/')
-#@user_passes_test(isSalesRep, login_url='/emp/login/')
+@login_required(login_url='/emp/login/')
+@user_passes_test(isSalesRep, login_url='/emp/login/')
 def Sales_approval(request, requestId):
     if request.method == 'GET':
         results = soap_client_salesManagerServices.service.SalesManagerGetRequest(requestId)

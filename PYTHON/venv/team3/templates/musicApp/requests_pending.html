@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+<h1> Requests for approval </h1>
+
+<table class="table table-striped">
+
+    <tr class="">
+
+        <th class="">Request ID</th>
+
+        <th class="">User ID</th>
+
+        <th class="">Employee number</th>
+
+        <th class="">Date Inserted</th>
+
+        <th class="">Date Modified</th>
+
+        <th class="">Total Cost</th>
+
+        <th class="">Discount</th>
+
+        <th class="">Final Cost</th>
+
+        <th class="">Status</th>
+
+        <th class="">Title</th>
+
+        <th class="">Album</th>
+
+        <th class="">Creator Name</th>
+
+        <th class="">Singer Name</th>
+
+        <th class="">File Type ID</th>
+
+        <th class="">Genre ID</th>
+
+        <th class="">Creation Date</th>
+
+
+    </tr>
+
+    {% for result in results %}
+
+    {% if result.status == 10 or result.status == 22 %}
+    <tr class="warning">
+        {% elif result.status == 30 %}
+    <tr class="danger">
+        {% else %}
+    <tr class="active">
+        {%endif%}
+        <td class=""> {{result.request_id}}</td>
+        <td class=""> {{result.fk_user_id}}</td>
+        <td class=""> {{result.fk_emp_no}}</td>
+        <td class=""> {{result.dateInserted}}</td>
+        <td class=""> {{result.dateModified}}</td>
+        <td class=""> {{result.totalCost}}</td>
+        <td class=""> {{result.discount}}</td>
+        <td class=""> {{result.finalCost}}</td>
+        <td class=""> {{result.status}}</td>
+        <td class=""> {{result.title}}</td>
+        <td class=""> {{result.album}}</td>
+        <td class=""> {{result.creator_name}}</td>
+        <td class=""> {{result.singer_name}}</td>
+        <td class=""> {{result.fk_file_type_id}}</td>
+        <td class=""> {{result.fk_genre_id}}</td>
+        <td class=""> {{result.creation_date}}</td>
+        <td class="">
+            {% if result.status == 10 or result.status == 22 %}
+            <a href="/music/Sales_approval/{{result.request_id}}"> Αποστολή στον πελάτη </a>
+            {% elif result.status == 30 %}
+            <a href="/music/PaidRequest/{{result.request_id}}/{{currentStaff.emp_id}}"> Ολοκληρώθηκε η πληρωμή </a>
+            {% else %}
+
+            {%endif%}
+
+        </td>
+
+    <tr/>
+
+    {% endfor %}
+
+</table>
+
+<br>
+
+
+{% endblock %}

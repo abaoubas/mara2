@@ -110,17 +110,13 @@ public class DAL_Requests {
     
     public boolean insertMngApproval(Request req){
         try {
-                    
-            /*private int request_id,fk_user_id,title,album,creator_name,singer_name,fk_genre_id,fk_file_type_id,creation_date;
-            */
-        
             String insertEmployee = "UPDATE Request SET discount=?, status=?  WHERE request_id=?;";
             
             PreparedStatement preparedStatement = connection.prepareStatement(insertEmployee);
-            //preparedStatement.setInt(1, req.getRequest_id());
+            
             
             preparedStatement.setFloat(1, req.getDiscount());
-            preparedStatement.setInt(2, req.getStatus());
+            preparedStatement.setInt(2, 21);
             preparedStatement.setInt(3, req.getRequest_id());
             
             // execute insert SQL stetement
@@ -147,7 +143,7 @@ public class DAL_Requests {
             //preparedStatement.setInt(1, req.getRequest_id());
             
             preparedStatement.setFloat(1, req.getFinalCost());
-            preparedStatement.setInt(2, req.getStatus());
+            preparedStatement.setInt(2, 25);
             preparedStatement.setInt(3, req.getRequest_id());
             
             // execute insert SQL stetement

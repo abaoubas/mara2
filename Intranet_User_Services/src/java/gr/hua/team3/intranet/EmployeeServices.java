@@ -19,7 +19,7 @@ import javax.jws.WebParam;
 public class EmployeeServices {
 
     @WebMethod(operationName = "getEmp")
-    public String getEmp(@WebParam(name = "username") String username, @WebParam(name = "password") String password) {
+    public Employee getEmp(@WebParam(name = "username") String username, @WebParam(name = "password") String password) {
         //TODO write your implementation code here:
         Employee employee = new Employee();
         Employee_Manager em = new Employee_Manager();
