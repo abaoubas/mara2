@@ -139,11 +139,10 @@ public class DAL {
         return new ArrayList<Artist>();
     }
 
-    public ArrayList<Recordings> SelectRecordingsByGenre(GenreInput genreInput) {
+    public ArrayList<Recordings> SelectRecordingsByGenre(Integer genreInput) {
         try {
-            PreparedStatement ps = connection.prepareStatement("select * from Recordings "
-                    + "WHERE fk_genre_id = ?");
-            ps.setInt(1, genreInput.getGenre_id());
+            PreparedStatement ps = connection.prepareStatement("select * from Recordings WHERE fk_genre_id = ?");
+            ps.setInt(1, genreInput);
 
             ResultSet rs = ps.executeQuery();
             ArrayList<Recordings> results = new ArrayList<Recordings>();

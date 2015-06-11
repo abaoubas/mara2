@@ -38,7 +38,7 @@ public class MusicServices {
     }
 
     @WebMethod(operationName = "SelectRecordingsByGenre")
-    public ArrayList<Recordings> SelectRecordingsByGenre(GenreInput genreInput) {
+    public ArrayList<Recordings> SelectRecordingsByGenre(Integer genreInput) {
         return dal.SelectRecordingsByGenre(genreInput);
     }
 

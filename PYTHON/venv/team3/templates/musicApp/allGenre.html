@@ -15,9 +15,9 @@
 
    <tr class="active">
 
-SelectRecordingsByGenre(?P<genre_id>[0-9]+)
-        <td class="active"> {{result.description }} </td>
-       <td class="active"><a href="/music/SelectRecordingsByGenre" {{result.description }} </td>
+
+
+       <td class="active"><a href="/music/SelectRecordingsByGenre/{{result.genre_id}}">{{result.description }}</a>  </td>
    <tr/>
 
 {% endfor %}

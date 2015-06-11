@@ -67,8 +67,8 @@ def musicServices_selectEvents(request):
 
 
 def SelectRecordingsByGenre(request,genre_id):
-    results = soap_client_musicServices.service.SelectRecordingsByGenre()
-    context = {'results': results, }
+    results = soap_client_musicServices.service.SelectRecordingsByGenre(genre_id)
+    context = {'results': results,}
     return render(request, 'musicApp/allrecordings.html', context)
 
 def musicServices_SelectMusicInfo(request):
