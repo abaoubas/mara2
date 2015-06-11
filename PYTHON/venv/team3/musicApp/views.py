@@ -366,3 +366,11 @@ def Sales_approval(request, requestId):
             result = soap_client_salesEmployeeServices.service.SalesSetReviewRequest(requeststaff)
             return HttpResponseRedirect('/music/SalesGetReviewManagerApprovals/')
 
+@login_required(login_url='/u/login/')
+@user_passes_test(isCustomer, login_url='/u/login/')
+def UserDownloads(request,requestId):
+    # print soap_client_UserServices
+
+    results = soap_client_musicServices.service.GetRequestRecordings(requestId)
+    context = {'results': results, }
+    return render(request, 'musicApp/UserDownloadReq.html', context)

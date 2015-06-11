@@ -21,12 +21,25 @@ public class Recordings implements Serializable {
     private String album;
     private String creator_name;
     private String singer_name;
+    private String item_location;
     private int genre_id;
     private int file_type;
     private Date creation_date;
     private Float price;
     private String foto_location;
 
+    
+    
+    
+    public String getItem_location() {
+        return item_location;
+    }
+
+    public void setItem_location(String item_location) {
+        this.item_location = item_location;
+    }
+    
+    
     /**
      * Get the value of pk_recording_id
      *

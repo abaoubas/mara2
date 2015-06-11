@@ -26,6 +26,11 @@ public class MusicServices {
     public List<Recordings> SelectRecordings() {
         return dal.SelectRecordings();
     }
+    
+    @WebMethod(operationName = "GetRequestRecordings")
+    public List<Recordings> GetRequestRecordings(@WebParam(name = "request") Integer requestId) {
+        return dal.GetRequestRecordings(requestId);
+    }
 
     @WebMethod(operationName = "selectEvents")
     public ArrayList<Events> selectEvents() {

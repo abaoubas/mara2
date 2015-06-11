@@ -46,6 +46,28 @@ public class DAL {
         }
         return new ArrayList<Recordings>();
     }
+    
+    public ArrayList<Recordings> GetRequestRecordings(Integer requestId) {
+
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from Recordings INNER JOIN Request_Recordings ON Request_Recordings.fk_requestrequest_id = ? and Request_Recordings.fk_recordingspk_recording_id = Recordings.pk_recording_id");
+            ps.setFloat(1, requestId);
+            ResultSet rs = ps.executeQuery();
+             
+            ArrayList<Recordings> results = new ArrayList<Recordings>();
+
+            while (rs.next()) // found
+            {
+                Recordings r = ReadRecording(rs);
+                results.add(r);
+            }
+
+            return results;
+        } catch (Exception ex) {
+            PrintError(ex);
+        }
+        return new ArrayList<Recordings>();
+    }
 
     private Recordings ReadRecording(ResultSet rs) throws SQLException {
         Recordings r = new Recordings();
@@ -56,6 +78,7 @@ public class DAL {
         r.setSinger_name(rs.getString("singer_name"));
         r.setCreator_name(rs.getString("creator_name"));
         r.setFile_type(rs.getInt("fk_file_type_id"));
+        r.setItem_location(rs.getString("item_location"));
         r.setFoto_location(rs.getString("foto_location"));
         r.setGenre_id(rs.getInt("fk_genre_id"));
         r.setPrice(rs.getFloat("price"));

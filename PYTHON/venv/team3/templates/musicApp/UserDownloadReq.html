@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block section %}section-recordings{% endblock %}
+{% block body_block %}
+
+<div class="well well-sm">
+    <strong>Category Title</strong>
+
+    <div class="btn-group">
+        <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
+            </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
+            class="glyphicon glyphicon-th"></span>Grid</a>
+    </div>
+</div>
+<div id="products" class="row list-group">
+
+    {% for result in results %}
+
+
+    <div class="item  col-xs-6 col-lg-4">
+        <div class="thumbnail">
+            <div class="group list-group-image-container"
+                 style="background-image:url('{{result.foto_location }}');"></div>
+
+            <div class="caption">
+                <h4 class="group inner list-group-item-heading">
+                    {{result.title}}</h4>
+
+                <p class="group inner list-group-item-text">
+                    Συλλογή: <strong>{{result.album }}</strong>
+                    <br/>
+                    Τραγουδιστής : <strong>{{result.singer_name}}</strong>
+                    <br/>
+                    Δημιουργός <strong>{{result.creator_name}}</strong>
+                    <br/>
+                    {{result.genre_id }} | {{result.file_type }} | {{result.creation_date }}</p>
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <p class="lead">
+                            {{result.price }}</p>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <a class="btn btn-success" href="{{result.item_location}}" target="_self">Ακούστε το</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+
+</div>
+{% endblock %}
+{% block javascript_block %}
+{% load static %}
+<script src="{% static 'js/allrecordings.js' %}"></script>
+{% endblock %}
