@@ -57,7 +57,7 @@ soap_client_musicServices = Client('http://localhost:8080/Intranet_User_Services
 
 def musicServices_selectRecordings(request):
     results = soap_client_musicServices.service.SelectRecordings()
-    context = {'results': results, }
+    context = {'results': results,}
     return render(request, 'musicApp/allrecordings.html', context)
 
 def musicServices_selectEvents(request):
@@ -379,5 +379,5 @@ def UserDownloads(request,requestId):
     # print soap_client_UserServices
 
     results = soap_client_musicServices.service.GetRequestRecordings(requestId)
-    context = {'results': results, }
+    context = {'results': results,}
     return render(request, 'musicApp/UserDownloadReq.html', context)
