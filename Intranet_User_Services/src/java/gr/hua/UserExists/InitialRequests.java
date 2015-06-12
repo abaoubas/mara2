@@ -90,7 +90,7 @@ public class InitialRequests {
     public void setstrCreation_date(String strcreation_date) {
         this.strcreation_date = strcreation_date;
     }
-    static DateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+    static DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
     public Date getCreation_date() throws ParseException {
         if (strcreation_date == null || "".equals(strcreation_date))

@@ -75,9 +75,9 @@ def musicServices_selectEvents(request):
     return render(request, 'musicApp/allevents.html', context)
 
 
-def SelectRecordingsByGenre(request,genre_id):
+def SelectRecordingsByGenre(request, genre_id):
     results = soap_client_musicServices.service.SelectRecordingsByGenre(genre_id)
-    context = {'results': results,}
+    context = {'results': results, }
     return render(request, 'musicApp/allrecordings.html', context)
 
 
@@ -183,18 +183,17 @@ def PaidRequest(request, request_id, emp_no):
 
 soap_client_UserServices = Client('http://localhost:8080/Intranet_User_Services/SalesRequests?WSDL')
 
+
 @login_required(login_url='/u/login/')
 @user_passes_test(isCustomer, login_url='/u/login/')
 def NewRequest2(request):
-    return NewRequest(request,None)
+    return NewRequest(request, None)
 
 
 @login_required(login_url='/u/login/')
 @user_passes_test(isCustomer, login_url='/u/login/')
-def NewRequest(request,pk_recording_id):
-
+def NewRequest(request, pk_recording_id):
     currentSong = soap_client_musicServices.service.ReturnIitialReqByRecId(pk_recording_id)
-
 
     """
     if pk_recording_id:
@@ -223,7 +222,10 @@ def NewRequest(request,pk_recording_id):
                 return HttpResponseRedirect('/music/User_Home_Page')
             else:
                 return HttpResponse("Request Not Created")
-    return render(request, 'musicApp/Request_form.html', {'form': form, 'pk_recording_id' :pk_recording_id})
+    post_action_url = '/music/NewRequest'
+    if pk_recording_id is not None:
+        post_action_url = '/music/record/' + pk_recording_id
+    return render(request, 'musicApp/Request_form.html', {'form': form, 'post_action_url': post_action_url})
 
 
 @login_required(login_url='/u/login/')
@@ -276,9 +278,9 @@ def Manager_approvement(request, requestId):
             form = ManagerRequestForm(
                 initial={'request_id': result.request_id,
 
-                         'fk_user_id':  music_extras.lookup_customer(result.fk_user_id),
+                         'fk_user_id': music_extras.lookup_customer(result.fk_user_id),
 
-                         'fk_emp_no':  music_extras.lookup_staff(result.fk_emp_no),
+                         'fk_emp_no': music_extras.lookup_staff(result.fk_emp_no),
 
                          'dateInserted': result.dateInserted,
 
@@ -290,7 +292,7 @@ def Manager_approvement(request, requestId):
 
                          'finalCost': result.finalCost,
 
-                         'status':  music_extras.lookup_statuses(result.status),
+                         'status': music_extras.lookup_statuses(result.status),
 
                          'title': result.title,
 
@@ -344,16 +346,15 @@ def SalesGetReviewManagerApprovals(request):
 @login_required(login_url='/emp/login/')
 @user_passes_test(isSalesRep, login_url='/emp/login/')
 def Sales_approval(request, requestId):
-
     if request.method == 'GET':
         results = soap_client_salesManagerServices.service.SalesManagerGetRequest(requestId)
         for result in results:
             form = SalesRequestForm(
                 initial={'request_id': result.request_id,
 
-                         'fk_user_id':  music_extras.lookup_customer(result.fk_user_id),
+                         'fk_user_id': music_extras.lookup_customer(result.fk_user_id),
 
-                         'fk_emp_no':  music_extras.lookup_staff(result.fk_emp_no),
+                         'fk_emp_no': music_extras.lookup_staff(result.fk_emp_no),
 
                          'dateInserted': result.dateInserted,
 
@@ -365,7 +366,7 @@ def Sales_approval(request, requestId):
 
                          'finalCost': result.finalCost,
 
-                         'status':  music_extras.lookup_statuses(result.status),
+                         'status': music_extras.lookup_statuses(result.status),
 
                          'title': result.title,
 
@@ -427,13 +428,13 @@ def EditReq(request, requestId):
             form = SalesEditRequestForm(
                 initial={'request_id': result.request_id,
 
-                         'fk_user_id':  music_extras.lookup_customer(result.fk_user_id),
+                         'fk_user_id': music_extras.lookup_customer(result.fk_user_id),
 
-                         'fk_emp_no':  music_extras.lookup_staff(result.fk_emp_no),
+                         'fk_emp_no': music_extras.lookup_staff(result.fk_emp_no),
 
-                         'hidden_user_id':  result.fk_user_id,
+                         'hidden_user_id': result.fk_user_id,
 
-                         'hidden_emp_no':  result.fk_emp_no,
+                         'hidden_emp_no': result.fk_emp_no,
 
                          'dateInserted': result.dateInserted,
 
@@ -445,7 +446,7 @@ def EditReq(request, requestId):
 
                          'finalCost': result.finalCost,
 
-                         'status':  music_extras.lookup_statuses(result.status),
+                         'status': music_extras.lookup_statuses(result.status),
 
                          'title': result.title,
 
@@ -473,8 +474,8 @@ def EditReq(request, requestId):
         if form.is_valid():
             requeststaff = soap_client_salesManagerServices.factory.create('request')
             requeststaff.request_id = form.cleaned_data['request_id']
-            #requeststaff.fk_user_id = form.cleaned_data['fk_user_id']
-            #requeststaff.fk_emp_no = form.cleaned_data['fk_emp_no']
+            # requeststaff.fk_user_id = form.cleaned_data['fk_user_id']
+            # requeststaff.fk_emp_no = form.cleaned_data['fk_emp_no']
             requeststaff.dateInserted = form.cleaned_data['dateInserted']
             requeststaff.dateModified = form.cleaned_data['dateModified']
             requeststaff.totalCost = form.cleaned_data['totalCost']
@@ -485,8 +486,8 @@ def EditReq(request, requestId):
             requeststaff.album = form.cleaned_data['album']
             requeststaff.creator_name = form.cleaned_data['creator_name']
             requeststaff.singer_name = form.cleaned_data['singer_name']
-            #requeststaff.fk_file_type_id = form.cleaned_data['fk_file_type_id']
-            #requeststaff.fk_genre_id = form.cleaned_data['fk_genre_id']
+            # requeststaff.fk_file_type_id = form.cleaned_data['fk_file_type_id']
+            # requeststaff.fk_genre_id = form.cleaned_data['fk_genre_id']
             requeststaff.creation_date = form.cleaned_data['creation_date']
             soap_client_salesEmployeeServices.service.SalesSetReviewRequest(requeststaff)
 
@@ -496,9 +497,9 @@ def EditReq(request, requestId):
             recording3 = form.cleaned_data['recording3']
             recording4 = form.cleaned_data['recording4']
 
-            soap_client_musicServices.service.SetRequestRecordings(request_id,recording1)
-            soap_client_musicServices.service.SetRequestRecordings(request_id,recording2)
-            soap_client_musicServices.service.SetRequestRecordings(request_id,recording3)
-            soap_client_musicServices.service.SetRequestRecordings(request_id,recording4)
+            soap_client_musicServices.service.SetRequestRecordings(request_id, recording1)
+            soap_client_musicServices.service.SetRequestRecordings(request_id, recording2)
+            soap_client_musicServices.service.SetRequestRecordings(request_id, recording3)
+            soap_client_musicServices.service.SetRequestRecordings(request_id, recording4)
 
             return HttpResponseRedirect('/music/GetNewRequests')
