@@ -46,6 +46,50 @@ public class DAL {
         }
         return new ArrayList<Recordings>();
     }
+    
+    public Recordings ReturnIitialReqByRecId(Integer rec_id) {
+
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from Recordings where pk_recording_id = ?");
+            
+            ps.setFloat(1, rec_id);
+            ResultSet rs = ps.executeQuery();
+            ArrayList<Recordings> results = new ArrayList<Recordings>();
+
+            if (rs.next()) // found
+            {
+                Recordings r = ReadRecording(rs);
+                return r;
+            }
+
+            
+        } catch (Exception ex) {
+            PrintError(ex);
+        }
+        return null;
+    }
+    
+    public ArrayList<Recordings> GetRequestRecordings(Integer requestId) {
+
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from Recordings INNER JOIN Request_Recordings ON Request_Recordings.fk_requestrequest_id = ? and Request_Recordings.fk_recordingspk_recording_id = Recordings.pk_recording_id");
+            ps.setInt(1, requestId);
+            ResultSet rs = ps.executeQuery();
+             
+            ArrayList<Recordings> results = new ArrayList<Recordings>();
+
+            while (rs.next()) // found
+            {
+                Recordings r = ReadRecording(rs);
+                results.add(r);
+            }
+
+            return results;
+        } catch (Exception ex) {
+            PrintError(ex);
+        }
+        return new ArrayList<Recordings>();
+    }
 
     private Recordings ReadRecording(ResultSet rs) throws SQLException {
         Recordings r = new Recordings();
@@ -56,6 +100,7 @@ public class DAL {
         r.setSinger_name(rs.getString("singer_name"));
         r.setCreator_name(rs.getString("creator_name"));
         r.setFile_type(rs.getInt("fk_file_type_id"));
+        r.setItem_location(rs.getString("item_location"));
         r.setFoto_location(rs.getString("foto_location"));
         r.setGenre_id(rs.getInt("fk_genre_id"));
         r.setPrice(rs.getFloat("price"));
@@ -116,11 +161,10 @@ public class DAL {
         return new ArrayList<Artist>();
     }
 
-    public ArrayList<Recordings> SelectRecordingsByGenre(GenreInput genreInput) {
+    public ArrayList<Recordings> SelectRecordingsByGenre(Integer genreInput) {
         try {
-            PreparedStatement ps = connection.prepareStatement("select * from Recordings "
-                    + "WHERE fk_genre_id = ?");
-            ps.setInt(1, genreInput.getGenre_id());
+            PreparedStatement ps = connection.prepareStatement("select * from Recordings WHERE fk_genre_id = ?");
+            ps.setInt(1, genreInput);
 
             ResultSet rs = ps.executeQuery();
             ArrayList<Recordings> results = new ArrayList<Recordings>();
@@ -272,6 +316,21 @@ public class DAL {
         StringWriter errors = new StringWriter();
         ex.printStackTrace(new PrintWriter(errors));
         System.out.println(errors.toString());
+    }
+    
+    public Boolean SetRequestRecordings(Integer req_id, Integer rec_id) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO Request_Recordings (fk_requestrequest_id,fk_recordingspk_recording_id) VALUES (?,?)");
+            ps.setInt(1, req_id);
+            ps.setInt(2, rec_id);
+
+            ps.executeUpdate();
+            return true;
+        } catch (Exception ex) {
+            PrintError(ex);
+            return false;
+        }
+
     }
 
 }

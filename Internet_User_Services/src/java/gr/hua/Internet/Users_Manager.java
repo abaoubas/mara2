@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,6 +45,35 @@ public class Users_Manager {
 
                 return user;
             }
+        } catch (Exception ex) {
+            System.out.println("Error in check() -->" + ex.getMessage());
+        }
+        return null;
+    }
+
+    public ArrayList<Users> getAllUsers() {
+
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from InternetUsers ");
+
+            ResultSet rs = ps.executeQuery();
+            ArrayList<Users> users = new ArrayList<Users>();
+            if (rs.next()) // found
+            {
+                Users user = new Users();
+                user.setUser_id(rs.getInt("pk_user_id"));
+                user.setUsername(rs.getString("username"));
+                user.setFirst_name(rs.getString("first_name"));
+                user.setLast_name(rs.getString("last_name"));
+                user.setBirthdate(rs.getDate("birth_date"));
+                user.setGender(rs.getString("gender"));
+                user.setEmail(rs.getString("email"));
+                user.setIBAN(rs.getString("IBAN"));
+
+                users.add(user);
+            }
+
+            return users;
         } catch (Exception ex) {
             System.out.println("Error in check() -->" + ex.getMessage());
         }

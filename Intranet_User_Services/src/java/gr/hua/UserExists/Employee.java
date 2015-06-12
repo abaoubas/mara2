@@ -85,8 +85,13 @@ public class Employee {
     public void setBirthdate(int day, int month, int year) {
         this.birthdate = new Date(year, month, day);
         this.strBirthdate = df.format(this.birthdate);
-        //java.sql.Date javaSqlDate = java.sql.Date.valueOf(year+"-"+month+"-"+day);
-        //this.birthdate = javaSqlDate;
+        
+    }
+    
+    public void setBirthdate(java.sql.Date date) {
+        this.birthdate = new Date(date.getTime());
+        this.strBirthdate = df.format(this.birthdate);
+        
     }
 
     public String getGender() {

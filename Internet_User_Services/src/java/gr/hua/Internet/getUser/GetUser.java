@@ -7,6 +7,7 @@ package gr.hua.Internet.getUser;
 
 import gr.hua.Internet.Users;
 import gr.hua.Internet.Users_Manager;
+import java.util.ArrayList;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -36,5 +37,12 @@ public class GetUser {
         Users_Manager um= new Users_Manager();
         user.setUsername(username);
         return um.checkUser(user);
+    }
+    
+    @WebMethod(operationName = "getAllUsers")
+    public ArrayList<Users> getAllUsers() throws Exception {
+        
+        Users_Manager um= new Users_Manager();
+        return um.getAllUsers();
     }
 }

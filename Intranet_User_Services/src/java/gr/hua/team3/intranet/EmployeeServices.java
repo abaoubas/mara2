@@ -7,6 +7,7 @@ package gr.hua.team3.intranet;
 
 import gr.hua.UserExists.Employee;
 import gr.hua.UserExists.Employee_Manager;
+import java.util.ArrayList;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -19,14 +20,27 @@ import javax.jws.WebParam;
 public class EmployeeServices {
 
     @WebMethod(operationName = "getEmp")
-    public String getEmp(@WebParam(name = "username") String username, @WebParam(name = "password") String password) {
-        //TODO write your implementation code here:
+    public Employee getEmp(@WebParam(name = "username") String username, @WebParam(name = "password") String password) {
         Employee employee = new Employee();
         Employee_Manager em = new Employee_Manager();
         employee.setUsername(username);
         employee.setPassword(password);
         return em.getEmp(employee);
     }
+    
+    @WebMethod(operationName = "getEmp2")
+    public Employee getEmp2(@WebParam(name = "username") String username) {
+        Employee_Manager em = new Employee_Manager();
+        
+        return em.getEmp2(username);
+    }
+    
+    @WebMethod(operationName = "getAllEmp")
+    public ArrayList<Employee> getAllEmp() {
+        Employee_Manager em = new Employee_Manager();        
+        return em.getAllEmp();
+    }
+    
     
     @WebMethod(operationName = "insertEmp")
     public Employee insertEmp(@WebParam(name = "employee") Employee emp) {
@@ -37,7 +51,6 @@ public class EmployeeServices {
     
     @WebMethod(operationName = "userexist")
     public String userexist(@WebParam(name = "username") String username) {
-        //TODO write your implementation code here:
         Employee employee = new Employee();
         Employee_Manager em= new Employee_Manager();
         employee.setUsername(username);

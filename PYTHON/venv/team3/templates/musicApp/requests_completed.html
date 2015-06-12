@@ -2,7 +2,7 @@
 
 {% block body_block %}
 
-<h1> New Requests </h1>
+<h1> Requests for approval </h1>
 
 <table class="table table-striped">
 
@@ -39,8 +39,6 @@
    <th class="active">Genre ID</th>
 
    <th class="active">Creation Date</th>
-
-   <th class="active">Reject Request</th>
 
 
  </tr>
@@ -81,12 +79,6 @@
 
        <td class="active"> {{result.creation_date}} </td>
 
-        <td class="active">
-            click to <a href="RejectRequest/{{result.request_id}}/{{result.fk_emp_no}}"> reject </a>
-
-
-
-        </td>
 
    <tr/>
 

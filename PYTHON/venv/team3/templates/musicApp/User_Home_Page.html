@@ -20,7 +20,7 @@
         </tr>
 
         {% for result in results %}
-         {% if result.status == 10 or result.status == 22%}
+         {% if result.status == 10 or result.status == 22 or result.status == 100%}
         <tr class="active">
             {% else %}
         <tr class="">
@@ -33,12 +33,15 @@
             <td class=""> {{result.singer_name|default_if_none:""}}</td>
             <td class=""> {{result.fk_file_type_id | lookup_filetypes}}</td>
             <td class=""> {{result.fk_genre_id | lookup_genre}}</td>
-            <td class=""> {{result.creation_date|default_if_none:""}}</td>
+            <td class=""> {{result.creation_date|date:"d-m-Y"|default_if_none:""}}</td>
             <td class=""> {{result.finalCost|default_if_none:""}}</td>
             <td class="">
                 {% if result.status == 10 or result.status == 22%}
                 click to<a href="UserAcceptance/{{result.request_id}}"> accept </a> or to <a
                     href="UserReject/{{result.request_id}}"> reject </a>
+                {% endif %}
+                {% if result.status == 100%}
+                <a href="UserDownloads/{{result.request_id}}"> Download </a>
                 {% endif %}
             </td>
         <tr/>

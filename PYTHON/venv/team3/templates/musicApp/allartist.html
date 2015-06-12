@@ -2,20 +2,20 @@
 {% block section %}section-artists{% endblock %}
 {% block body_block %}
 
-<h1> All available Recordings </h1>
+<h1> Καλλιτέχνες </h1>
 
 <table class="table table-striped">
 
     <tr class="active">
-        <th class="active" >artist_id</th>
-        <th class="active" >name</th>
+
+        <th class="active" >Όνομα Καλλιτέχνη</th>
      </tr>
 
 {% for result in results %}
 
    <tr class="active">
 
-        <td class="active"> {{result.artist_id }} </td>
+
         <td class="active"> {{result.name }} </td>
 
    <tr/>
