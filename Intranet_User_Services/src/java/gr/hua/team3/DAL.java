@@ -317,5 +317,20 @@ public class DAL {
         ex.printStackTrace(new PrintWriter(errors));
         System.out.println(errors.toString());
     }
+    
+    public Boolean SetRequestRecordings(Integer req_id, Integer rec_id) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO Request_Recordings (fk_requestrequest_id,fk_recordingspk_recording_id) VALUES (?,?)");
+            ps.setInt(1, req_id);
+            ps.setInt(2, rec_id);
+
+            ps.executeUpdate();
+            return true;
+        } catch (Exception ex) {
+            PrintError(ex);
+            return false;
+        }
+
+    }
 
 }

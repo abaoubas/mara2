@@ -67,7 +67,7 @@ public class DAL_Requests {
         System.out.println(errors.toString());
     }
 
-    public boolean SetRequestPrices(float totalc, float disc, int req_id, int status) {
+    public boolean SetRequestPrices(Float totalc, Float disc, Integer req_id, Integer status) {
         try {
             PreparedStatement ps = connection.prepareStatement("UPDATE Request set totalCost = ?, discount = ?, status = ? WHERE  request_id = ?");
             ps.setFloat(1, totalc);

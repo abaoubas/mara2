@@ -75,7 +75,7 @@
             <a class="btn btn-primary" href="/music/PaidRequest/{{result.request_id}}/{{currentStaff.emp_id}}">
                 Ολοκληρώθηκε η πληρωμή </a>
             {% elif result.status == 0 %}
-            <a class="btn btn-primary" href="JavaScript:alert('ΠΟΥ ΠΗΓΑΙΝΕΙ ΑΥΤΟ?????????');">Επεξεργασία Αίτησης
+            <a class="btn btn-primary" href="/music/EditReq/{{result.request_id}}">Επεξεργασία Αίτησης
             </a>
             <a class="btn btn-danger"
                href="JavaScript:if(confirm('Είστε σίγουροι ότι θέλετε να απορρίψετε αυτή την αίτηση;'))window.location = '/music/RejectRequest/{{result.request_id}}/{{currentStaff.emp_id}}';">Απόρριψη

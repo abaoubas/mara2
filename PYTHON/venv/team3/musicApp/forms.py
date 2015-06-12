@@ -89,3 +89,35 @@ class SalesRequestForm(forms.Form):
     fk_genre_id = forms.IntegerField(label='Είδος', required=True,
                                      widget=forms.TextInput(attrs={'readonly': 'readonly'}))
     creation_date = forms.CharField(label='Ημερομηνία Δημιουργίας', widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+
+class SalesEditRequestForm(forms.Form):
+    request_id = forms.IntegerField(label='Request ID', required=True,
+                                    widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    fk_user_id = forms.CharField(label='Πελάτης', required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    hidden_user_id = forms.IntegerField(required=False, widget=forms.HiddenInput())
+    fk_emp_no = forms.CharField(label='Πωλητής', required=True,
+                                   widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    hidden_emp_no = forms.IntegerField(required=False, widget=forms.HiddenInput())
+    dateInserted = forms.CharField(label='Ημερομηνία Καταχώρησης', widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    dateModified = forms.CharField(label='Ημερομηνία Μεταβολής', widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    totalCost = forms.FloatField(label='Συνολικό κόστος', required=True)
+    discount = forms.FloatField(label='Έκπτωση', required=True)
+    finalCost = forms.FloatField(label='Τελικό κόστος', required=True)
+    status = forms.CharField(label='Κατάσταση Αίτησης', required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    title = forms.CharField(label='Τίτλος κομματιού', required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    album = forms.CharField(label='Συλλογή', required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    creator_name = forms.CharField(label='Όνομα Δημιουργού', required=True,
+                                   widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    singer_name = forms.CharField(label='Όνομα Τραγουδιστή', required=True,
+                                  widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    fk_file_type_id = forms.CharField(label='Τύπος Αρχείου', required=False,
+                                         widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    hidden_file_type_id = forms.IntegerField(required=False, widget=forms.HiddenInput())
+    fk_genre_id = forms.CharField(label='Είδος', required=False,
+                                     widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    hidden_genre_id = forms.IntegerField(required=False, widget=forms.HiddenInput())
+    creation_date = forms.CharField(label='Ημερομηνία Δημιουργίας', widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    recording1 = forms.CharField(label='Πρώτη Ηχογράφηση', required=True)
+    recording2 = forms.CharField(label='Δεύτερη Ηχογράφηση', required=False)
+    recording3 = forms.CharField(label='Τρίτη Ηχογράφηση', required=False)
+    recording4 = forms.CharField(label='Τέταρτη Ηχογράφηση', required=False)
