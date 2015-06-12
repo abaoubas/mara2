@@ -52,7 +52,7 @@ public class SalesManagerServices {
 
 
     @WebMethod(operationName = "SalesManagerGetRequest")
-    public List<Request> SalesManagerGetRequest(@WebParam(name = "request_id") Integer request_id) {  
+    public Request SalesManagerGetRequest(@WebParam(name = "request_id") Integer request_id) {  
         
         ArrayList<Request> listReq=new ArrayList<Request>();
         listReq=dal.SelectRequests();
@@ -63,9 +63,12 @@ public class SalesManagerServices {
             {
                 listReq.remove(k);
             }
-        }
+        }        
         
-        return listReq;
+        if(!listReq.isEmpty())
+            return listReq.get(0);
+        else
+            return null;
     }
 }
 

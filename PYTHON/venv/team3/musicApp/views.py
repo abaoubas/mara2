@@ -169,16 +169,16 @@ def GetUserHistory(request, userId):
 @user_passes_test(isSalesRep, login_url='/emp/login/')
 def RejectRequest(request, request_id, emp_no):
     results = soap_client_salesEmployeeServices.service.RejectRequest(request_id, emp_no)
-    context = {'results': results, }
-    return render(request, 'musicApp/reject_request_success.html', context)
+    context = {'results': results, 'message': 'Request Rejected Successfully!' }
+    return render(request, 'musicApp/messages.html', context)
 
 
 @login_required(login_url='/emp/login/')
 @user_passes_test(isSalesRep, login_url='/emp/login/')
 def PaidRequest(request, request_id, emp_no):
     results = soap_client_salesEmployeeServices.service.PaidRequest(request_id, emp_no)
-    context = {'results': results, }
-    return render(request, 'musicApp/reject_request_success.html', context)
+    context = {'results': results, 'message': 'Request Paid Successfully!' }
+    return render(request, 'musicApp/messages.html', context)
 
 
 soap_client_UserServices = Client('http://localhost:8080/Intranet_User_Services/SalesRequests?WSDL')
@@ -271,8 +271,9 @@ def Manager_Home_Page(request):
 @user_passes_test(isSalesManager, login_url='/emp/login/')
 def Manager_approvement(request, requestId):
     if request.method == 'GET':
-        results = soap_client_salesManagerServices.service.SalesManagerGetRequest(requestId)
-        for result in results:
+        result = soap_client_salesManagerServices.service.SalesManagerGetRequest(requestId)
+
+        if(result is not None):
             form = ManagerRequestForm(
                 initial={'request_id': result.request_id,
 
@@ -308,7 +309,9 @@ def Manager_approvement(request, requestId):
 
                          }
             )
-        return render(request, 'musicApp/Mng_req_approval.html', {'form': form, })
+            return render(request, 'musicApp/Mng_req_approval.html', {'form': form, })
+        else:
+            return HttpResponse("The acceptance request didn't commit")
     else:
         form = ManagerRequestForm(request.POST)
         if form.is_valid():
