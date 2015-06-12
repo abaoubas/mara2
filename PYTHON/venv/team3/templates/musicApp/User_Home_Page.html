@@ -1,22 +1,21 @@
 {% extends 'base.html' %}
 {% block body_block %}
 
-<h1>Home Page </h1>
-<h2>Your requests</h2>
+<h2>Οι αιτήσεις μου</h2>
 <form role="form" action='/music/AcceptPrice/' method='post' class="form-horizontal">{% csrf_token %}
     <table class="table table-striped">
 
         <tr class="active">
-            <th class="active">Request ID</th>
-            <th class="active">Title</th>
-            <th class="active">Album</th>
-            <th class="active">Creator Name</th>
-            <th class="active">Singer Name</th>
-            <th class="active">File Type ID</th>
-            <th class="active">Genre ID</th>
-            <th class="active">Creation Date</th>
-            <th class="active">Final Cost</th>
-            <th class="active">Accept Price</th>
+            <th class="active">ID Αίτησης</th>
+            <th class="active">Τίτλος</th>
+            <th class="active">Συλλογή</th>
+            <th class="active">Όνομα Δημιουργού</th>
+            <th class="active">Όνομα Τραγουδιστή</th>
+            <th class="active">Τύπος Αρχείου</th>
+            <th class="active">Είδος</th>
+            <th class="active">Ημερομηνία Δημιουργίας</th>
+            <th class="active">Τελικό κόστος</th>
+            <th class="active">Τιμή αποδοχής</th>
         </tr>
 
         {% for result in results %}
@@ -49,5 +48,4 @@
         {% endfor %}
 
     </table>
-    <h2><a href="/music/NewRequest">New request</a></h2>
     {% endblock %}

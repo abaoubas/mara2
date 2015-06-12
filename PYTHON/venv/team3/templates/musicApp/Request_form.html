@@ -2,7 +2,7 @@
 {% load bootstrap %}
 {% block body_block %}
 
-<h1>Request Form </h1>
+<h1>Νέα αίτηση </h1>
 
 <form role="form" action='{{post_action_url}}' method='post' class="form-horizontal">{% csrf_token %}
     {{ form|bootstrap_horizontal }}
