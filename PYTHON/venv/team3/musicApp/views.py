@@ -169,16 +169,16 @@ def GetUserHistory(request, userId):
 @user_passes_test(isSalesRep, login_url='/emp/login/')
 def RejectRequest(request, request_id, emp_no):
     results = soap_client_salesEmployeeServices.service.RejectRequest(request_id, emp_no)
-    context = {'results': results, }
-    return render(request, 'musicApp/reject_request_success.html', context)
+    context = {'results': results, 'message': 'Request Rejected Successfully!' }
+    return render(request, 'musicApp/messages.html', context)
 
 
 @login_required(login_url='/emp/login/')
 @user_passes_test(isSalesRep, login_url='/emp/login/')
 def PaidRequest(request, request_id, emp_no):
     results = soap_client_salesEmployeeServices.service.PaidRequest(request_id, emp_no)
-    context = {'results': results, }
-    return render(request, 'musicApp/reject_request_success.html', context)
+    context = {'results': results, 'message': 'Request Paid Successfully!' }
+    return render(request, 'musicApp/messages.html', context)
 
 
 soap_client_UserServices = Client('http://localhost:8080/Intranet_User_Services/SalesRequests?WSDL')
@@ -273,14 +273,19 @@ def Manager_Home_Page(request):
 @user_passes_test(isSalesManager, login_url='/emp/login/')
 def Manager_approvement(request, requestId):
     if request.method == 'GET':
-        results = soap_client_salesManagerServices.service.SalesManagerGetRequest(requestId)
-        for result in results:
+        result = soap_client_salesManagerServices.service.SalesManagerGetRequest(requestId)
+
+        if(result is not None):
             form = ManagerRequestForm(
                 initial={'request_id': result.request_id,
 
                          'fk_user_id': music_extras.lookup_customer(result.fk_user_id),
 
                          'fk_emp_no': music_extras.lookup_staff(result.fk_emp_no),
+
+                         'hidden_user_id':  result.fk_user_id,
+
+                         'hidden_emp_no':  result.fk_emp_no,
 
                          'dateInserted': result.dateInserted,
 
@@ -306,18 +311,24 @@ def Manager_approvement(request, requestId):
 
                          'fk_genre_id': music_extras.lookup_genre(result.fk_genre_id),
 
+                         'hidden_file_type_id': result.fk_file_type_id,
+
+                         'hidden_genre_id': result.fk_genre_id,
+
                          'creation_date': result.creation_date
 
                          }
             )
-        return render(request, 'musicApp/Mng_req_approval.html', {'form': form, })
+            return render(request, 'musicApp/Mng_req_approval.html', {'form': form, })
+        else:
+            return HttpResponse("The acceptance request didn't commit")
     else:
         form = ManagerRequestForm(request.POST)
         if form.is_valid():
             requeststaff = soap_client_salesManagerServices.factory.create('request')
             requeststaff.request_id = form.cleaned_data['request_id']
-            requeststaff.fk_user_id = form.cleaned_data['fk_user_id']
-            requeststaff.fk_emp_no = form.cleaned_data['fk_emp_no']
+            requeststaff.fk_user_id = form.cleaned_data['hidden_user_id']
+            requeststaff.fk_emp_no = form.cleaned_data['hidden_emp_no']
             requeststaff.dateInserted = form.cleaned_data['dateInserted']
             requeststaff.dateModified = form.cleaned_data['dateModified']
             requeststaff.totalCost = form.cleaned_data['totalCost']
@@ -328,8 +339,8 @@ def Manager_approvement(request, requestId):
             requeststaff.album = form.cleaned_data['album']
             requeststaff.creator_name = form.cleaned_data['creator_name']
             requeststaff.singer_name = form.cleaned_data['singer_name']
-            requeststaff.fk_file_type_id = form.cleaned_data['fk_file_type_id']
-            requeststaff.fk_genre_id = form.cleaned_data['fk_genre_id']
+            requeststaff.fk_file_type_id = form.cleaned_data['hidden_file_type_id']
+            requeststaff.fk_genre_id = form.cleaned_data['hidden_genre_id']
             requeststaff.creation_date = form.cleaned_data['creation_date']
             result = soap_client_salesManagerServices.service.SalesManagerSetReviewRequest(requeststaff)
             return HttpResponseRedirect('/music/Manager_Home_Page/')
@@ -356,6 +367,10 @@ def Sales_approval(request, requestId):
 
                          'fk_emp_no': music_extras.lookup_staff(result.fk_emp_no),
 
+                         'hidden_user_id':  result.fk_user_id,
+
+                         'hidden_emp_no':  result.fk_emp_no,
+
                          'dateInserted': result.dateInserted,
 
                          'dateModified': result.dateModified,
@@ -380,6 +395,10 @@ def Sales_approval(request, requestId):
 
                          'fk_genre_id': music_extras.lookup_genre(result.fk_genre_id),
 
+                         'hidden_file_type_id': result.fk_file_type_id,
+
+                         'hidden_genre_id': result.fk_genre_id,
+
                          'creation_date': result.creation_date
 
                          }
@@ -390,8 +409,8 @@ def Sales_approval(request, requestId):
         if form.is_valid():
             requeststaff = soap_client_salesManagerServices.factory.create('request')
             requeststaff.request_id = form.cleaned_data['request_id']
-            requeststaff.fk_user_id = form.cleaned_data['fk_user_id']
-            requeststaff.fk_emp_no = form.cleaned_data['fk_emp_no']
+            requeststaff.fk_user_id = form.cleaned_data['hidden_user_id']
+            requeststaff.fk_emp_no = form.cleaned_data['hidden_emp_no']
             requeststaff.dateInserted = form.cleaned_data['dateInserted']
             requeststaff.dateModified = form.cleaned_data['dateModified']
             requeststaff.totalCost = form.cleaned_data['totalCost']
@@ -402,8 +421,8 @@ def Sales_approval(request, requestId):
             requeststaff.album = form.cleaned_data['album']
             requeststaff.creator_name = form.cleaned_data['creator_name']
             requeststaff.singer_name = form.cleaned_data['singer_name']
-            requeststaff.fk_file_type_id = form.cleaned_data['fk_file_type_id']
-            requeststaff.fk_genre_id = form.cleaned_data['fk_genre_id']
+            requeststaff.fk_file_type_id = form.cleaned_data['hidden_file_type_id']
+            requeststaff.fk_genre_id = form.cleaned_data['hidden_genre_id']
             requeststaff.creation_date = form.cleaned_data['creation_date']
             result = soap_client_salesEmployeeServices.service.SalesSetReviewRequest(requeststaff)
             return HttpResponseRedirect('/music/SalesGetReviewManagerApprovals/')
@@ -474,8 +493,10 @@ def EditReq(request, requestId):
         if form.is_valid():
             requeststaff = soap_client_salesManagerServices.factory.create('request')
             requeststaff.request_id = form.cleaned_data['request_id']
-            # requeststaff.fk_user_id = form.cleaned_data['fk_user_id']
-            # requeststaff.fk_emp_no = form.cleaned_data['fk_emp_no']
+
+            requeststaff.fk_user_id = form.cleaned_data['hidden_user_id']
+            requeststaff.fk_emp_no = form.cleaned_data['hidden_emp_no']
+
             requeststaff.dateInserted = form.cleaned_data['dateInserted']
             requeststaff.dateModified = form.cleaned_data['dateModified']
             requeststaff.totalCost = form.cleaned_data['totalCost']
@@ -486,8 +507,10 @@ def EditReq(request, requestId):
             requeststaff.album = form.cleaned_data['album']
             requeststaff.creator_name = form.cleaned_data['creator_name']
             requeststaff.singer_name = form.cleaned_data['singer_name']
-            # requeststaff.fk_file_type_id = form.cleaned_data['fk_file_type_id']
-            # requeststaff.fk_genre_id = form.cleaned_data['fk_genre_id']
+
+            requeststaff.fk_file_type_id = form.cleaned_data['hidden_file_type_id']
+            requeststaff.fk_genre_id = form.cleaned_data['hidden_genre_id']
+
             requeststaff.creation_date = form.cleaned_data['creation_date']
             soap_client_salesEmployeeServices.service.SalesSetReviewRequest(requeststaff)
 
