@@ -8,6 +8,7 @@ from suds.client import Client
 from forms import CreateRequestForm, ManagerRequestForm, SalesRequestForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django import template
+from templatetags import music_extras
 
 register = template.Library()
 
@@ -275,9 +276,9 @@ def Manager_approvement(request, requestId):
             form = ManagerRequestForm(
                 initial={'request_id': result.request_id,
 
-                         'fk_user_id': result.fk_user_id,
+                         'fk_user_id':  music_extras.lookup_customer(result.fk_user_id),
 
-                         'fk_emp_no': result.fk_emp_no,
+                         'fk_emp_no':  music_extras.lookup_staff(result.fk_emp_no),
 
                          'dateInserted': result.dateInserted,
 
@@ -289,7 +290,7 @@ def Manager_approvement(request, requestId):
 
                          'finalCost': result.finalCost,
 
-                         'status': result.status,
+                         'status':  music_extras.lookup_statuses(result.status),
 
                          'title': result.title,
 
@@ -299,9 +300,9 @@ def Manager_approvement(request, requestId):
 
                          'singer_name': result.singer_name,
 
-                         'fk_file_type_id': result.fk_file_type_id,
+                         'fk_file_type_id': music_extras.lookup_filetypes(result.fk_file_type_id),
 
-                         'fk_genre_id': result.fk_genre_id,
+                         'fk_genre_id': music_extras.lookup_genre(result.fk_genre_id),
 
                          'creation_date': result.creation_date
 
@@ -343,15 +344,16 @@ def SalesGetReviewManagerApprovals(request):
 @login_required(login_url='/emp/login/')
 @user_passes_test(isSalesRep, login_url='/emp/login/')
 def Sales_approval(request, requestId):
+
     if request.method == 'GET':
         results = soap_client_salesManagerServices.service.SalesManagerGetRequest(requestId)
         for result in results:
             form = SalesRequestForm(
                 initial={'request_id': result.request_id,
 
-                         'fk_user_id': result.fk_user_id,
+                         'fk_user_id':  music_extras.lookup_customer(result.fk_user_id),
 
-                         'fk_emp_no': result.fk_emp_no,
+                         'fk_emp_no':  music_extras.lookup_staff(result.fk_emp_no),
 
                          'dateInserted': result.dateInserted,
 
@@ -363,7 +365,7 @@ def Sales_approval(request, requestId):
 
                          'finalCost': result.finalCost,
 
-                         'status': result.status,
+                         'status':  music_extras.lookup_statuses(result.status),
 
                          'title': result.title,
 
@@ -373,9 +375,9 @@ def Sales_approval(request, requestId):
 
                          'singer_name': result.singer_name,
 
-                         'fk_file_type_id': result.fk_file_type_id,
+                         'fk_file_type_id': music_extras.lookup_filetypes(result.fk_file_type_id),
 
-                         'fk_genre_id': result.fk_genre_id,
+                         'fk_genre_id': music_extras.lookup_genre(result.fk_genre_id),
 
                          'creation_date': result.creation_date
 

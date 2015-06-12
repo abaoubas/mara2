@@ -38,54 +38,54 @@ class CreateRequestForm(forms.Form):
 
 
 class ManagerRequestForm(forms.Form):
-    request_id = forms.IntegerField(label='request_id', required=True,
+    request_id = forms.IntegerField(label='Request ID', required=True,
                                     widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    fk_user_id = forms.IntegerField(label='User', required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    fk_emp_no = forms.IntegerField(label='fk_emp_no', required=True,
+    fk_user_id = forms.IntegerField(label='Πελάτης', required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    fk_emp_no = forms.IntegerField(label='Πωλητής', required=True,
                                    widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    dateInserted = forms.CharField(label='dateInserted', widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    dateModified = forms.CharField(label='dateModified', widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    totalCost = forms.FloatField(label='totalCost', required=True,
+    dateInserted = forms.CharField(label='Ημερομηνία Καταχώρησης', widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    dateModified = forms.CharField(label='Ημερομηνία Μεταβολής', widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    totalCost = forms.FloatField(label='Συνολικό κόστος', required=True,
                                  widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    discount = forms.FloatField(label='discount', required=True)
-    finalCost = forms.FloatField(label='finalCost', required=True,
+    discount = forms.FloatField(label='Έκπτωση', required=True)
+    finalCost = forms.FloatField(label='Τελικό κόστος', required=True,
                                  widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    status = forms.IntegerField(label='status', required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    title = forms.CharField(label='Title', required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    album = forms.CharField(label='Album', required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    creator_name = forms.CharField(label='Creator Name', required=True,
+    status = forms.IntegerField(label='Κατάσταση Αίτησης', required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    title = forms.CharField(label='Τίτλος κομματιού', required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    album = forms.CharField(label='Συλλογή', required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    creator_name = forms.CharField(label='Όνομα Δημιουργού', required=True,
                                    widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    singer_name = forms.CharField(label='Singer Name', required=True,
+    singer_name = forms.CharField(label='Όνομα Τραγουδιστή', required=True,
                                   widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    fk_file_type_id = forms.IntegerField(label='File Type', required=True,
+    fk_file_type_id = forms.IntegerField(label='Τύπος Αρχείου', required=True,
                                          widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    fk_genre_id = forms.IntegerField(label='Genre', required=True,
+    fk_genre_id = forms.IntegerField(label='Είδος', required=True,
                                      widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    creation_date = forms.CharField(label='Creation Date', widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    creation_date = forms.CharField(label='Ημερομηνία Δημιουργίας', widget=forms.TextInput(attrs={'readonly': 'readonly'}))
 
 
 class SalesRequestForm(forms.Form):
-    request_id = forms.IntegerField(label='request_id', required=True,
+    request_id = forms.IntegerField(label='Request ID', required=True,
                                     widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    fk_user_id = forms.IntegerField(label='User', required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    fk_emp_no = forms.IntegerField(label='fk_emp_no', required=True,
+    fk_user_id = forms.IntegerField(label='Πελάτης', required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    fk_emp_no = forms.IntegerField(label='Πωλητής', required=True,
                                    widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    dateInserted = forms.CharField(label='dateInserted', widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    dateModified = forms.CharField(label='dateModified', widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    totalCost = forms.FloatField(label='totalCost', required=True,
+    dateInserted = forms.CharField(label='Ημερομηνία Καταχώρησης', widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    dateModified = forms.CharField(label='Ημερομηνία Μεταβολής', widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    totalCost = forms.FloatField(label='Συνολικό κόστος', required=True,
                                  widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    discount = forms.FloatField(label='discount', required=True,
+    discount = forms.FloatField(label='Έκπτωση', required=True,
                                  widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    finalCost = forms.FloatField(label='finalCost', required=True)
-    status = forms.IntegerField(label='status', required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    title = forms.CharField(label='Title', required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    album = forms.CharField(label='Album', required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    creator_name = forms.CharField(label='Creator Name', required=True,
+    finalCost = forms.FloatField(label='Τελικό κόστος', required=True)
+    status = forms.IntegerField(label='Κατάσταση Αίτησης', required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    title = forms.CharField(label='Τίτλος κομματιού', required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    album = forms.CharField(label='Συλλογή', required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    creator_name = forms.CharField(label='Όνομα Δημιουργού', required=True,
                                    widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    singer_name = forms.CharField(label='Singer Name', required=True,
+    singer_name = forms.CharField(label='Όνομα Τραγουδιστή', required=True,
                                   widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    fk_file_type_id = forms.IntegerField(label='File Type', required=True,
+    fk_file_type_id = forms.IntegerField(label='Τύπος Αρχείου', required=True,
                                          widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    fk_genre_id = forms.IntegerField(label='Genre', required=True,
+    fk_genre_id = forms.IntegerField(label='Είδος', required=True,
                                      widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    creation_date = forms.CharField(label='Creation Date', widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    creation_date = forms.CharField(label='Ημερομηνία Δημιουργίας', widget=forms.TextInput(attrs={'readonly': 'readonly'}))
