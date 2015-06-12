@@ -40,6 +40,6 @@ class MyRegistrationForm(UserCreationForm):
         if commit:
             user.save()
             # add this user to appropriate group
-            g = Group.objects.get(name=user.user_type)
+            g = Group.objects.get(name=self.cleaned_data['user_type'])
             g.user_set.add(user)
         return user
