@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import urllib2
 import base64
 import json
@@ -169,7 +171,7 @@ def GetUserHistory(request, userId):
 @user_passes_test(isSalesRep, login_url='/emp/login/')
 def RejectRequest(request, request_id, emp_no):
     results = soap_client_salesEmployeeServices.service.RejectRequest(request_id, emp_no)
-    context = {'results': results, 'message': 'Request Rejected Successfully!' }
+    context = {'results': results, 'message': 'Η αίτηση απορρίφθηκε με επιτυχία!' }
     return render(request, 'musicApp/messages.html', context)
 
 
@@ -177,7 +179,7 @@ def RejectRequest(request, request_id, emp_no):
 @user_passes_test(isSalesRep, login_url='/emp/login/')
 def PaidRequest(request, request_id, emp_no):
     results = soap_client_salesEmployeeServices.service.PaidRequest(request_id, emp_no)
-    context = {'results': results, 'message': 'Request Paid Successfully!' }
+    context = {'results': results, 'message': 'Η πληρωμή της αίτησής σας ολοκληρώθηκε με επιτυχία!' }
     return render(request, 'musicApp/messages.html', context)
 
 
@@ -233,7 +235,12 @@ def User_Home_Page(request):
     user_id_Request = soap_client_UserServices.factory.create('userIdRequest')
     user_id_Request.user_id = currentCustomer(request.user).user_id;
     results = soap_client_UserServices.service.GetUserRequests(user_id_Request)
-    context = {'results': results, }
+
+    #if not results:
+    context = {'results': results, 'message': 'Δεν έχετε αιτήσεις καταχωρημένες στο σύστημα.'}
+    #else:
+    #   context = {'results': results, 'message': '' }
+
     return render(request, 'musicApp/User_Home_Page.html', context)
 
 

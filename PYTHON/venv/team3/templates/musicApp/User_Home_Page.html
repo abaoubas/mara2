@@ -1,53 +1,64 @@
+
 {% extends 'base.html' %}
 {% block body_block %}
 
-<h1>Home Page </h1>
-<h2>Your requests</h2>
-<form role="form" action='/music/AcceptPrice/' method='post' class="form-horizontal">{% csrf_token %}
-    <table class="table table-striped">
+{% if results %}
 
-        <tr class="active">
-            <th class="active">Request ID</th>
-            <th class="active">Title</th>
-            <th class="active">Album</th>
-            <th class="active">Creator Name</th>
-            <th class="active">Singer Name</th>
-            <th class="active">File Type ID</th>
-            <th class="active">Genre ID</th>
-            <th class="active">Creation Date</th>
-            <th class="active">Final Cost</th>
-            <th class="active">Accept Price</th>
-        </tr>
+    <h1>Home Page </h1>
+    <h2>Your requests</h2>
+    <form role="form" action='/music/AcceptPrice/' method='post' class="form-horizontal">{% csrf_token %}
+        <table class="table table-striped">
 
-        {% for result in results %}
-         {% if result.status == 10 or result.status == 22 or result.status == 100%}
-        <tr class="active">
-            {% else %}
-        <tr class="">
-            {% endif %}
-{% load music_extras %}
-            <td class=""> {{result.request_id}}</td>
-            <td class=""> {{result.title|default_if_none:""}}</td>
-            <td class=""> {{result.album|default_if_none:""}}</td>
-            <td class=""> {{result.creator_name|default_if_none:""}}</td>
-            <td class=""> {{result.singer_name|default_if_none:""}}</td>
-            <td class=""> {{result.fk_file_type_id | lookup_filetypes}}</td>
-            <td class=""> {{result.fk_genre_id | lookup_genre}}</td>
-            <td class=""> {{result.creation_date|date:"d-m-Y"|default_if_none:""}}</td>
-            <td class=""> {{result.finalCost|default_if_none:""}}</td>
-            <td class="">
-                {% if result.status == 10 or result.status == 22%}
-                click to<a href="UserAcceptance/{{result.request_id}}"> accept </a> or to <a
-                    href="UserReject/{{result.request_id}}"> reject </a>
+            <tr class="active">
+                <th class="active">Request ID</th>
+                <th class="active">Title</th>
+                <th class="active">Album</th>
+                <th class="active">Creator Name</th>
+                <th class="active">Singer Name</th>
+                <th class="active">File Type ID</th>
+                <th class="active">Genre ID</th>
+                <th class="active">Creation Date</th>
+                <th class="active">Final Cost</th>
+                <th class="active">Accept Price</th>
+            </tr>
+
+            {% for result in results %}
+                {% if result.status == 10 or result.status == 22 or result.status == 100%}
+            <tr class="active">
+                {% else %}
+            <tr class="">
                 {% endif %}
-                {% if result.status == 100%}
-                <a href="UserDownloads/{{result.request_id}}"> Download </a>
-                {% endif %}
-            </td>
-        <tr/>
+    {% load music_extras %}
+                <td class=""> {{result.request_id}}</td>
+                <td class=""> {{result.title|default_if_none:""}}</td>
+                <td class=""> {{result.album|default_if_none:""}}</td>
+                <td class=""> {{result.creator_name|default_if_none:""}}</td>
+                <td class=""> {{result.singer_name|default_if_none:""}}</td>
+                <td class=""> {{result.fk_file_type_id | lookup_filetypes}}</td>
+                <td class=""> {{result.fk_genre_id | lookup_genre}}</td>
+                <td class=""> {{result.creation_date|date:"d-m-Y"|default_if_none:""}}</td>
+                <td class=""> {{result.finalCost|default_if_none:""}}</td>
+                <td class="">
+                    {% if result.status == 10 or result.status == 22%}
+                    click to<a href="UserAcceptance/{{result.request_id}}"> accept </a> or to <a
+                        href="UserReject/{{result.request_id}}"> reject </a>
+                    {% endif %}
+                    {% if result.status == 100%}
+                    <a href="UserDownloads/{{result.request_id}}"> Download </a>
+                    {% endif %}
+                </td>
+            <tr/>
 
-        {% endfor %}
+            {% endfor %}
 
-    </table>
-    <h2><a href="/music/NewRequest">New request</a></h2>
+        </table>
+        </form>
+ <h2><a href="/music/NewRequest">New request</a></h2>
+{% else %}
+<h3>{{message}}</h3>
+<h4>Για να προσθέσετε ένα νέο αίτημα πατήστε <a href="/music/NewRequest">εδώ</a>. </h4>
+
+{% endif %}
+
+
     {% endblock %}
