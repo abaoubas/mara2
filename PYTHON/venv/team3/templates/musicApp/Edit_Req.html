@@ -2,9 +2,9 @@
 {% load bootstrap %}
 {% block body_block %}
 
-<h1>Request for approval </h1>
+<h3>Request for approval </h3>
 
-
+<br/>
 
 <form role="form" action='/music/EditReq/{{form.request_id.value}}' method='post' class="form-horizontal">{% csrf_token %}
     {{ form|bootstrap_horizontal }}

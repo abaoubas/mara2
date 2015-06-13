@@ -2,8 +2,8 @@
 {% load bootstrap %}
 {% block body_block %}
 
-<h1>Νέα αίτηση </h1>
-
+<h3>Νέα αίτηση </h3>
+<br/>
 <form role="form" action='{{post_action_url}}' method='post' class="form-horizontal">{% csrf_token %}
     {{ form|bootstrap_horizontal }}
 
