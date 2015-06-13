@@ -4,63 +4,71 @@
 {% if results %}
 
 
-            <h3>Οι αιτήσεις μου</h3>
-    <br/>
-            <form role="form" action='/music/AcceptPrice/' method='post' class="form-horizontal">{% csrf_token %}
-                <table class="table table-striped">
+<h3>Οι αιτήσεις μου</h3>
+<br/>
+<form role="form" action='/music/AcceptPrice/' method='post' class="form-horizontal">{% csrf_token %}
+    <table class="table table-striped">
 
-                    <tr class="active">
-                        <th class="active">ID Αίτησης</th>
-                        <th class="active">Τίτλος</th>
-                        <th class="active">Συλλογή</th>
-                        <th class="active">Όνομα Δημιουργού</th>
-                        <th class="active">Όνομα Τραγουδιστή</th>
-                        <th class="active">Τύπος Αρχείου</th>
-                        <th class="active">Είδος</th>
-                        <th class="active">Ημερομηνία Δημιουργίας</th>
-                        <th class="active">Τελικό κόστος</th>
-                        <th class="active">Επιλογές</th>
-                    </tr>
+        <tr class="active">
+            <th class="active">ID Αίτησης</th>
+            <th class="active">Τίτλος</th>
+            <th class="active">Συλλογή</th>
+            <th class="active">Όνομα Δημιουργού</th>
+            <th class="active">Όνομα Τραγουδιστή</th>
+            <th class="active">Τύπος Αρχείου</th>
+            <th class="active">Είδος</th>
+            <th class="active">Ημερομηνία Δημιουργίας</th>
+            <th class="active">Τελικό κόστος</th>
+            <th class="active">Επιλογές</th>
+        </tr>
 
-                    {% for result in results %}
-                    {% if result.status == 10 or result.status == 22 or result.status == 100%}
-                    <tr class="active">
-                        {% else %}
-                    <tr class="">
-                        {% endif %}
-                        {% load music_extras %}
-                        <td class=""> {{result.request_id}}</td>
-                        <td class=""> {{result.title|default_if_none:""}}</td>
-                        <td class=""> {{result.album|default_if_none:""}}</td>
-                        <td class=""> {{result.creator_name|default_if_none:""}}</td>
-                        <td class=""> {{result.singer_name|default_if_none:""}}</td>
-                        <td class=""> {{result.fk_file_type_id | lookup_filetypes}}</td>
-                        <td class=""> {{result.fk_genre_id | lookup_genre}}</td>
-                        <td class=""> {{result.creation_date|date:"d-m-Y"|default_if_none:""}}</td>
-                        <td class=""> {{result.finalCost|default_if_none:""}}</td>
-                        <td class="">
-                            {% if result.status == 10 or result.status == 22%}
-                            click to<a href="UserAcceptance/{{result.request_id}}"> accept </a> or to <a
-                                href="UserReject/{{result.request_id}}"> reject </a>
-                            {% endif %}
-                            {% if result.status == 100%}
-                            <a href="UserDownloads/{{result.request_id}}"> Download </a>
-                            {% endif %}
-
-                    <tr/>
-                    {% endfor %}
-
-
-                </table>
-            </form>
-
-
+        {% for result in results %}
+        {% if result.status == 10 or result.status == 22 or result.status == 100%}
+        <tr class="active">
+            {% elif result.status == 98 or result.status == 99 %}
+        <tr class="danger">
             {% else %}
-
-            <h3>{{message}}</h3>
-
+        <tr class="">
             {% endif %}
+            {% load music_extras %}
+            <td class=""> {{result.request_id}}</td>
+            <td class=""> {{result.title|default_if_none:""}}</td>
+            <td class=""> {{result.album|default_if_none:""}}</td>
+            <td class=""> {{result.creator_name|default_if_none:""}}</td>
+            <td class=""> {{result.singer_name|default_if_none:""}}</td>
+            <td class=""> {{result.fk_file_type_id | lookup_filetypes}}</td>
+            <td class=""> {{result.fk_genre_id | lookup_genre}}</td>
+            <td class=""> {{result.creation_date|date:"d-m-Y"|default_if_none:""}}</td>
+            <td class=""> {{result.finalCost|default_if_none:""}}</td>
+            <td class="">
 
-            <h4>Για να προσθέσετε ένα νέο αίτημα πατήστε <a href="/music/NewRequest">εδώ</a>. </h4>
 
-            {% endblock %}
+                {% if result.status == 25 %}
+                click to<a href="UserAcceptance/{{result.request_id}}"> accept </a> or to <a
+                    href="UserReject/{{result.request_id}}"> reject </a>
+                {% elif result.status == 0 or result.status == 10 or result.status == 20 or result.status == 21 or result.status == 22%}
+                <span class="label label-default">Αίτηση σε αναμονή.</span>
+                {% elif result.status == 100%}
+                <a href="UserDownloads/{{result.request_id}}"> Download </a>
+                {% elif result.status == 98 %}
+                <span class="label label-danger">Απορρίφθηκε από τον Πωλητή.</span>
+                {% else %}
+                {% endif %}
+
+        <tr/>
+        {% endfor %}
+
+
+    </table>
+</form>
+
+
+{% else %}
+
+<h3>{{message}}</h3>
+
+{% endif %}
+
+<h4>Για να προσθέσετε ένα νέο αίτημα πατήστε <a href="/music/NewRequest">εδώ</a>. </h4>
+
+{% endblock %}

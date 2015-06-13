@@ -448,6 +448,11 @@ def EditReq(request, requestId):
     if request.method == 'GET':
         result = soap_client_salesManagerServices.service.SalesManagerGetRequest(requestId)
 
+        if hasattr(result, 'creation_date'):
+            c_date = result.creation_date
+        else:
+            c_date = None
+
         form = SalesEditRequestForm(
             initial={'request_id': result.request_id,
                      'fk_user_id': music_extras.lookup_customer(result.fk_user_id),
@@ -468,7 +473,7 @@ def EditReq(request, requestId):
                      'fk_genre_id': music_extras.lookup_genre(result.fk_genre_id),
                      'hidden_file_type_id': result.fk_file_type_id,
                      'hidden_genre_id': result.fk_genre_id,
-                     'creation_date': result.creation_date
+                     'creation_date': c_date
                  }
         )
         return render(request, 'musicApp/Edit_Req.html', {'form': form, })
