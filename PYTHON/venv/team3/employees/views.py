@@ -107,7 +107,7 @@ def employ_not_found(request):
 
 def userExists(emp_no):
     # Get the data from the endpoint
-    request = urllib2.Request("http://62.217.127.56/phprest/index.php/users/users")
+    request = urllib2.Request("http://62.217.127.56/phprest/users/employees")
     username = 'admin'
     password = '1234'
     base64string = base64.encodestring('%s:%s' % (username, password)).replace('\n', '')

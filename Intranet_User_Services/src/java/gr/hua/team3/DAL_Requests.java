@@ -130,16 +130,18 @@ public class DAL_Requests {
     public boolean insertSalesApproval(Request req) {
         try {
 
-            /*private int request_id,fk_user_id,title,album,creator_name,singer_name,fk_genre_id,fk_file_type_id,creation_date;
-             */
-            String insertEmployee = "UPDATE Request SET finalcost=?, status=?  WHERE request_id=?;";
+            String sql = "UPDATE Request "
+                    + "SET  totalCost=? , discount=?,  finalcost=?, status=? "
+                    + " WHERE request_id=?;";
 
-            PreparedStatement preparedStatement = connection.prepareStatement(insertEmployee);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
             //preparedStatement.setInt(1, req.getRequest_id());
 
-            preparedStatement.setFloat(1, req.getFinalCost());
-            preparedStatement.setInt(2, 25);
-            preparedStatement.setInt(3, req.getRequest_id());
+            preparedStatement.setFloat(1, req.getTotalCost());
+            preparedStatement.setFloat(2, req.getDiscount());
+            preparedStatement.setFloat(3, req.getFinalCost());
+            preparedStatement.setInt(4, req.getDiscount() == 0 ? 10 : 20);
+            preparedStatement.setInt(5, req.getRequest_id());
 
             // execute insert SQL stetement
             preparedStatement.executeUpdate();
