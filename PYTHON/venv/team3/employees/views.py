@@ -6,20 +6,21 @@ from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.core.context_processors import csrf
 from django.contrib.auth.forms import UserCreationForm
-import urllib2, base64, json
+import urllib2
+import base64
+import json
 from forms import MyRegistrationForm
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.utils.dateformat import DateFormat
 from datetime import datetime
 
-
-
 user_root = 'emp'
 
 
 def login(request):
-    c = {'user_root': user_root}
+    c = {'user_root': user_root,
+         'next': request.GET.get('next')}
     c.update(csrf(request))
     return render(request, 'users/login.html', c)
 
@@ -31,7 +32,10 @@ def auth_view(request):
 
     if user is not None:
         auth.login(request, user)
-        return HttpResponseRedirect('/' + user_root + '/loggedin')
+        if request.POST.get('next') is not None and request.POST.get('next') != 'None':
+            return HttpResponseRedirect(request.POST.get('next'))
+        else:
+            return HttpResponseRedirect('/' + user_root + '/loggedin')
     else:
         return HttpResponseRedirect('/' + user_root + '/invalid')
 
@@ -100,6 +104,7 @@ def register_success(request):
 
 def register_failed(request):
     return render(request, 'users/register_failed.html', {'user_root': user_root})
+
 
 def employ_not_found(request):
     return render(request, 'users/employ_not_found.html', {'user_root': user_root})

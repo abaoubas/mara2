@@ -110,10 +110,6 @@ def musicServices_selectArtist(request):
 soap_client_salesManagerServices = Client('http://localhost:8080/Intranet_User_Services/SalesManagerServices?WSDL')
 
 
-def SalesManagerGetReviewRequest(request):
-    results = soap_client_salesManagerServices.service.SalesManagerGetReviewRequest()
-    context = {'results': results, }
-    return render(request, 'musicApp/requests_for_approval.html', context)
 
 
 soap_client_salesEmployeeServices = Client('http://localhost:8080/Intranet_User_Services/SalesEmployeeServices?WSDL')
@@ -143,12 +139,6 @@ def salesGetCompletedRequest(request):
     return render(request, 'musicApp/requests_pending.html', context)
 
 
-@login_required(login_url='/emp/login/')
-@user_passes_test(isSalesRep, login_url='/emp/login/')
-def GetAcceptedRequest(request):
-    results = soap_client_salesEmployeeServices.service.GetAcceptedRequest()
-    context = {'results': results, }
-    return render(request, 'musicApp/requests_for_payment.html', context)
 
 
 @login_required(login_url='/emp/login/')
@@ -273,7 +263,7 @@ def UserAcceptanceRequest(request, request_id, action):
 def Manager_Home_Page(request):
     results = soap_client_salesManagerServices.service.SalesManagerGetReviewRequest()
     context = {'results': results, }
-    return render(request, 'musicApp/Manager_Home_Page.html', context)
+    return render(request, 'musicApp/requests_pending.html', context)
 
 
 @login_required(login_url='/emp/login/')
@@ -326,7 +316,7 @@ def Manager_approvement(request, requestId):
 
                          }
             )
-            return render(request, 'musicApp/Mng_req_approval.html', {'form': form, })
+
         else:
             return HttpResponse("The acceptance request didn't commit")
     else:
@@ -351,7 +341,7 @@ def Manager_approvement(request, requestId):
             requeststaff.creation_date = form.cleaned_data['creation_date']
             result = soap_client_salesManagerServices.service.SalesManagerSetReviewRequest(requeststaff)
             return HttpResponseRedirect('/music/Manager_Home_Page/')
-        return render(request, 'musicApp/Mng_req_approval.html', {'form': form, })
+    return render(request, 'musicApp/Mng_req_approval.html', {'form': form, })
 
 
 @login_required(login_url='/emp/login/')

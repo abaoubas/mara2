@@ -80,6 +80,8 @@
             <a class="btn btn-danger"
                href="JavaScript:if(confirm('Είστε σίγουροι ότι θέλετε να απορρίψετε αυτή την αίτηση;'))window.location = '/music/RejectRequest/{{result.request_id}}/{{currentStaff.emp_id}}';">Απόρριψη
                 Αιτησης</a>
+            {% elif result.status == 20 %}
+            <a class="btn btn-primary" href="/music/Mng_approve/{{result.request_id}}"> Επεξεργασία Αίτησης </a>
             {% else %}
 
             {%endif%}
