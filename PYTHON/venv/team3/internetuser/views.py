@@ -7,7 +7,7 @@ from django.contrib import auth
 from django.core.context_processors import csrf
 from django.contrib.auth.forms import UserCreationForm
 import urllib2, base64, json
-from forms import MyRegistrationForm
+from forms import MyRegistrationForm, profileForm
 from django.utils.dateformat import DateFormat
 from datetime import datetime
 
@@ -84,7 +84,20 @@ def register_user(request):
     return render(request, 'users/register.html', args)
 
 def profile(request):
-    return render(request,'users/profile.html',{'full_name': request.user.username, 'auth': request.user.is_authenticated, 'user_root': user_root})
+
+    form = profileForm(initial={
+        'first_name':request.user.first_name,
+        'last_name':request.user.last_name,
+        'username': request.user.username,
+        'email': request.user.email,
+        #'strBirthdate': request.user.strBirthdate,
+        #'gender': request.user.gender
+    })
+
+    return render(request, 'users/profile.html', {'form': form, })
+
+
+    #return render(request,'users/profile.html',{'full_name': request.user.username, 'auth': request.user.is_authenticated, 'user_root': user_root})
 
 def java_insertUser(form):
 

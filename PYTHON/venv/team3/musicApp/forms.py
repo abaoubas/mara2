@@ -3,6 +3,7 @@
 from django import forms
 from suds.client import Client
 
+
 soap_client_musicServices = Client('http://localhost:8080/Intranet_User_Services/MusicServices?WSDL')
 
 
@@ -146,3 +147,4 @@ class SalesEditRequestForm(forms.Form):
                                    choices=[('', '----')] + recordings_choices)
     recording4 = forms.ChoiceField(label='Τέταρτη Ηχογράφηση', required=False,
                                    choices=[('', '----')] + recordings_choices)
+

@@ -50,4 +50,10 @@ class ContactForm2(forms.Form):
 class ContactForm3(forms.Form):
     message = forms.CharField(widget=forms.Textarea)
     
-
+class profileForm(forms.Form):
+    first_name = forms.CharField(label='Όνομα', required=True,widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    last_name = forms.CharField(label='Επώνυμο', required=True,widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    username = forms.CharField(label='Username', required=True,widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    email = forms.CharField(label='Email', required=True,widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    #strBirthdate = forms.DateField(label='Ημερομηνία Γέννησης', required=True,widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    #gender = forms.CharField(label='Gender', required=True,widget=forms.TextInput(attrs={'readonly': 'readonly'}))

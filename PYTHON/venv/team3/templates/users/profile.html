@@ -1,18 +1,29 @@
 {% extends "base.html" %}
-
-{% block content %}
+{% load bootstrap %}
+{% block body_block %}
   
   <h3>Profile</h3>
 <br/>
   {% if user.is_authenticated %}
-      {{ user.first_name }}
-      {{ user.last_name }}
+<form role="form" action='/u/profile/{{form.username.value}}' method='post' class="form-horizontal">{% csrf_token %}
+    {{ form|bootstrap_horizontal }}
+
+<div class="form-group">
+
+    </div>
+
+</form>
   {%endif%}
   <!--{% for field in form %}
     {{field.error}}
 
   {% endfor %}
-  
+  First Name {{ user.first_name }}<br/>
+      Last Name {{ user.last_name }}<br/>
+      Username {{ user.username }}<br/>
+      Birth Date {{ user.strBirthdate }}<br/>
+      Gender {{ user.gender }}<br/>
+      Email {{ user.email }}<br/>
   <form action="/{{user_root}}/profile/" method="post">{% csrf_token %}
   {{form.as_ul}}
   
