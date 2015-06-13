@@ -22,7 +22,8 @@ javaClient_CustomerServices = Client(base_service_url + 'InsertUser?WSDL')
 javaClient_GetUserServices = Client(base_service_url + 'GetUser?WSDL')
 
 def login(request):
-    c = {'user_root': user_root}
+    c = {'user_root': user_root,
+         'next': request.GET.get('next')}
     c.update(csrf(request))
 
     return render(request, 'users/login.html', c)
@@ -35,7 +36,10 @@ def auth_view(request):
 
     if user is not None:
         auth.login(request, user)
-        return HttpResponseRedirect('/' + user_root + '/loggedin')
+        if request.POST.get('next') is not None and request.POST.get('next') != 'None':
+            return HttpResponseRedirect(request.POST.get('next'))
+        else:
+            return HttpResponseRedirect('/' + user_root + '/loggedin')
     else:
         return HttpResponseRedirect('/' + user_root + '/invalid')
 
