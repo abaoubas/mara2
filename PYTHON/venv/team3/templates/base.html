@@ -66,7 +66,14 @@
                 <ul class="nav navbar-nav navbar-right">
 
                     {% if user.is_authenticated %}
-                    <li class="navbar-text">Welcome, {{ user.username }}!</li>
+                    <li class="navbar-text" style="box-sizing: border-box;">
+                        Welcome,
+                        <font style="color:#33CCFF;">
+                            <a href="/u/profile">
+                                {{ user.first_name }}
+                            </a>
+                        </font>
+                    </li>
                     <li><a href="/emp/logout/">Logout</a></li>
                     {% else %}
                     <li><a href="/emp/register/">Register</a></li>

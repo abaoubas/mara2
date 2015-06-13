@@ -2,9 +2,13 @@
 
 {% block content %}
   
-  <h2>Profile</h2>
-  
-  {% for field in form %}
+  <h3>Profile</h3>
+<br/>
+  {% if user.is_authenticated %}
+      {{ user.first_name }}
+      {{ user.last_name }}
+  {%endif%}
+  <!--{% for field in form %}
     {{field.error}}
 
   {% endfor %}
@@ -14,6 +18,6 @@
   
   <input type="submit" value="Update" />
     
-  </form>
+  </form>-->
   
 {% endblock %}

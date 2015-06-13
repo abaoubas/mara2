@@ -79,8 +79,8 @@ def register_user(request):
     args['user_root'] = user_root
     return render(request, 'users/register.html', args)
 
-
-
+def profile(request):
+    return render(request,'users/profile.html',{'full_name': request.user.username, 'auth': request.user.is_authenticated, 'user_root': user_root})
 
 def java_insertUser(form):
 
