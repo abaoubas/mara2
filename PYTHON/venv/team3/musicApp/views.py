@@ -139,6 +139,12 @@ def salesGetCompletedRequest(request):
     return render(request, 'musicApp/requests_pending.html', context)
 
 
+@login_required(login_url='/emp/login/')
+@user_passes_test(isSalesRep, login_url='/emp/login/')
+def GetAcceptedRequest(request):
+    results = soap_client_salesEmployeeServices.service.GetAcceptedRequest()
+    context = {'results': results, }
+    return render(request, 'musicApp/requests_for_payment.html', context)
 
 
 @login_required(login_url='/emp/login/')
