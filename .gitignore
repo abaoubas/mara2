@@ -146,3 +146,13 @@ PYTHON/venv/.idea/workspace.xml
 *.pyc
 /JavaApplication2/nbproject/private/
 /Internet_User_Services/nbproject/private/
+PYTHON/venv/Scripts/activate
+PYTHON/venv/Scripts/activate.bat
+PYTHON/venv/Scripts/easy_install-2.7.exe
+PYTHON/venv/Scripts/easy_install.exe
+PYTHON/venv/Scripts/pip2.7.exe
+PYTHON/venv/Scripts/pip.exe
+PYTHON/venv/Scripts/pip2.exe
+Intranet_User_Services/nbproject/private/private.properties
+Intranet_User_Services/nbproject/private/private.xml
+/Intranet_User_Services/nbproject/private/
