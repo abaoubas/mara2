@@ -146,3 +146,5 @@ PYTHON/venv/.idea/workspace.xml
 *.pyc
 /JavaApplication2/nbproject/private/
 /Internet_User_Services/nbproject/private/
+PYTHON/venv/Scripts/activate
+PYTHON/venv/Scripts/activate.bat
