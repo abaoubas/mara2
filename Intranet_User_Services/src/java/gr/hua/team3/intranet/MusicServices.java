@@ -82,5 +82,9 @@ public class MusicServices {
         return dal.selectArtist();
     }
 
+    @WebMethod(operationName = "selectListArtist")
+    public ArrayList<Artist>  selectListArtist() {
+        return dal.selectListArtist();
+    }
     
 }

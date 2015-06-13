@@ -134,6 +134,31 @@ public class DAL {
         return new ArrayList<Events>();
     }
 
+    public ArrayList<Artist> selectListArtist() {
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from Artist");
+
+            ResultSet rs = ps.executeQuery();
+            ArrayList<Artist> results = new ArrayList<Artist>();
+
+            while (rs.next()) // found
+            {
+                Artist r = new Artist();
+
+                r.setArtist_id(rs.getInt("artist_id"));
+                r.setName(rs.getString("name"));
+                r.setImage(rs.getString("image"));
+
+                results.add(r);
+            }
+
+            return results;
+        } catch (Exception ex) {
+            PrintError(ex);
+        }
+        return new ArrayList<Artist>();
+    }
+    
     public ArrayList<Artist> selectArtists(int event_id) {
         try {
             PreparedStatement ps = connection.prepareStatement("select * from HasArtist "
@@ -150,6 +175,7 @@ public class DAL {
 
                 r.setArtist_id(rs.getInt("artist_id"));
                 r.setName(rs.getString("name"));
+                r.setImage(rs.getString("image"));
 
                 results.add(r);
             }

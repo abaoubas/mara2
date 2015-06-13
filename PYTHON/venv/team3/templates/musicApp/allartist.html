@@ -5,26 +5,29 @@
 <h3> Καλλιτέχνες </h3>
 <br/>
 <table class="table table-striped">
-
-    <tr class="active">
-
-        <th class="active" >Όνομα Καλλιτέχνη</th>
-     </tr>
-
 {% for result in results %}
 
    <tr class="active">
 
+        <td class="active">
+            <div style="width:100%;height:100%;display:inline-block;">
+                <div style="width:20%;height:100%;float: left;">
+                {% if result.image %}
+                    <img style="background-image:url('{{result.image}}');background-size: cover;background-position: center;width:120px;height:120px;"/>
+                {% else %}
+                    <img style="background-image:url('https://cdn3.iconfinder.com/data/icons/music-and-sound/512/vinyl_disc_audio_record_dj_gramophone_album_flat_icon-512.png');width:120px;height:120px;background-size: cover;background-position: center;"/>
+                {% endif %}
+                </div>
 
-        <td class="active"> {{result.name }} </td>
+                <div style="width:80%;height:100%;float: right;">
+                    <h4 class="artist_label" style="position: relative;top: 35%;transform: translateY(-35%);">{{result.name }} </h4>
+                </div>
+            </div>
+        </td>
 
    <tr/>
 
 {% endfor %}
 
    </table>
-
-<br>
-
-
 {% endblock %}

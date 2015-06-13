@@ -102,7 +102,7 @@ def musicServices_selectGenre(request):
 
 
 def musicServices_selectArtist(request):
-    results = soap_client_musicServices.service.selectArtist()
+    results = soap_client_musicServices.service.selectListArtist()
     context = {'results': results, }
     return render(request, 'musicApp/allartist.html', context)
 
