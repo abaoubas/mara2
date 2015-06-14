@@ -243,11 +243,11 @@ def User_Home_Page(request):
 @login_required(login_url='/u/login/')
 @user_passes_test(isCustomer, login_url='/u/login/')
 def UserAcceptance(request, request_id):
-    UserAcceptanceRequest(request, request_id, True)
+    return UserAcceptanceRequest(request, request_id, True)
 
 
 def UserReject(request, request_id):
-    UserAcceptanceRequest(request, request_id, False)
+    return UserAcceptanceRequest(request, request_id, False)
 
 
 def UserAcceptanceRequest(request, request_id, action):
@@ -256,6 +256,7 @@ def UserAcceptanceRequest(request, request_id, action):
     userAcceptanceArgs.request_id = request_id
     userAcceptanceArgs.accept = action
     result = soap_client_UserServices.service.UserAcceptanceRequest(userAcceptanceArgs)
+
     if result:
         return HttpResponseRedirect('/music/User_Home_Page/')
     else:

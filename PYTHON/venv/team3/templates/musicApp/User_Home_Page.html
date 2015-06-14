@@ -41,16 +41,18 @@
             <td class=""> {{result.totalCost|default_if_none:""}}</td>
             <td class=""> {{result.discount|default_if_none:"-"}}</td>
             <td class=""> {{result.finalCost|default_if_none:""}}</td>
-            <td class="">
+            <td class="requests-actionbuttons">
 
 
                 {% if result.status == 25 %}
-                click to<a href="UserAcceptance/{{result.request_id}}"> accept </a> or to <a
-                    href="UserReject/{{result.request_id}}"> reject </a>
+                <a class="btn btn-primary" href="/music/UserAcceptance/{{result.request_id}}"> Έγκριση Αίτησης </a> <a
+                    class="btn btn-danger" href="/music/UserReject/{{result.request_id}}"> Απόρριψη Αίτησης </a>
                 {% elif result.status == 0 or result.status == 10 or result.status == 20 or result.status == 21 or result.status == 22%}
                 <span class="label label-default">Αίτηση σε αναμονή.</span>
-                {% elif result.status == 100%}
-                <a href="UserDownloads/{{result.request_id}}"> Download </a>
+                {% elif result.status == 30 %}
+                <span class="label label-default">Αναμονή Ολοκλήρωσης Αίτησης</span>
+                {% elif result.status == 31 or result.status == 100 %}
+                <a class="btn btn-success" href="/music/UserDownloads/{{result.request_id}}"> Download </a>
                 {% elif result.status == 98 %}
                 <span class="label label-danger">Απορρίφθηκε από τον Πωλητή.</span>
                 {% else %}
