@@ -162,7 +162,7 @@ public class DAL {
     public ArrayList<Artist> selectArtists(int event_id) {
         try {
             PreparedStatement ps = connection.prepareStatement("select * from HasArtist "
-                    + "LEFT JOIN Artists ON Artists.artist_id = HasArtist.Artistartist_id"
+                    + "LEFT JOIN Artist ON Artist.artist_id = HasArtist.Artistartist_id "
                     + "WHERE HasArtist.Eventsevent_id = ?");
             ps.setInt(1, event_id);
 

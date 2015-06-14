@@ -31,5 +31,7 @@ urlpatterns = patterns('',
         url(r'^Sales_approval/(?P<requestId>[0-9]+)', views.Sales_approval,),
         url(r'^UserDownloads/(?P<requestId>[0-9]+)', views.UserDownloads,),
         url(r'^EditReq/(?P<requestId>[0-9]+)', views.EditReq,),
+        url(r'^aboutCompany', views.aboutCompany),
+        url(r'^info', views.info),
     )
 

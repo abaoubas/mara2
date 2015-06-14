@@ -21,6 +21,7 @@ public class Events {
     private Date event_from_date;
     private Date event_to_date;
     private List<Artist> Artists;
+    
     public int getEvent_id() {
         return event_id;
     }
@@ -68,4 +69,7 @@ public class Events {
     public void setArtists(List<Artist> Artists) {
         this.Artists = Artists;
     }
+
+    
+    
 }

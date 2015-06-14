@@ -516,3 +516,9 @@ def EditReq(request, requestId):
 
             return HttpResponseRedirect('/music/GetNewRequests')
         return render(request, 'musicApp/Edit_Req.html', {'form': form, })
+
+def aboutCompany(request):
+    return render(request, 'musicApp/aboutUs.html')
+
+def info(request):
+    return render(request, 'musicApp/info.html')
