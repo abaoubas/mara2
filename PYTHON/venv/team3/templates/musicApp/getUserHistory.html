@@ -2,91 +2,47 @@
 
 {% block body_block %}
 
-<h3> Accepted Requests </h3>
-<br/>
-<table class="table table-striped">
+{% load music_extras %}
 
-   <tr class="active">
+<h3> Ιστορικό του πελάτη : {{results.0.fk_user_id | lookup_customer}} </h3>
 
-   <th class="active">Request ID</th>
+<h4>Email: {{results.0.fk_user_id | lookup_customer_email}}</h4>
+<h4>IBAN: {{results.0.fk_user_id | lookup_customer_iban}}</h4>
 
-   <th class="active">User ID</th>
+    <br/>
+    <table class="table table-striped">
 
-   <th class="active">Employee number</th>
+        <tr class="active">
 
-   <th class="active">Date Inserted</th>
-
-   <th class="active">Date Modified</th>
-
-   <th class="active">Total Cost</th>
-
-   <th class="active">Discount</th>
-
-   <th class="active">Final Cost</th>
-
-   <th class="active">Status</th>
-
-   <th class="active">Title</th>
-
-   <th class="active">Album</th>
-
-   <th class="active">Creator Name</th>
-
-   <th class="active">Singer Name</th>
-
-   <th class="active">File Type ID</th>
-
-   <th class="active">Genre ID</th>
-
-   <th class="active">Creation Date</th>
+            <th class="">ID</th>
+            <th class="">Ημ/νία</th>
+            <th class="">Πωλητης</th>
+            <th class="">Κόστος</th>
+            <th class="">Έκπτωση</th>
+            <th class="">Τελική</th>
 
 
- </tr>
+        </tr>
 
-{% for result in results %}
+        {% for result in results %}
 
-   <tr class="active">
+        <tr class="active">
 
-       <td class="active"> {{result.request_id}} </td>
+            <td class=""> {{result.request_id}}</td>
+            <td class=""> {{result.dateInserted | date:"d/m"}}</td>
+            <td class="">{{result.fk_emp_no | lookup_staff}}</td>
+            <td class="">
+                {{result.totalCost}}
+            </td>
+            <td class=""> {{result.discount}}</td>
+            <td class=""> {{result.finalCost}}</td>
+        </tr>
 
-       <td class="active"> {{result.fk_user_id}} </td>
+        {% endfor %}
 
-       <td class="active"> {{result.fk_emp_no}} </td>
+    </table>
 
-       <td class="active"> {{result.dateInserted}} </td>
-
-       <td class="active"> {{result.dateModified}} </td>
-
-       <td class="active"> {{result.totalCost}} </td>
-
-       <td class="active"> {{result.discount}} </td>
-
-       <td class="active"> {{result.finalCost}} </td>
-
-       <td class="active"> {{result.status}} </td>
-
-       <td class="active"> {{result.title}} </td>
-
-       <td class="active"> {{result.album}} </td>
-
-       <td class="active"> {{result.creator_name}} </td>
-
-       <td class="active"> {{result.singer_name}} </td>
-
-       <td class="active"> {{result.fk_file_type_id}} </td>
-
-       <td class="active"> {{result.fk_genre_id}} </td>
-
-       <td class="active"> {{result.creation_date}} </td>
-
-   <tr/>
-
-{% endfor %}
-
-   </table>
-
-<br>
+    <br>
 
 
-
-{% endblock %}
+    {% endblock %}
