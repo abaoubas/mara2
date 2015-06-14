@@ -60,7 +60,6 @@
                             <li class="divider"></li>
                             <li class="dropdown-header">Για τον διευθυντή</li>
                             <li><a href="/music/Manager_Home_Page">Για έγκιση</a></li>
-                            <li><a href="#">One more separated link</a></li>
                         </ul>
                     </li>
                     {% endif %}
@@ -78,8 +77,16 @@
                     </li>
                     <li><a href="/emp/logout/">Logout</a></li>
                     {% else %}
-                    <li><a href="/emp/register/">Register</a></li>
-                    <li><a href="/emp/login/">Login</a></li>
+                    <li class="menuitem-dropdown  class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Εγγραφή
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/u/register/">Πελάτης</a></li>
+                            <li><a href="/emp/register">Εταιρικός Χρήστης</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="/emp/login/">Σύνδεση</a></li>
                     {% endif %}
                 </ul>
             </div>

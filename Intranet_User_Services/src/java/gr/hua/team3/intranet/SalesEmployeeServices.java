@@ -107,7 +107,7 @@ public class SalesEmployeeServices {
         listReq = dal.SelectRequests();
 
         for (int k = listReq.size() - 1; k >= 0; k--) {
-            if (listReq.get(k).getFk_user_id() != user_id) {
+            if (listReq.get(k).getFk_user_id() != user_id || listReq.get(k).getStatus() != 100) {
                 listReq.remove(k);
             }
         }
