@@ -6,25 +6,65 @@
 <br/>
 <table class="table table-striped">
 
-    <tr class="active">
-
-        <th class="active" >Τόπος</th>
-        <th class="active" >Παραγωγός</th>
-        <th class="active" >Από</th>
-        <th class="active" >Εώς</th>
-
-
-     </tr>
 
 {% for result in results %}
 
-   <tr class="active">
+    <tr class="active">
+<hr style="size:1px;width:100%;color:#ccc;"/>
+    {% for artist in result.artists %}
+
+        <div style="width:100%;height:100%;display:inline-block;vertical-align: middleo;">
+
+            <div style="width:35%;height:100%;float:left;border-right:1px solid #ccc;">
+
+                <div style="width:50%;height:100%;float:left;">
+                    {% if artist.image %}
+                        <img style="background-image:url('{{artist.image}}');background-size: cover;background-position: center;width:120px;height:120px;"/>
+                    {% else %}
+                        <img style="background-image:url('https://cdn3.iconfinder.com/data/icons/music-and-sound/512/vinyl_disc_audio_record_dj_gramophone_album_flat_icon-512.png');width:120px;height:120px;background-size: cover;background-position: center;"/>
+                    {% endif %}
+                </div>
+                <div style="width:50%;height:100%;float:right;padding-top:15%;">
+                    <b>{{ artist.name }}</b>
+                </div>
+
+            </div>
+            {% endfor %}
+            <div style="float:right;width: 65%;margin-top:0%;">
+               <center><h5> Location : <b>{{result.event_location }}</b></h5></center>
+               <center><h5> Producer : <b>{{result.event_producer }}</b></h5></center>
+               <center><h5>From Date : <b>{{result.event_from_date }}</b></h5></center>
+               <center><h5>To Date : <b>{{result.event_to_date }}</b></h5></center>
+            </div>
+
+        </div>
+</tr>
+        <!--
+        <div style="width:50%;height:100%;display:inline-block;float:left;background-color:#fff;">
+
+                <div style="width:20%;height:100%;float: left;">
+                {% if artist.image %}
+                    <img style="background-image:url('{{artist.image}}');background-size: cover;background-position: center;width:120px;height:120px;"/>
+                {% else %}
+                    <img style="background-image:url('https://cdn3.iconfinder.com/data/icons/music-and-sound/512/vinyl_disc_audio_record_dj_gramophone_album_flat_icon-512.png');width:120px;height:120px;background-size: cover;background-position: center;"/>
+                {% endif %}
+                </div>
+
+                <div style="width:50%;height:100%;float: right;">
+                    <h4 class="artist_label" style="position: relative;top: 35%;transform: translateY(-35%);">{{artist.name }} </h4>
+                </div>
+            </div>
+        <div style="width:50%;height:100%;float:right;background-color:#fff;">
 
 
+        </div>-->
+    <!--
+        <td class="active">
         <td class="active"> {{result.event_location }} </td>
         <td class="active"> {{result.event_producer }} </td>
         <td class="active"> {{result.event_from_date }} </td>
         <td class="active"> {{result.event_to_date }} </td>
+-->
 
 
    <tr/>
