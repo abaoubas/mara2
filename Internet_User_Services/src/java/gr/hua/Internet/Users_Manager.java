@@ -58,7 +58,7 @@ public class Users_Manager {
 
             ResultSet rs = ps.executeQuery();
             ArrayList<Users> users = new ArrayList<Users>();
-            if (rs.next()) // found
+            while (rs.next()) // found
             {
                 Users user = new Users();
                 user.setUser_id(rs.getInt("pk_user_id"));
