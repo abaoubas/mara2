@@ -154,6 +154,34 @@ public class DAL_Requests {
 
         return false;
     }
+    
+    public boolean insertSalesApprovalFinal(Request req) {
+        try {
+
+            String sql = "UPDATE Request "
+                    + "SET  totalCost=? , discount=?,  finalcost=?, status=? "
+                    + " WHERE request_id=?;";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            //preparedStatement.setInt(1, req.getRequest_id());
+
+            preparedStatement.setFloat(1, req.getTotalCost());
+            preparedStatement.setFloat(2, req.getDiscount());
+            preparedStatement.setFloat(3, req.getFinalCost());
+            preparedStatement.setInt(4, 25);
+            preparedStatement.setInt(5, req.getRequest_id());
+
+            // execute insert SQL stetement
+            preparedStatement.executeUpdate();
+
+            return true;
+
+        } catch (Exception ex) {
+            System.out.println("Error in check() -->" + ex.getMessage());
+        }
+
+        return false;
+    }
 
     public boolean PaidRequest(Integer request_id, Integer emp_no) {
         try {

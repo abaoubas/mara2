@@ -11,6 +11,7 @@ from forms import CreateRequestForm, ManagerRequestForm, SalesRequestForm, Sales
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django import template
 from templatetags import music_extras
+from django.utils.dateformat import DateFormat
 
 register = template.Library()
 
@@ -109,9 +110,6 @@ def musicServices_selectArtist(request):
 
 soap_client_salesManagerServices = Client('http://localhost:8080/Intranet_User_Services/SalesManagerServices?WSDL')
 
-
-
-
 soap_client_salesEmployeeServices = Client('http://localhost:8080/Intranet_User_Services/SalesEmployeeServices?WSDL')
 
 
@@ -167,7 +165,7 @@ def GetUserHistory(request, userId):
 @user_passes_test(isSalesRep, login_url='/emp/login/')
 def RejectRequest(request, request_id, emp_no):
     results = soap_client_salesEmployeeServices.service.RejectRequest(request_id, emp_no)
-    context = {'results': results, 'message': 'Η αίτηση απορρίφθηκε με επιτυχία!' }
+    context = {'results': results, 'message': 'Η αίτηση απορρίφθηκε με επιτυχία!'}
     return render(request, 'musicApp/messages.html', context)
 
 
@@ -175,7 +173,7 @@ def RejectRequest(request, request_id, emp_no):
 @user_passes_test(isSalesRep, login_url='/emp/login/')
 def PaidRequest(request, request_id, emp_no):
     results = soap_client_salesEmployeeServices.service.PaidRequest(request_id, emp_no)
-    context = {'results': results, 'message': 'Η πληρωμή της αίτησής σας ολοκληρώθηκε με επιτυχία!' }
+    context = {'results': results, 'message': 'Η πληρωμή της αίτησής σας ολοκληρώθηκε με επιτυχία!'}
     return render(request, 'musicApp/messages.html', context)
 
 
@@ -234,9 +232,9 @@ def User_Home_Page(request):
     user_id_Request.user_id = currentCustomer(request.user).user_id;
     results = soap_client_UserServices.service.GetUserRequests(user_id_Request)
 
-    #if not results:
+    # if not results:
     context = {'results': results, 'message': 'Δεν έχετε αιτήσεις καταχωρημένες στο σύστημα.'}
-    #else:
+    # else:
     #   context = {'results': results, 'message': '' }
 
     return render(request, 'musicApp/User_Home_Page.html', context)
@@ -278,7 +276,7 @@ def Manager_approvement(request, requestId):
     if request.method == 'GET':
         result = soap_client_salesManagerServices.service.SalesManagerGetRequest(requestId)
 
-        if(result is not None):
+        if (result is not None):
             form = ManagerRequestForm(
                 initial={'request_id': result.request_id,
 
@@ -286,13 +284,13 @@ def Manager_approvement(request, requestId):
 
                          'fk_emp_no': music_extras.lookup_staff(result.fk_emp_no),
 
-                         'hidden_user_id':  result.fk_user_id,
+                         'hidden_user_id': result.fk_user_id,
 
-                         'hidden_emp_no':  result.fk_emp_no,
+                         'hidden_emp_no': result.fk_emp_no,
 
-                         'dateInserted': result.dateInserted,
+                         'dateInserted': DateFormat(result.dateInserted).format('d/m/Y'),
 
-                         'dateModified': result.dateModified,
+                         'dateModified': DateFormat(result.dateModified).format('d/m/Y'),
 
                          'totalCost': result.totalCost,
 
@@ -318,7 +316,7 @@ def Manager_approvement(request, requestId):
 
                          'hidden_genre_id': result.fk_genre_id,
 
-                         'creation_date': result.creation_date
+                         'creation_date': DateFormat(result.creation_date).format('d/m/Y')
 
                          }
             )
@@ -362,51 +360,31 @@ def SalesGetReviewManagerApprovals(request):
 @user_passes_test(isSalesRep, login_url='/emp/login/')
 def Sales_approval(request, requestId):
     if request.method == 'GET':
-        results = soap_client_salesManagerServices.service.SalesManagerGetRequest(requestId)
-        for result in results:
-            form = SalesRequestForm(
-                initial={'request_id': result.request_id,
+        result = soap_client_salesManagerServices.service.SalesManagerGetRequest(requestId)
 
-                         'fk_user_id': music_extras.lookup_customer(result.fk_user_id),
+        form = SalesRequestForm(
+            initial={'request_id': result.request_id,
+                     'fk_user_id': music_extras.lookup_customer(result.fk_user_id),
 
-                         'fk_emp_no': music_extras.lookup_staff(result.fk_emp_no),
-
-                         'hidden_user_id':  result.fk_user_id,
-
-                         'hidden_emp_no':  result.fk_emp_no,
-
-                         'dateInserted': result.dateInserted,
-
-                         'dateModified': result.dateModified,
-
-                         'totalCost': result.totalCost,
-
-                         'discount': result.discount,
-
-                         'finalCost': result.finalCost,
-
-                         'status': music_extras.lookup_statuses(result.status),
-
-                         'title': result.title,
-
-                         'album': result.album,
-
-                         'creator_name': result.creator_name,
-
-                         'singer_name': result.singer_name,
-
-                         'fk_file_type_id': music_extras.lookup_filetypes(result.fk_file_type_id),
-
-                         'fk_genre_id': music_extras.lookup_genre(result.fk_genre_id),
-
-                         'hidden_file_type_id': result.fk_file_type_id,
-
-                         'hidden_genre_id': result.fk_genre_id,
-
-                         'creation_date': result.creation_date
-
-                         }
-            )
+                     'hidden_user_id': result.fk_user_id,
+                     'hidden_emp_no': result.fk_emp_no,
+                     'dateInserted': DateFormat(result.dateInserted).format('d/m/Y'),
+                     'dateModified': DateFormat(result.dateModified).format('d/m/Y'),
+                     'totalCost': result.totalCost,
+                     'discount': result.discount,
+                     'finalCost': result.finalCost,
+                     'status': music_extras.lookup_statuses(result.status),
+                     'title': result.title,
+                     'album': result.album,
+                     'creator_name': result.creator_name,
+                     'singer_name': result.singer_name,
+                     'fk_file_type_id': music_extras.lookup_filetypes(result.fk_file_type_id),
+                     'fk_genre_id': music_extras.lookup_genre(result.fk_genre_id),
+                     'hidden_file_type_id': result.fk_file_type_id,
+                     'hidden_genre_id': result.fk_genre_id,
+                     'creation_date': DateFormat(result.creation_date).format('d/m/Y')
+                     }
+        )
         return render(request, 'musicApp/Sales_req_approval.html', {'form': form, })
     else:
         form = SalesRequestForm(request.POST)
@@ -428,9 +406,10 @@ def Sales_approval(request, requestId):
             requeststaff.fk_file_type_id = form.cleaned_data['hidden_file_type_id']
             requeststaff.fk_genre_id = form.cleaned_data['hidden_genre_id']
             requeststaff.creation_date = form.cleaned_data['creation_date']
-            result = soap_client_salesEmployeeServices.service.SalesSetReviewRequest(requeststaff)
-            return HttpResponseRedirect('/music/SalesGetReviewManagerApprovals/')
+            result = soap_client_salesEmployeeServices.service.SalesSetReviewRequestFinal(requeststaff)
+            return HttpResponseRedirect('/music/SalesGetReviewRequest/')
         return render(request, 'musicApp/Sales_req_approval.html', {'form': form, })
+
 
 @login_required(login_url='/u/login/')
 @user_passes_test(isCustomer, login_url='/u/login/')
@@ -474,7 +453,7 @@ def EditReq(request, requestId):
                      'hidden_file_type_id': result.fk_file_type_id,
                      'hidden_genre_id': result.fk_genre_id,
                      'creation_date': c_date
-                 }
+                     }
         )
         return render(request, 'musicApp/Edit_Req.html', {'form': form, })
     else:
@@ -517,8 +496,10 @@ def EditReq(request, requestId):
             return HttpResponseRedirect('/music/GetNewRequests')
         return render(request, 'musicApp/Edit_Req.html', {'form': form, })
 
+
 def aboutCompany(request):
     return render(request, 'musicApp/aboutUs.html')
+
 
 def info(request):
     return render(request, 'musicApp/info.html')

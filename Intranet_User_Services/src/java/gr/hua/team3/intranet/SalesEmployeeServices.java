@@ -148,4 +148,10 @@ public class SalesEmployeeServices {
     public Boolean SalesSetReviewRequest(@WebParam(name = "request_id") Request request_ap) {
         return dal.insertSalesApproval(request_ap);
     }
+    
+    
+    @WebMethod(operationName = "SalesSetReviewRequestFinal")
+    public Boolean SalesSetReviewRequestFinal(@WebParam(name = "request_id") Request request_ap) {
+        return dal.insertSalesApprovalFinal(request_ap);
+    }
 }

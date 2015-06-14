@@ -11,13 +11,10 @@
 
         <tr class="active">
             <th class="active">ID Αίτησης</th>
-            <th class="active">Τίτλος</th>
-            <th class="active">Συλλογή</th>
-            <th class="active">Όνομα Δημιουργού</th>
-            <th class="active">Όνομα Τραγουδιστή</th>
-            <th class="active">Τύπος Αρχείου</th>
-            <th class="active">Είδος</th>
-            <th class="active">Ημερομηνία Δημιουργίας</th>
+            <th class="">Τι ζητησα</th>
+
+            <th class="active">Αρχικό κόστος</th>
+            <th class="active">Εκπτωση</th>
             <th class="active">Τελικό κόστος</th>
             <th class="active">Επιλογές</th>
         </tr>
@@ -32,13 +29,17 @@
             {% endif %}
             {% load music_extras %}
             <td class=""> {{result.request_id}}</td>
-            <td class=""> {{result.title|default_if_none:""}}</td>
-            <td class=""> {{result.album|default_if_none:""}}</td>
-            <td class=""> {{result.creator_name|default_if_none:""}}</td>
-            <td class=""> {{result.singer_name|default_if_none:""}}</td>
-            <td class=""> {{result.fk_file_type_id | lookup_filetypes}}</td>
-            <td class=""> {{result.fk_genre_id | lookup_genre}}</td>
-            <td class=""> {{result.creation_date|date:"d-m-Y"|default_if_none:""}}</td>
+            <td class="">
+                Τίτλος: <strong>{{result.title | default_if_none:""}}</strong><br/>
+                Συλλογή: <strong>{{result.album | default_if_none:""}}</strong><br/>
+                Δημιουργός: <strong>{{result.creator_name | default_if_none:""}}</strong><br/>
+                Τραγουδιστής: <strong>{{result.singer_name | default_if_none:""}}</strong><br/>
+                Τύπος: <strong>{{result.fk_file_type_id | lookup_filetypes}}</strong><br/>
+                Είδος: <strong>{{result.fk_genre_id | lookup_genre}}</strong><br/>
+                Έκδοση: <strong>{{result.creation_date | date:"m/Y" | default_if_none:""}}</strong><br/>
+            </td>
+            <td class=""> {{result.totalCost|default_if_none:""}}</td>
+            <td class=""> {{result.discount|default_if_none:"-"}}</td>
             <td class=""> {{result.finalCost|default_if_none:""}}</td>
             <td class="">
 
